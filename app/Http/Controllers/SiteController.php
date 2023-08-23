@@ -16,9 +16,20 @@ class SiteController extends Controller
     public function home() {
         $orders = Order::where('status','paid')->count();
         $visitors = Project::sum('visitors');
-        $projects = Project::count();
+        $projects = Project::latest()->get();
+        $categories = Category::latest()->get();
 
-        return view('welcome',compact('orders','visitors','projects'));
+        if(config('app.locale') == 'fr') {
+            $projects = Project::where('title_fr', '!=' , null)->get();
+        }
+
+        elseif(config('app.locale') == 'en') {
+            $projects = Project::where('title_en', '!=' , null)->get();
+        }
+
+
+
+        return view('welcome',compact('orders','visitors','projects','categories'));
     }
     public function change_language($locale) {
         try {
@@ -39,6 +50,15 @@ class SiteController extends Controller
         $title = 'المشاريع';
         $categories = Category::latest()->get();
         $projects = Project::where('status','open')->latest()->get();
+
+        if(config('app.locale') == 'fr') {
+            $projects = Project::where('title_fr', '!=' , null)->where('status','open')->get();
+        }
+
+        elseif(config('app.locale') == 'en') {
+            $projects = Project::where('title_en', '!=' , null)->where('status','open')->get();
+        }
+
         return view('projects',compact('categories','projects','title'));
     }
 
@@ -55,6 +75,11 @@ class SiteController extends Controller
         $project -> visitors++;
         $project -> save();
         return view('project',compact('project'));
+    }
+
+    public function orders() {
+        $orders = Order::latest()->paginate(15);
+        return view('admin.orders.index',compact('orders'));
     }
 
 }

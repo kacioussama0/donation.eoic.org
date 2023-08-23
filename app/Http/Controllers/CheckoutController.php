@@ -40,14 +40,7 @@ class CheckoutController extends Controller
         ];
 
 
-        $project = Project::find($request->project_id);
 
-        $percentage = ($project->orders->where('status', 'paid')->sum('total_price') * 100) / $project->price;
-
-        if($percentage >= 100) {
-            $project->status = 'completed';
-            $project->save();
-        }
 
         $checkoutSession = \Stripe\Checkout\Session::create([
             'mode' => 'payment',
@@ -72,6 +65,8 @@ class CheckoutController extends Controller
 
     public function success(Request $request) {
 
+
+
         $secretKey = env('STRIPE_SECRET_KEY');
 
         \Stripe\Stripe::setApiKey('sk_test_51MBdoJIMzWwDJnIZpZWnQUOQTiMB10sdehnKH1xOjkej9xGpiPYUD723mRqq0HTyXZ5oaWbfihOoyQrNs3TmL3zu00G0qbIO5l');
@@ -79,6 +74,11 @@ class CheckoutController extends Controller
         $sessionId = $request->get('session_id');
 
         $session = \Stripe\Checkout\Session::retrieve($sessionId);
+
+        $customerDetails = [
+            'email' => $session['customer_details']['email'],
+            'name' => $session['customer_details']['name']
+        ];
 
 
         try {
@@ -95,8 +95,23 @@ class CheckoutController extends Controller
                 throw new NotFoundHttpException();
             }
 
+            $order->full_name = $customerDetails['name'];
+            $order->email = $customerDetails['email'];
+
             $order->status = 'paid';
             $order->save();
+
+
+            $project = Order::where('session_id',$request->get('session_id'))->first()->project;
+
+
+            $percentage = ($project->orders->where('status', 'paid')->sum('total_price') * 100) / $project->price;
+
+            if($percentage >= 100) {
+                $project->status = 'completed';
+                $project->save();
+            }
+
 
             return view('success');
 

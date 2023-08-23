@@ -1,5 +1,35 @@
 {
-"There are no search results" : ""
-
-
+    "HOME": "الرئيسية",
+    "PROJECTS": "المشاريع",
+    "CATEGORIES": "فرص التبرع",
+    "ABOUT_US": "عن الهيئة",
+    "CONTACT_US": "تواصلوا معنا",
+    "APP_NAME": "منصة الهيئة الأوروبية للتبرعات",
+    "APP_DESCRIPTION": "تعدّ منصة الهيئة الأوروبية للمراكز اللإسلامية الحل الأسهل والأمثل لإيصال المتبرع إلى المحتاج في شتى مناطق من خلال عملية تبرع آمنة وشفافة.",
+    "EXPLORE_PROJECTS": "تصفح مشاريعنا",
+    "DONATE_NOW": "تبرع الأن",
+    "HOW_TO_DONATE": "كيفية التبرع",
+    "PROJECT": "المشروع",
+    "PROJECT_DESCRIPTION": "إختر المشروع المناسب للتبرع فيه والذي يناسبك",
+    "MONEY": "المبلغ",
+    "MONEY_DESCRIPTION": "إختر المبلغ الذي تريد التبرع به",
+    "PAYMENT_METHODS": "طرق الدفع",
+    "PAYMENT_METHODS_DESCRIPTION": "إختر طريقة الدفع المناسبة لك للتبرع",
+    "PROJECT_NUMBERS": "عدد المشاريع",
+    "VISITOR_NUMBERS": "عدد الزائرين",
+    "OPERATION_NUMBERS": "عدد العمليات التبرعية",
+    "LATEST_PROJECTS": "أخر المشاريع",
+    "SHARE_LINK": "رابط المشاركة",
+    "SHARE_LINK_SOCIAL_MEDIA": "مشاركة عبر وسائل التواصل الاجتماعي",
+    "COPY": "نسخ",
+    "COLLECTED": "المجمع",
+    "REMAINING": "المتبقي",
+    "GOAL": "الهدف",
+    "DONATE_AMOUNT": "مبلغ التبرع",
+    "PROJECT_COMPLETED": "إكتمل المشروع",
+    "DONATE": "تبرع",
+    "PROJECT_DETAILS": "تفاصيل المشروع",
+    "ALL_RIGHT_RESERVED": "كل الحقوق محفوظة",
+    "ALL": "الكل",
+    "PROJECTS_HEADER_DESCRIPTION": "فرص تبرع متنوعة تصنع أثراً مستداماً وتحقق أثراً اجتماعياً واسعاً للحالات الأشد احتياجاً."
 }

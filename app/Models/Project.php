@@ -17,4 +17,37 @@ class Project extends Model
     public function orders() {
         return $this->hasMany(Order::class);
     }
+
+    public function title() {
+
+        if(config('app.locale') == 'en')
+            return   $this -> title_en;
+        elseif(config('app.locale') == 'fr')
+            return  $this-> title_fr;
+
+        return $this ->  title ;
+    }
+
+    public function slug() {
+
+        if(config('app.locale') == 'en')
+            return   $this -> slug_en;
+        elseif(config('app.locale') == 'fr')
+            return  $this-> slug_fr;
+
+        return $this -> slug ;
+    }
+
+    public function description() {
+
+        if(config('app.locale') == 'en')
+            return   $this -> description_en;
+        elseif(config('app.locale') == 'fr')
+            return  $this-> description_fr;
+
+        return $this ->  description ;
+    }
+
+
+
 }

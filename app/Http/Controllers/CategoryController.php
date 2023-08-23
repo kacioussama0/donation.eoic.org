@@ -1,19 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-
-
-    public function __construct() {
-
-    }
-
 
     public function slug($string, $separator = '-') {
 
@@ -33,8 +27,6 @@ class CategoryController extends Controller
 
         return $string;
     }
-
-
 
 
     public function index()
@@ -58,25 +50,31 @@ class CategoryController extends Controller
             'title' => 'required|min:3|max:40|unique:categories,title',
             'title_en' => 'required|min:3|max:40|unique:categories,title_en',
             'title_fr' => 'required|min:3|max:40|unique:categories,title_fr',
-            'icon' => 'required',
+            'icon' => 'required|mimes:jpg,bmp,png,svg',
         ]);
 
         $image = $request->file('icon')->store('categories/icon','public');
 
-        $category = new Category();
-        $category -> title = $request -> title;
-        $category -> slug = $this->slug($request -> title);
-        $category -> title_en = $request -> title_en;
-        $category -> slug_en = Str::slug($request -> title_en);
-        $category -> title_fr = $request -> title_fr;
-        $category -> slug_fr = Str::slug($request -> title_fr);
-        $category->icon = $image;
-        $category->save();
 
 
-        return redirect()->to('admin/categories')->with([
-            'success'=> __('forms.add-success')
+
+        $category = Category::create([
+            'title'=> $request -> title,
+            'title_en'=> $request -> title_en,
+            'title_fr'=> $request -> title_fr,
+            'slug' => $this->slug($request -> title),
+            'slug_en' => Str::slug($request -> title_en),
+            'slug_fr' => Str::slug($request -> title_fr),
+            'icon' => $image
         ]);
+
+        if($category) {
+            return redirect()->to('admin/categories')->with([
+                'success'=> __('forms.add-success')
+            ]);
+        }
+
+        return abort(500);
 
     }
 
@@ -92,18 +90,39 @@ class CategoryController extends Controller
 
 
     public function update(Request $request , Category $category) {
+
         $request->validate([
             'title' => 'required|min:3|max:40|unique:categories,title,' . $category->id,
             'title_en' => 'required|min:3|max:40|unique:categories,title_en,' . $category->id,
             'title_fr' => 'required|min:3|max:40|unique:categories,title_fr,' . $category->id,
         ]);
 
-        $category->update($request -> all());
+        $image = '';
 
+        if($request->hasFile('icon')) {
+            Storage::delete('public/' . $category->icon);
+            $image = $request->file('icon')->store('categories/icon','public');
+        }
 
-        return redirect()->to('admin/categories')->with([
-            'success'=> __('forms.edit-success')
+        $category = $category->update([
+            'title'=> $request -> title,
+            'title_en'=> $request -> title_en,
+            'title_fr'=> $request -> title_fr,
+            'slug' => $this->slug($request -> title),
+            'slug_en' => Str::slug($request -> title_en),
+            'slug_fr' => Str::slug($request -> title_fr),
+            'icon' => $image ? $image : $category->icon
         ]);
+
+        if($category) {
+            return redirect()->to('admin/categories')->with([
+                'success'=> __('forms.edit-success')
+            ]);
+        }
+
+
+        return abort(500);
+
     }
 
 
@@ -111,14 +130,18 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        if(count($category->posts)) {
-            return redirect()->back()->with([
-                'failed'=> __('forms.there-are-articles-in-it')
-            ]);
+
+        if(!empty($category->projects)) {
+            return  abort(401);
         }
-        $category -> delete();
+
+        if($category -> delete()) {
+            Storage::delete('public/' . $category->icon);
+        }
+
         return redirect()->back()->with([
             'success'=> __('forms.deleted-success')
         ]);
+
     }
 }

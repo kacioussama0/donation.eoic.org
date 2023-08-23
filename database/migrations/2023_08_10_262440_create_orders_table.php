@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
-            $table->decimal('total_price',6,2);
+            $table->string('email')->nullable();
+            $table->string('full_name')->nullable();
             $table->string('session_id');
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')
                 ->on('projects');
+            $table->enum('status',['paid','unpaid']);
+            $table->float('total_price');
             $table->timestamps();
         });
     }

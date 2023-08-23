@@ -16,8 +16,9 @@ Route::get('/change-language/{locale}',[\App\Http\Controllers\SiteController::cl
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('categories',\App\Http\Controllers\CategoryController::class);
+Route::resource('admin/categories',\App\Http\Controllers\CategoryController::class);
 Route::resource('admin/projects',\App\Http\Controllers\ProjectController::class);
+Route::get('admin/orders',[\App\Http\Controllers\SiteController::class,'orders']);
 Route::post('/checkout',[\App\Http\Controllers\CheckoutController::class,'checkout']);
 
 Route::get('/success',[\App\Http\Controllers\CheckoutController::class,'success'])->name('checkout.success');

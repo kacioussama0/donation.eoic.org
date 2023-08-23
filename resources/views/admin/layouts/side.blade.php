@@ -32,6 +32,14 @@
                     </a>
                 </li>
 
+                <li
+                    class="sidebar-item {{request()->is('orders') ? "active" : '' }}">
+                    <a href="{{url('admin/orders')}}" class='sidebar-link'>
+                        <i class="bi bi-speedometer2"></i>
+                        <span>{{__('الطلبات')}}</span>
+                    </a>
+                </li>
+
 
 
 

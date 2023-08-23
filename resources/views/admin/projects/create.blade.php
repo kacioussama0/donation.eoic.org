@@ -44,7 +44,7 @@
                     <x-admin.forms.text-area name="description_fr" id="content_2" title="article-content-fr"  value="{!!old('description_fr')!!}"/>
 
                     <x-admin.forms.input name="price" title="{{__('forms.price')}}" type="number" value="{{old('price')}}"/>
-
+                    <x-admin.forms.input name="price_one" title="{{__('forms.price_one')}}" type="number" value="{{old('price_one')}}"/>
 
 
                     <div class="mb-3">

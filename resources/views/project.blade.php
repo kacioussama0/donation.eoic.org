@@ -3,14 +3,25 @@
 @section('title',$project->title)
 
 
+@section('meta')
+
+    <meta property="og:title" content="{{$project->title}}"/>
+    <meta property="og:type" content="movie"/>
+    <meta property="og:image" content="{{asset('storage/' . $project->thumbnail)}}"/>
+    <meta property="og:site_name" content="{{__('APP_NAME')}}"/>
+    <meta property="og:description" content="{{$project->description}}"/>
+
+@endsection
+
+
 @section('content')
-    <div class="container py-4">
+    <div class="container py-5 my-5">
         <div class="row g-5">
             <div class="col-md-6">
-                <div class="card shadow border-0">
+                <div class="card shadow border-0 rounded-4">
                     <div class="card-body vstack gap-3">
-                        <h3>{{$project->title}}</h3>
-                        {!! $project->description !!}
+                        <h3>{{$project->title()}}</h3>
+                        {!! $project->description() !!}
                         <img src="{{asset('storage/' . $project->thumbnail)}}" alt="" class="img-fluid w-100 rounded-top-5">
                         <div class="row">
                             <div class="col-md-6">
@@ -33,36 +44,35 @@
             <div class="col-md-6">
                 <div class="row g-5">
                     <div class="col-12 mb-5">
-                        <div class="card shadow-sm border-0">
+                        <div class="card shadow border-0 rounded-4">
                             <div class="card-body vstack gap-3">
+
+                                @if($project->status == 'completed')
+
+
+                                    <h3 class="text-center text-primary display-3 fw-bold">
+                                        <i class="fa-duotone fa-check-circle"></i>
+                                        {{__('PROJECT_COMPLETED')}}
+                                    </h3>
+                                @else
+
                                 <h3>مبلغ التبرع</h3>
                                 <form action="{{url('/checkout')}}" class="d-flex flex-column-reverse " method="POST">
 
                                     <div class="btn-group suggestions mt-3" role="group" aria-label="Basic radio toggle button group">
-                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked value="1">
-                                        <label class="btn btn-outline-primary" for="btnradio1">1$</label>
-
-                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="2">
-                                        <label class="btn btn-outline-primary" for="btnradio2">2$</label>
-
-                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" value="10">
-                                        <label class="btn btn-outline-primary" for="btnradio3">10$</label>
-
-                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" value="20">
-                                        <label class="btn btn-outline-primary" for="btnradio4">20$</label>
-
-                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" value="50">
-                                        <label class="btn btn-outline-primary" for="btnradio5">50$</label>
 
 
 
-                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" value="100">
-                                        <label class="btn btn-outline-primary" for="btnradio6">100$</label>
+                                        @for($i = 1 ; $i <= 12 ; $i+=2)
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio{{$i}}" autocomplete="off"  value="{{$project->price_one * $i}}">
+                                            <label class="btn btn-outline-primary" for="btnradio{{$i}}">{{$project->price_one * $i}}&euro;</label>
+                                        @endfor
+
 
                                     </div>
 
                                     <div class="d-flex align-items-center ">
-                                        <input type="number" name="price" min="0" class="form-control border-end-0 rounded-end-0"step="any" placeholder="مبلغ التبرع" required>
+                                        <input type="number" name="price" min="0" class="form-control border-end-0 rounded-end-0"step="any" placeholder="مبلغ التبرع" required value="{{request('amount')}}">
 
                                         @csrf
                                         <input type="hidden" name="project_id" value="{{$project->id}}" required>
@@ -73,52 +83,69 @@
                                     </div>
                                 </form>
 
-
+                                @endif
                             </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <div class="card shadow-sm border-0 mb-4">
-                            <div class="card-body d-flex justify-content-center">
-                                <i class="fa-duotone fa-eye fa-2x text-secondary me-3"></i>
-                                <div class="d-flex align-items-center">
-                                    <h3 class="text-primary fw-bold me-3">الزيارات</h3>
-                                    <span> {{$project -> visitors }}  زيارة</span>
-                                </div>
+                    <div class="col-12 mb-5">
+                        <div class="card shadow border-0 rounded-4">
+                            <div class="card-body vstack gap-3">
+
+                        <h3>البيانات البنكية</h3>
+                        <p  class="mb-4">المستفيد :  الهيئة الأوروبية للمراكز الإسلامية</p>
+
+                        <div class="row g-4">
+                            <div class="col-4">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/PostFinance_Logo.svg/1200px-PostFinance_Logo.svg.png" alt="postfinance" class="rounded-5 img-fluid">
                             </div>
+                            <div class="col-8">
+                                <h5>العملة : الفرنك السويسري CHF</h5>
+                                <div class="fw-bold" >IBAN: CH6109000000141852818</div>
+                                <div>BIC: POFICHBEXXX</div>
+                            </div>
+
+                            <div class="col-4">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/PostFinance_Logo.svg/1200px-PostFinance_Logo.svg.png" alt="postfinance" class="rounded-5 img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <h5>العملة : الأورو &euro;</h5>
+                                <div class="fw-bold">IBAN: CH6109000000141852818</div>
+                                <div>BIC: POFICHBEXXX</div>
+                            </div>
+
                         </div>
-
-
-
-                            <div class="card shadow-sm border-0 mb-4">
-                                <div class="card-body d-flex justify-content-center">
-                                    <i class="fa-duotone fa-plane fa-2x text-secondary me-3"></i>
-                                    <div class="d-flex align-items-center">
-                                        <h3 class="text-primary fw-bold me-3">آخر عملية تبرع قبل</h3>
-                                        <span>
-                                            @if(count($project->orders))
-                                                {{$project->orders->where('status','paid')->last()->created_at->diffForHumans()}}
-                                            @else
-                                                لايوجد متبرعين
-                                            @endif
-                                        </span>
-                                    </div>
-                                </div>
                             </div>
 
-                        <div class="card shadow-sm border-0 mb-4">
-                            <div class="card-body d-flex justify-content-center">
-                                <i class="fa-duotone fa-trademark fa-2x text-secondary me-3"></i>
-                                <div class="d-flex align-items-center">
-                                    <h3 class="text-primary fw-bold me-3">عدد عمليات التبرع</h3>
-                                    <span>{{$project->orders->where('status','paid')->count()}}</span>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
+
+                    <div class="col-12 text-center">
+
+                        <div class="card shadow border-0 rounded-4">
+                            <div class="card-body">
+
+                                <h3 class="my-3">شارك المشروع على:</h3>
+
+                                <a href="https://www.facebook.com/sharer.php?u={{url('/projects/' . $project->id)}}" class="text-decoration-none">
+                                    <i class="fa-brands fa-facebook fa-2x me-3"></i>
+                                </a>
+
+                                <a href="https://twitter.com/intent/tweet?text={{$project->title()}}&url={{url('/projects/' . $project->id)}}" class="text-decoration-none">
+                                    <i class="fa-brands fa-twitter fa-2x me-3"></i>
+                                </a>
+
+                                <a href="https://facebook.com" class="text-decoration-none">
+                                    <i class="fa-brands fa-whatsapp fa-2x me-3"></i>
+                                </a>
+
+                            </div>
+
+
+                    </div>
+
                 </div>
             </div>
 

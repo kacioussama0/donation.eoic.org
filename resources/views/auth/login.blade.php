@@ -9,7 +9,7 @@
                 <div class="row align-items-center flex-row-reverse p-lg-5 p-0">
 
                     <div class="col-6 mx-auto mb-2 mb-lg-0 col-lg-7" >
-                        <img src="{{asset('assets/imgs/login.svg')}}" alt=""  class="img-fluid">
+                        <img src="{{asset('imgs/login.svg')}}" alt=""  class="img-fluid">
                     </div>
                     <div class="col-12 col-lg-5">
                         <div class="card-body">

@@ -42,7 +42,7 @@
 </head>
 <body class="overflow-hidden">
 
-
+<x-loader></x-loader>
 
 <!-- Start Side Bar -->
 
