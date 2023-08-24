@@ -71,7 +71,17 @@ class SiteController extends Controller
     }
 
     public function project($slug) {
+
         $project = Project::where('slug', $slug)->first();
+
+        if(config('app.locale') == 'fr') {
+            $project = Project::where('slug_fr', $slug)->first();
+        }
+
+        elseif(config('app.locale') == 'en') {
+            $project = Project::where('slug_en', $slug)->first();
+        }
+
         $project -> visitors++;
         $project -> save();
         return view('project',compact('project'));

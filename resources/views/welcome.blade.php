@@ -35,12 +35,11 @@
     <div class="shapedividers_com-7183" style="height: 100px"></div>
 
 
-
     {{--    End Landing Page  --}}
 
 
     <div class="container mt-3 text-center">
-        <img src="https://ehsan.sa/assets/images/homepage/ahseno-ayah.svg" alt="ayat" class=" img-fluid ">
+        <img src="https://ehsan.sa/assets/images/homepage/ahseno-ayah.svg" alt="ayat" class="img-fluid">
     </div>
 
     {{--    Start How To Donate  --}}
@@ -165,7 +164,7 @@
                                         <h3>{{__('SHARE_LINK_SOCIAL_MEDIA')}}</h3>
                                         <h5>{{__('SHARE_LINK')}}</h5>
                                         <form action="" class="w-100 d-flex justify-content-between align-items-center">
-                                            <input type="text" class="form-control me-3" placeholder="الرابط" readonly value="{{url('/projects/' . $project->id)}}">
+                                            <input type="text" class="form-control me-3" placeholder="{{__('SHARE')}}" readonly value="{{url('/projects/' . $project->id)}}">
                                             <button class="btn btn-primary d-block">{{__('COPY')}} </button>
                                         </form>
 
@@ -228,27 +227,26 @@
                                 </div>
                                 <div class="row mt-3">
 
-
                                     <div class="col-6 col-md-4 vstack gap-1 align-items-center">
                                         <i class="fa-solid fa-plus fa-2x text-primary"></i>
                                         <h6 class="m-0">{{__('COLLECTED')}}</h6>
-                                        <span class="text-primary fw-bold">{{ $project->orders->where('status', 'paid')->sum('total_price') . '$'}}</span>
+                                        <span class="text-primary fw-bold">{{ $project->orders->where('status', 'paid')->sum('total_price')}} &euro;</span>
                                     </div>
 
                                     <div class="col-6 col-md-4 vstack gap-1 align-items-center">
                                         <i class="fa-solid fa-percent fa-2x text-primary"></i>
                                         <h6 class="m-0">{{__('REMAINING')}}</h6>
                                         @if($project->status != 'completed')
-                                            <span class="text-primary fw-bold">{{$project->price - $project->orders->where('status', 'paid')->sum('total_price') . '$'}}</span>
+                                            <span class="text-primary fw-bold">{{$project->price - $project->orders->where('status', 'paid')->sum('total_price')}} &euro;</span>
                                         @else
-                                            <span class="text-primary fw-bold">0$</span>
+                                            <span class="text-primary fw-bold">0&euro;</span>
                                         @endif
                                     </div>
 
                                     <div class="col-6 col-md-4 vstack gap-1 align-items-center">
                                         <i class="fa-solid fa-bullseye fa-2x text-primary"></i>
                                         <h6 class="m-0">{{__('GOAL')}}</h6>
-                                        <span class="text-primary fw-bold">{{ $project -> price. '$'}}</span>
+                                        <span class="text-primary fw-bold">{{ $project -> price}} &euro;</span>
                                     </div>
 
 
@@ -293,7 +291,6 @@
     </section>
 
     {{--    End Project  --}}
-
 
 @endif
 @endsection

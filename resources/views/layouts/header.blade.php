@@ -74,15 +74,15 @@
                             </a>
                         </li>
 
-                        <div class="mega-menu collapse" id="join" data-bs-parent="#megaGroup" style="">
-                            <div class="container p-5">
-                                <div class="row justify-content-center text-center ">
+                        <div class="mega-menu  collapse" id="join" data-bs-parent="#megaGroup" style="">
+                            <div class="container p-3">
+                                <div class="row justify-content-center text-center">
 
                                     @foreach($categories as $category)
                                         <div class="col-1">
-                                                <a href="" class="nav-link">
-                                                    <img src="{{asset('storage/' . $category->icon)}}" alt="" style="width: 50px" />
-                                                    {{$category->title}}
+                                                <a href="#" class="nav-link">
+                                                    <img src="{{asset('storage/' . $category->icon)}}" alt="" style="width: 60px" class="mb-2"/>
+                                                    <span >{{$category->title()}}</span>
                                                 </a>
                                         </div>
                                     @endforeach
@@ -275,7 +275,6 @@
                 <a href="https://www.facebook.com/MEDIA.EOIC/" target="_blank" class="me-3" style="color: #4267B2"><i class="fa-brands fa-facebook fa-1x"></i></a>
                 <a href="https://www.instagram.com/eoic_geneva/" target="_blank" class="me-3" style="color: #C13584"><i class="fa-brands fa-instagram fa-1x"></i></a>
                 <a href="https://www.youtube.com/channel/UCi_iTZfHrRN19Wtwo4vM4EA?view_as=subscriber" target="_blank" class="me-3" style="color: #FF0000"><i class="fa-brands fa-youtube fa-1x"></i></a>
-
                 <a href="https://twitter.com/EOIC_Geneva" target="_blank" class="me-3" style="color: #1DA1F2"><i class="fa-brands fa-twitter f-1x"></i></a>
             </div>
 

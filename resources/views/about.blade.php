@@ -13,14 +13,10 @@
                 <div class="col-lg-6 col-12">
 
                     <div class=" vstack gap-3 text-lg-start text-center">
-                        <h1>عن الهيئة</h1>
-                        <h3>الإسم : الهيئة الأوروبية للمراكز الإسلامية</h3>
-                        <h5>الشعار : رعاية وارتقاء</h5>
-
-                        <p>
-                            هي هيئة متخصصة في العناية بشؤون المراكز الإسلامية في أوروبا.
-                            أُسست وفقاً للمادة (60) وما يتلوها من المواد المتعلقة بتأسيس الجمعيات، من القانون المدني السويسري، بمبادرة من شخصيات دعوية من عدة أقطار أوروبية. وهي جمعية خيرية تطوعية، غير حكومية، مستقلة، وتسعى للعمل وفق رؤية واضحة وأهداف مرسومة وخطوات مدروسة، ووسائل معلنه.
-                        </p>
+                        <h1>{{__('ABOUT_ORGANISATION')}}</h1>
+                        <h3>{{__('NAME') . ' : ' .__('ORGANISATION_NAME')}}</h3>
+                        <h5>{{__('SLOGAN') . ' : ' .__('ORGANISATION_SLOGAN')}}</h5>
+                        <p>{{__('ORGANISATION_DESCRIPTION')}}</p>
                     </div>
 
                 </div>
@@ -42,10 +38,8 @@
                     <div class="card shadow-sm border-0  h-100">
                         <div class="card-body vstack gap-3 justify-content-center align-items-center">
                             <i class="fa-duotone fa-3x fa-eye text-primary"></i>
-                            <h3>الرؤية</h3>
-                            <p>
-                                التميز في خدمة المراكز الإسلامية للارتقاء بها وتطوير أداءها.
-                            </p>
+                            <h3>{{__('VISION')}}</h3>
+                            <p>{{__('VISION_DESCRIPTION')}}</p>
                         </div>
                     </div>
                 </div>
@@ -54,10 +48,8 @@
                     <div class="card shadow-sm border-0  h-100">
                         <div class="card-body vstack gap-3 justify-content-center align-items-center">
                             <i class="fa-duotone fa-3x fa-bullseye-arrow text-primary"></i>
-                            <h3>الهدف</h3>
-                            <p>
-                                العناية بالمراكز الإسلامية، ومرافقتها للتطور والارتقاء.
-                            </p>
+                            <h3>{{__('GOAL')}}</h3>
+                            <p>{{__('GOAL_DESCRIPTION')}}</p>
                         </div>
                     </div>
                 </div>
@@ -67,16 +59,12 @@
                     <div class="card shadow-sm border-0  h-100">
                         <div class="card-body vstack gap-3 justify-content-center align-items-center">
                             <i class="fa-duotone fa-3x fa-message text-primary"></i>
-                            <h3>الرسالة</h3>
-                            <p>
-                                الارتقاء بدور المراكز الإسلامية في أوروبا، وتطوير وسائلها، وتوسيع نطاق أعمالها، لتستجيب لحاجات وتطلعات مسلمي أوروبا، وللقيام بدور ريادي ضمن مؤسسات المجتمع المدني الأوروبي.
-                            </p>
+                            <h3>{{__('MESSAGE')}}</h3>
+                            <p>{{__('MESSAGE_DESCRIPTION')}}</p>
                         </div>
                     </div>
                 </div>
-
             </div>
-
 
         </div>
 
@@ -91,8 +79,8 @@
                 </div>
 
                 <div class="col-6">
-                    <h3 class="fw-bold">رئيس الهيئة الأوروبية للمراكز الإسلامية</h3>
-                    <p>معالي الشيخ : زيان مهاجري</p>
+                    <h3 class="fw-bold">{{__('PRESIDENT') . ' ' . __('ORGANISATION_NAME')}}</h3>
+                    <p>{{__('CHIKH') . ' : ' . __('ORGANISATION_PRESIDENT')}}</p>
                 </div>
             </div>
 

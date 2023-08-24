@@ -56,7 +56,7 @@
                                     </h3>
                                 @else
 
-                                <h3>مبلغ التبرع</h3>
+                                <h3>{{__('DONATE_AMOUNT')}}</h3>
                                 <form action="{{url('/checkout')}}" class="d-flex flex-column-reverse " method="POST">
 
                                     <div class="btn-group suggestions mt-3" role="group" aria-label="Basic radio toggle button group">
@@ -72,14 +72,14 @@
                                     </div>
 
                                     <div class="d-flex align-items-center ">
-                                        <input type="number" name="price" min="0" class="form-control border-end-0 rounded-end-0"step="any" placeholder="مبلغ التبرع" required value="{{request('amount')}}">
+                                        <input type="number" name="price" min="0" class="form-control border-end-0 rounded-end-0"step="any" placeholder="{{__('DONATE_AMOUNT')}}" required value="{{request('amount')}}">
 
                                         @csrf
                                         <input type="hidden" name="project_id" value="{{$project->id}}" required>
                                         <input type="hidden" name="title" value="{{$project->title}}" required>
                                         <input type="hidden" name="description" value="{{$project->description}}">
                                         <input type="hidden" name="image" value="{{asset('storage/' . $project->thumbnail)}}">
-                                        <button type="submit" class="btn btn-primary rounded-start-0">تبرع</button>
+                                        <button type="submit" class="btn btn-primary rounded-start-0">{{__('DONATE')}}</button>
                                     </div>
                                 </form>
 
@@ -93,15 +93,15 @@
                         <div class="card shadow border-0 rounded-4">
                             <div class="card-body vstack gap-3">
 
-                        <h3>البيانات البنكية</h3>
-                        <p  class="mb-4">المستفيد :  الهيئة الأوروبية للمراكز الإسلامية</p>
+                        <h3>{{__('BANK_DETAILS')}}</h3>
+                        <p  class="mb-4">{{__('BENEFICIARY') . ' : ' . __('ORGANISATION_NAME')}}</p>
 
                         <div class="row g-4">
                             <div class="col-4">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/PostFinance_Logo.svg/1200px-PostFinance_Logo.svg.png" alt="postfinance" class="rounded-5 img-fluid">
                             </div>
                             <div class="col-8">
-                                <h5>العملة : الفرنك السويسري CHF</h5>
+                                <h5>{{__('CURRENCY') . ' : ' . __('SUISS_FRANC') .  ' CHF'}}</h5>
                                 <div class="fw-bold" >IBAN: CH6109000000141852818</div>
                                 <div>BIC: POFICHBEXXX</div>
                             </div>
@@ -110,7 +110,7 @@
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/PostFinance_Logo.svg/1200px-PostFinance_Logo.svg.png" alt="postfinance" class="rounded-5 img-fluid">
                             </div>
                             <div class="col-8">
-                                <h5>العملة : الأورو &euro;</h5>
+                                <h5>{{__('CURRENCY') . ' : ' . __('EURO')}} &euro;</h5>
                                 <div class="fw-bold">IBAN: CH6109000000141852818</div>
                                 <div>BIC: POFICHBEXXX</div>
                             </div>
@@ -127,7 +127,7 @@
                         <div class="card shadow border-0 rounded-4">
                             <div class="card-body">
 
-                                <h3 class="my-3">شارك المشروع على:</h3>
+                                <h3 class="my-3">{{__('SHARE_PROJECT')}} :</h3>
 
                                 <a href="https://www.facebook.com/sharer.php?u={{url('/projects/' . $project->id)}}" class="text-decoration-none">
                                     <i class="fa-brands fa-facebook fa-2x me-3"></i>

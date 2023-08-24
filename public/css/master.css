@@ -140,20 +140,19 @@ section.landing-page {
     width: 100%;
     position: absolute;
     left: 0;
-    z-index: 999;
+
     top: 96px;
     right: 0;
-    background-color: #148287;
+    background-color: #fff;
+
 }
 
 .mega-menu li {
     overflow: hidden;
-
 }
 
 .mega-menu a {
-    color: #fff;
-    font-family: 'Changa' !important;
+    color: #000;
 }
 
 
