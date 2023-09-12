@@ -14,6 +14,7 @@ class SiteController extends Controller
 {
 
     public function home() {
+
         $orders = Order::where('status','paid')->count();
         $visitors = Project::sum('visitors');
         $projects = Project::latest()->get();
@@ -46,10 +47,14 @@ class SiteController extends Controller
     }
 
 
-    public function projects() {
-        $title = 'المشاريع';
-        $categories = Category::latest()->get();
-        $projects = Project::where('status','open')->latest()->get();
+    public function projects($slug) {
+
+
+        $category = Category::where('slug',$slug)->first();
+
+        $projects = $category -> projects;
+
+        $title = $category->title;
 
         if(config('app.locale') == 'fr') {
             $projects = Project::where('title_fr', '!=' , null)->where('status','open')->get();
@@ -59,7 +64,7 @@ class SiteController extends Controller
             $projects = Project::where('title_en', '!=' , null)->where('status','open')->get();
         }
 
-        return view('projects',compact('categories','projects','title'));
+        return view('projects',compact('projects','title','category'));
     }
 
 
@@ -90,6 +95,13 @@ class SiteController extends Controller
     public function orders() {
         $orders = Order::latest()->paginate(15);
         return view('admin.orders.index',compact('orders'));
+    }
+
+    public function categories() {
+
+        $categories = Category::latest()->get();
+
+        return view('categories',compact('categories'));
     }
 
 }

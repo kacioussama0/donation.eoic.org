@@ -3,23 +3,22 @@
 @endphp
 
 <!doctype html>
-<html lang="{{session()->get('locale')}}" dir="@if(session()->get('locale') == 'ar'){{'rtl'}}@else{{'ltr'}}@endif">
+<html lang="{{session()->get('locale')}}" dir="@if(session()->get('lang-ltr')){{'ltr'}}@else{{'rtl'}}@endif">
 <head>
     <meta charset="UTF-8">
     <meta name="title" content="منصة الهيئة الأوروبية للتبرعات">
     <meta name="description" content="هيئة متخصصة في العناية بشؤون المراكز الإسلامية في أوروباأُسست وفقاً للمادة (60) من القانون المدني السويسري ">
     <meta name="keywords" content="تبرع , زكاة  , صدقة , مشاريع , المراكز الإسلامية , الهيئة الأوروبية للمراكز الإسلامية , سويسرا , أيتام">
     <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <meta name="language" content="Arabic">
     <meta name="author" content="Kaci Oussama">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#C4E0E1"/>
     @yield('meta')
     <title>{{__('APP_NAME')}} | @yield('title')</title>
     <link rel="shortcut icon" href="{{asset('imgs/logo.svg')}}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     @if(config('app.locale') == 'ar')
         <link rel="stylesheet" href="{{asset('css/bootstrap.rtl.css')}}">
     @else
@@ -27,8 +26,8 @@
     @endif
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>
-    <link rel="stylesheet" href="{{asset('css/master.css')}}">
     <link rel="stylesheet" href="{{asset('fontawesome/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/master.css')}}">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" ></script>
     <script>
         $(window).on('load',function(){
@@ -43,7 +42,7 @@
 
     {{--    Start Header --}}
 
-    <header class=" position-relative z-3 @if(request()->is('/')) bg-primary @endif bg-opacity-25">
+    <header class="position-relative z-3 @if(request()->is('/') || request()->is('categories') || request()->is('projects')) bg-primary @endif bg-opacity-25">
         <nav class="navbar  navbar-expand-lg">
             <div class="container">
                 <div class="brand d-flex align-items-center">
@@ -68,31 +67,11 @@
                         </li>
 
 
-                        <li class="nav-item dropdown ">
-                            <a class="nav-link active dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#join" aria-expanded="false" aria-controls="join" href="#join" role="button">
+                        <li class="nav-item me-2">
+                            <a class="nav-link active" aria-current="page" href="{{url('/categories')}}">
                                 {{__('CATEGORIES')}}
                             </a>
                         </li>
-
-                        <div class="mega-menu  collapse" id="join" data-bs-parent="#megaGroup" style="">
-                            <div class="container p-3">
-                                <div class="row justify-content-center text-center">
-
-                                    @foreach($categories as $category)
-                                        <div class="col-1">
-                                                <a href="#" class="nav-link">
-                                                    <img src="{{asset('storage/' . $category->icon)}}" alt="" style="width: 60px" class="mb-2"/>
-                                                    <span >{{$category->title()}}</span>
-                                                </a>
-                                        </div>
-                                    @endforeach
-
-                                </div>
-                            </div>
-                        </div>
-
-
-
 
                         <li class="nav-item me-2">
                             <a class="nav-link active" aria-current="page" href="{{url('about')}}">
@@ -285,11 +264,6 @@
 
 
 
-
-
-
-
-
     <main>
 
         @yield('content')
@@ -297,7 +271,7 @@
     </main>
 
 
-    {{--  Start Footer    --}}
+    {{--  Start Footer  --}}
 
     <footer class="bg-primary py-4">
 
@@ -305,9 +279,7 @@
 
                 <div class="row gy-md-3 align-items-center justify-content-center">
 
-
                     <h6 class="mb-md-0 text-white fw-bold text-center  col-lg-4">{!! (__('ALL_RIGHT_RESERVED')) . ' '  . __('APP_NAME') . ' '  . date('Y') . '  ' !!}</h6>
-
 
                     <div class="col-lg-4">
                         <div class="d-flex align-items-center justify-content-center ">
@@ -317,7 +289,6 @@
                             <i class="fa-brands fa-google-pay fa-2x me-3 text-white"></i>
                         </div>
                     </div>
-
 
                     <div class="col-lg-4">
 

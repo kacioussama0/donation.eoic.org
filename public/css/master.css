@@ -119,7 +119,7 @@ section.landing-page {
     top: 0;
     left: 0;
     z-index: -1;
-    opacity: .7;
+    opacity: .6;
 }
 
 .about-header::before {
@@ -136,24 +136,7 @@ section.landing-page {
     z-index: 333;
 }
 
-.mega-menu {
-    width: 100%;
-    position: absolute;
-    left: 0;
 
-    top: 96px;
-    right: 0;
-    background-color: #fff;
-
-}
-
-.mega-menu li {
-    overflow: hidden;
-}
-
-.mega-menu a {
-    color: #000;
-}
 
 
 .shapedividers_com-7183{
@@ -198,5 +181,23 @@ section.landing-page {
     .shapedividers_com-7183::before{
         background-size: 100% calc(2vw + 90px);
     }
+}
+
+.category-overlay {
+    z-index: 3;
+    position: relative;
+}
+
+.category-overlay::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: var(--bs-primary);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: .6;
+    border-radius: 2rem;
 }
 

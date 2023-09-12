@@ -6,10 +6,13 @@
 @section('meta')
 
     <meta property="og:title" content="{{$project->title}}"/>
-    <meta property="og:type" content="movie"/>
     <meta property="og:image" content="{{asset('storage/' . $project->thumbnail)}}"/>
     <meta property="og:site_name" content="{{__('APP_NAME')}}"/>
     <meta property="og:description" content="{{$project->description}}"/>
+    <meta name="twitter:title" content="{{$project->title}}">
+    <meta name="twitter:description" content="{{__('APP_NAME')}}">
+    <meta name="twitter:image" content="{{asset('storage/' . $project->thumbnail)}}">
+    <meta name="twitter:card" content="summary_large_image">
 
 @endsection
 
@@ -26,15 +29,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h6>تم جمع</h6>
-                                <span class="text-primary fw-bold">{{ $project->orders->where('status', 'paid')->sum('total_price') . '$'}}</span>
+                                <span class="text-primary fw-bold">{{ $project->orders->where('status', 'paid')->sum('total_price')}} &euro;</span>
                             </div>
                             <div class="col-md-6">
                                 <h6 >المبلغ المتبقي</h6>
-                                <span class="text-primary fw-bold">{{$project->price - $project->orders->where('status', 'paid')->sum('total_price') . '$'}}</span>
+                                <span class="text-primary fw-bold">{{$project->price - $project->orders->where('status', 'paid')->sum('total_price') < 0 ? 0 : $project->price - $project->orders->where('status', 'paid')->sum('total_price')}} &euro;</span>
                             </div>
                         </div>
                         <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{($project->orders->where('status', 'paid')->sum('total_price') * 100) / $project->price }}%">{{($project->orders->where('status', 'paid')->sum('total_price') * 100) / $project->price }}%</div>
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{($project->orders->where('status', 'paid')->sum('total_price') * 100) / $project->price }}%">{{ round(($project->orders->where('status', 'paid')->sum('total_price') * 100) / $project->price,2) > 100 ? 100 : round(($project->orders->where('status', 'paid')->sum('total_price') * 100) / $project->price,2) }}%</div>
                         </div>
                     </div>
                 </div>
@@ -49,7 +52,6 @@
 
                                 @if($project->status == 'completed')
 
-
                                     <h3 class="text-center text-primary display-3 fw-bold">
                                         <i class="fa-duotone fa-check-circle"></i>
                                         {{__('PROJECT_COMPLETED')}}
@@ -57,17 +59,14 @@
                                 @else
 
                                 <h3>{{__('DONATE_AMOUNT')}}</h3>
-                                <form action="{{url('/checkout')}}" class="d-flex flex-column-reverse " method="POST">
+                                <form action="{{url('/checkout')}}" class="d-flex flex-column-reverse" method="POST">
 
                                     <div class="btn-group suggestions mt-3" role="group" aria-label="Basic radio toggle button group">
 
-
-
                                         @for($i = 1 ; $i <= 12 ; $i+=2)
-                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio{{$i}}" autocomplete="off"  value="{{$project->price_one * $i}}">
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio{{$i}}" autocomplete="off" max="{{$project->price}}  value="{{$project->price_one * $i}}">
                                             <label class="btn btn-outline-primary" for="btnradio{{$i}}">{{$project->price_one * $i}}&euro;</label>
                                         @endfor
-
 
                                     </div>
 
@@ -129,11 +128,11 @@
 
                                 <h3 class="my-3">{{__('SHARE_PROJECT')}} :</h3>
 
-                                <a href="https://www.facebook.com/sharer.php?u={{url('/projects/' . $project->id)}}" class="text-decoration-none">
+                                <a href="https://www.facebook.com/sharer.php?u={{url('/projects/' . $project->slug())}}" class="text-decoration-none">
                                     <i class="fa-brands fa-facebook fa-2x me-3"></i>
                                 </a>
 
-                                <a href="https://twitter.com/intent/tweet?text={{$project->title()}}&url={{url('/projects/' . $project->id)}}" class="text-decoration-none">
+                                <a href="https://twitter.com/intent/tweet?text={{$project->title()}}&url={{url('/projects/' . $project->slug())}}" class="text-decoration-none">
                                     <i class="fa-brands fa-twitter fa-2x me-3"></i>
                                 </a>
 
@@ -142,7 +141,6 @@
                                 </a>
 
                             </div>
-
 
                     </div>
 

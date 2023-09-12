@@ -5,6 +5,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class CategoryController extends Controller
 {
@@ -53,10 +54,9 @@ class CategoryController extends Controller
             'icon' => 'required|mimes:jpg,bmp,png,svg',
         ]);
 
-        $image = $request->file('icon')->store('categories/icon','public');
+        $img = Image::make($request->file('icon'))->resize('600','400');
 
-
-
+        $image = $img->save('storage/categories/icon/D' . uniqid() . '.jpg' );
 
         $category = Category::create([
             'title'=> $request -> title,
@@ -65,7 +65,7 @@ class CategoryController extends Controller
             'slug' => $this->slug($request -> title),
             'slug_en' => Str::slug($request -> title_en),
             'slug_fr' => Str::slug($request -> title_fr),
-            'icon' => $image
+            'icon' => 'categories/icon/' . $image -> basename
         ]);
 
         if($category) {

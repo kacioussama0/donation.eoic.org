@@ -71,7 +71,7 @@ class ProjectController extends Controller
                 'required',
                 File::types([
                     'jpg','gif','png','webp','svg'
-                ])->max(1024 * 10)
+                ])->max(1024 * 50)
             ],
         ]);
 

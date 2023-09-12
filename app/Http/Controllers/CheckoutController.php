@@ -17,11 +17,9 @@ class CheckoutController extends Controller
             'project_id' => 'required',
         ]);
 
-
         $secretKey = env('STRIPE_SECRET_KEY');
 
         \Stripe\Stripe::setApiKey('sk_test_51MBdoJIMzWwDJnIZpZWnQUOQTiMB10sdehnKH1xOjkej9xGpiPYUD723mRqq0HTyXZ5oaWbfihOoyQrNs3TmL3zu00G0qbIO5l');
-
 
         $lineItems = [
 
@@ -31,15 +29,12 @@ class CheckoutController extends Controller
                        'unit_amount' => $validated['price'] * 100,
                        'product_data' => [
                            'name' => $request->title,
-                           'description' => $request->description,
                            'images' => [$request->image],
                        ],
                    ],
                    'quantity' => 1,
             ]
         ];
-
-
 
 
         $checkoutSession = \Stripe\Checkout\Session::create([
@@ -111,7 +106,6 @@ class CheckoutController extends Controller
                 $project->status = 'completed';
                 $project->save();
             }
-
 
             return view('success');
 

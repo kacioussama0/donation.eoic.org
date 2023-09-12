@@ -5,55 +5,18 @@
 
 @section('content')
 
-    <div class="bg-header position-relative z-1 py-3 d-flex align-items-center text-center">
+    <div class="bg-header position-relative z-1 py-3 d-flex align-items-center text-center" style="background-image: url('{{asset('storage/' . $category->icon)}}')">
         <div class="container">
-            <h1 class="fw-bold text-secondary mb-4 display-1">{{__('PROJECTS')}}</h1>
-            <p>{{__('PROJECTS_HEADER_DESCRIPTION')}}</p>
+            <h1 class="fw-bold text-secondary mb-4 display-1">{{$title}}</h1>
         </div>
     </div>
 
-    <img src="{{asset('imgs/ahseno-ayah.svg')}}" alt="ayat" class="img-fluid mx-auto d-block my-5">
+    <img src="{{asset('imgs/ahseno-ayah.svg')}}" alt="ayat" class="img-fluid mx-auto d-block mt-5">
+
+    <div class="container py-3">
 
 
-    <div class="categories mt-4 mx-auto w-100 py-3" style="background: #eee">
-
-        <div class="container">
-
-            <div class="row gy-3 justify-content-center align-items-center">
-                <div class="col-12 col-sm-6 col-md-3 col-lg-2">
-                    <input type="radio" class="btn-check" name="btnradio" id="category-all" autocomplete="off" checked data-filter="*">
-                    <label class="btn btn-outline-primary w-100  rounded-pill" for="category-all" checked>
-                        {{__('ALL')}}
-                    </label>
-                </div>
-
-                @foreach($categories as $category)
-
-                    @if(count($category->projects->where('status','open')))
-                        <div class="col-12 col-sm-6 col-md-3 col-lg-2">
-                            <input type="radio" class="btn-check" name="btnradio" id="category-{{$category->id}}" autocomplete="off"  data-filter=".{{$category->slug()}}">
-                            <label class="btn btn-outline-primary  w-100  rounded-pill" for="category-{{$category->id}}">
-                                {{$category->title()}}
-                            </label>
-                        </div>
-                    @endif
-
-                @endforeach
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="container py-4">
-
-
-
-
-
-        <div class="row mt-5 g-5 projects">
+        <div class="row my-5 g-5 projects">
 
             @foreach($projects as $project)
 
@@ -192,32 +155,4 @@
 
     </div>
 
-        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-
-        <script>
-
-            $(document).ready(function() {
-                // init isotope
-
-                let $listing = $('.projects').isotope({
-                    itemSelector: '.project-item',
-                    layoutMode: 'fitRows',
-                    getSortData: {
-                        name: '.item-name',
-                        category: '[data-category]'
-                    },
-                    isOriginLeft: {{(config('app.locale') == 'ar') ? 'false' : 'true'}}
-                });
-
-                // bind filter button click
-                $(".categories").on("click", "input", function() {
-                    var filterValue = $(this).attr('data-filter');
-                    $listing.isotope({ filter: filterValue });
-                });
-
-
-            });
-
-        </script>
 @endsection
