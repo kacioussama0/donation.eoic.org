@@ -4,36 +4,26 @@
 
 @section('content')
 
-    {{--    Start Landing Page  --}}
+    {{--    Start Hero Section  --}}
 
-    <section class="landing-page position-relative  bg-primary bg-opacity-25  justify-content-center d-flex flex-column">
 
-          <div class="container">
+    <section class="hero-section">
 
-              <div class="row align-items-center py-5 py-lg-0 ">
-                  <div class="col-lg-5 vstack gap-4 align-items-start justify-content-center order-2 order-lg-0 text-center text-lg-start">
-                      <h1 class="mb-0 w-100 display-5 fw-bold">{{__('APP_NAME')}}</h1>
-                      <p class="mb-0 ">{{__('APP_DESCRIPTION')}}</p>
-                      <a href="{{url('/projects')}}" class="btn btn-primary px-5 mx-auto mx-lg-0">{{__('EXPLORE_PROJECTS')}}</a>
-                  </div>
+        <div class="container d-flex flex-column align-items-start justify-content-center text-light">
 
-                  <div class="col-lg-7 order-1 order-lg-0 ">
-                      <img src="{{asset('imgs/zakat.png')}}" alt="zakat" class="img-fluid wow animate__animated animate__headShake"/>
-                  </div>
+                <h1 class="display-3 fw-bolder">رحمة… عطاء يصل ويصنع الفرق</h1>
+                <p class="w-50">منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية، تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.</p>
+                <button class="btn btn-success btn-lg">تبرع الآن</button>
 
-              </div>
-
-          </div>
+        </div>
 
     </section>
 
-    <div class="shapedividers_com-7183" style=" height: 100px"></div>
+
+    {{--    End Hero Section  --}}
 
 
-    {{--    End Landing Page  --}}
-
-
-    <div class="container mt-3 text-center">
+    <div class="container mt-5 text-center">
         <img src="https://ehsan.sa/assets/images/homepage/ahseno-ayah.svg" alt="ayat" class="img-fluid">
     </div>
 

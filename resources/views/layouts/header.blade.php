@@ -5,6 +5,9 @@
 <!doctype html>
 <html lang="{{session()->get('locale')}}" dir="@if(session()->get('lang-ltr')){{'ltr'}}@else{{'rtl'}}@endif">
 <head>
+
+
+
     <meta charset="UTF-8">
     <meta name="title" content="منصة الهيئة الأوروبية للتبرعات">
     <meta name="description" content="هيئة متخصصة في العناية بشؤون المراكز الإسلامية في أوروباأُسست وفقاً للمادة (60) من القانون المدني السويسري ">
@@ -17,6 +20,14 @@
     <meta name="theme-color" content="#C4E0E1"/>
     @yield('meta')
     <title>{{__('APP_NAME')}} | @yield('title')</title>
+
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Rahma | رحمة" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <link rel="shortcut icon" href="{{asset('imgs/logo.svg')}}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     @if(config('app.locale') == 'ar')
@@ -38,49 +49,45 @@
 </head>
 <body>
 
-    <x-loader></x-loader>
+{{--    <x-loader></x-loader>--}}
 
     {{--    Start Header --}}
 
-    <header class="position-relative z-3 @if(request()->is('/') || request()->is('categories') || request()->is('projects')) bg-primary @endif bg-opacity-25">
+    <header class="position-relative z-3">
         <nav class="navbar  navbar-expand-lg">
             <div class="container">
-                <div class="brand d-flex align-items-center">
-                    <a class="navbar-brand d-flex" href="#">
-                        <img src="{{asset('imgs/logo.png')}}" alt="logo" class="logo">
-                        <div class="d-sm-flex flex-column justify-content-center d-none fw-bold">
-                            <span class="fs-6 ms-3">منصة الهيئة الأوروبية للتبرعات</span>
-                            <span class="fs-6 ms-3">European donations platform</span>
-                        </div>
-                    </a>
-                </div>
+
+                <a class="navbar-brand me-5" href="#">
+                    <img src="{{asset('imgs/logo.svg')}}" alt="logo" class="logo">
+                </a>
+
                 <button class="navbar-toggler p-0" type="button" style="width: 20px" data-bs-toggle="offcanvas" data-bs-target="#sideBar" aria-controls="sideBar" aria-controls="sideBar" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa-light fa-bars fa-1x text-dark" ></i>
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
 
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-bold ">
-                        <li class="nav-item me-2">
-                            <a class="nav-link active" aria-current="page" href="{{url('/')}}">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-bold">
+                        <li class="nav-item me-2 ">
+                            <a class="nav-link " aria-current="page" href="{{url('/')}}">
                                 {{__('HOME')}}
                             </a>
                         </li>
 
 
                         <li class="nav-item me-2">
-                            <a class="nav-link active" aria-current="page" href="{{url('/categories')}}">
+                            <a class="nav-link " aria-current="page" href="{{url('/categories')}}">
                                 {{__('CATEGORIES')}}
                             </a>
                         </li>
 
                         <li class="nav-item me-2">
-                            <a class="nav-link active" aria-current="page" href="{{url('about')}}">
+                            <a class="nav-link " aria-current="page" href="{{url('about')}}">
                                 {{__('ABOUT_US')}}
                             </a>
                         </li>
 
                         <li class="nav-item me-2">
-                            <a class="nav-link active" aria-current="page" href="https://eoic.org/contact" target="_blank">
+                            <a class="nav-link " aria-current="page" href="https://eoic.org/contact" target="_blank">
                                 {{__('CONTACT_US')}}
                             </a>
                         </li>
@@ -88,7 +95,7 @@
                     </ul>
 
 
-                    <ul class="m-0 d-none d-lg-block">
+                    <ul class="m-0 d-none d-lg-block ms-auto">
 
 
                         <div class="btn-group">
@@ -130,9 +137,9 @@
 
                         </div>
 
-                        <li class="nav-item btn   border-0">
-                            <div id="donate-button" class="d-flex justify-content-center"></div>
-                        </li>
+{{--                        <li class="nav-item btn   border-0">--}}
+{{--                            <div id="donate-button" class="d-flex justify-content-center"></div>--}}
+{{--                        </li>--}}
                     </ul>
 
                 </div>

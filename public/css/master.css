@@ -1,7 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+/* Extra Light – 200 */
+@font-face {
+    font-family: 'itfOmniaNaskh';
+    src: url('../fonts/itfOmniaNaskh-ExtraLight.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Light – 300 */
+@font-face {
+    font-family: 'itfOmniaNaskh';
+    src: url('../fonts/itfOmniaNaskh-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Regular – 400 */
+@font-face {
+    font-family: 'itfOmniaNaskh';
+    src: url('../fonts/itfOmniaNaskh-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Medium – 500 */
+@font-face {
+    font-family: 'itfOmniaNaskh';
+    src: url('../fonts/itfOmniaNaskh-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Bold – 700 */
+@font-face {
+    font-family: 'itfOmniaNaskh';
+    src: url('../fonts/itfOmniaNaskh-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Extra Bold – 800 */
+@font-face {
+    font-family: 'itfOmniaNaskh';
+    src: url('../fonts/itfOmniaNaskh-ExtraBold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Black – 900 */
+@font-face {
+    font-family: 'itfOmniaNaskh';
+    src: url('../fonts/itfOmniaNaskh-Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
+
 
 body {
-    font-family: 'Cairo', sans-serif !important;
+    font-family: 'itfOmniaNaskh', sans-serif !important;
 }
 
 header {
@@ -26,13 +91,51 @@ header nav ul li a {
 }
 
 .logo {
-    width: 60px;
+    height: 60px;
 }
 
 
-section.landing-page {
-    width: 100%;
+.hero-section {
+    min-height: 40vh;
+    background-image: url("https://webheady.com/Charity-sympathy/images/slider/1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     z-index: 1;
+    position: relative;
+}
+
+.hero-section .container {
+    min-height: 40vh;
+}
+
+.hero-section::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+
+
+}
+
+
+.hero-section::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url("../imgs/pattern.svg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: -1;
+
 }
 
 .special-heading {
@@ -96,92 +199,28 @@ section.landing-page {
     background-attachment: fixed;
 }
 
+.active {
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 5px 20px;
 
-
-.bg-header {
-    height: 30vh;
-    background-image: url("../imgs/bg-header.JPG");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    color: white;
-    background-attachment: fixed;
+    border-radius: 30px;
+    background-image: linear-gradient(to left,#49B649, var(--bs-primary));
 }
 
-.bg-header::before,
-.about-header::before
-{
-    content: '';
-    width: 100%;
-    height: 100%;
-    background-color: var(--bs-dark);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    opacity: .6;
-}
-
-.about-header::before {
-    background-color: var(--bs-primary);
-}
-
-.about-header {
-    height: 80vh;
-    background-image: url("../imgs/about-bg.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: bottom;
-    z-index: 333;
+.active .nav-link {
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff !important;
 }
 
 
 
 
-.shapedividers_com-7183{
-    overflow:hidden;
-    position:relative;
-}
-.shapedividers_com-7183::before{
-    content:'';
-    font-family:'shape divider from ShapeDividers.com';
-    position: absolute;
-    bottom: -1px;
-    left: -1px;
-    right: -1px;
-    top: -1px;
-    z-index: 3;
-    pointer-events: none;
-    background-repeat: no-repeat;
-    background-size: 100% 90px;
-    background-position: 50% 0%;
-    background-image: url('data:image/svg+xml;charset=utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0.1 35.28 2.17" preserveAspectRatio="none"><path d="M0 1.85c2.56-.83 7.68-.3 11.79-.42 4.1-.12 6.86-.61 9.58-.28 2.73.33 5.61 1.17 8.61 1 3-.19 4.73-.82 5.3-.84V.1H0z" fill="%23c4e0e1"/></svg>');
-}
 
-@media (min-width:768px){
-    .shapedividers_com-7183::before{
-        background-size: 100% 90px;
-        background-position: 50% 0%;
-    }
-}
 
-@media (min-width:1025px){
-    .shapedividers_com-7183::before{
-        bottom: -0.1vw;
-        left: -0.1vw;
-        right: -0.1vw;
-        top: -0.1vw;
-        background-size: 100% 90px;
-        background-position: 50% 0%;
-        background-image: url('data:image/svg+xml;charset=utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0.1 35.28 2.17" preserveAspectRatio="none"><path d="M0 1.85c2.56-.83 7.68-.3 11.79-.42 4.1-.12 6.86-.61 9.58-.28 2.73.33 5.61 1.17 8.61 1 3-.19 4.73-.82 5.3-.84V.1H0z" fill="%23c4e0e1"/></svg>');
-    }
-}
-@media (min-width:2100px){
-    .shapedividers_com-7183::before{
-        background-size: 100% calc(2vw + 90px);
-    }
-}
+
+
 
 .category-overlay {
     z-index: 3;
