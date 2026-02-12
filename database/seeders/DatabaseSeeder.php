@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'president@eoic.org',
             'password' => bcrypt('eoic.admin')
         ]);
+
+        $this->call(CategorySeeder::class);
     }
 }

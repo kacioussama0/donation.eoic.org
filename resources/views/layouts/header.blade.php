@@ -53,11 +53,11 @@
 
     {{--    Start Header --}}
 
-    <header class="position-relative z-3">
+    <header class="position-relative z-3 py-3">
         <nav class="navbar  navbar-expand-lg">
-            <div class="container">
+            <div class="container bg-primary py-1 bg-opacity-10 rounded-5">
 
-                <a class="navbar-brand me-5" href="#">
+                <a class="navbar-brand" href="#">
                     <img src="{{asset('imgs/logo.svg')}}" alt="logo" class="logo">
                 </a>
 
@@ -66,9 +66,9 @@
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
 
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-bold">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
                         <li class="nav-item me-2 ">
-                            <a class="nav-link " aria-current="page" href="{{url('/')}}">
+                            <a class="nav-link active" aria-current="page" href="{{url('/')}}">
                                 {{__('HOME')}}
                             </a>
                         </li>
@@ -95,52 +95,54 @@
                     </ul>
 
 
-                    <ul class="m-0 d-none d-lg-block ms-auto">
+                    <a href="#" class="btn btn-lg btn-primary px-5 rounded-pill">تبرع الآن</a>
+
+{{--                    <ul class="m-0 d-none d-lg-block ms-auto">--}}
 
 
-                        <div class="btn-group">
-                            <button class="btn btn-transparent rounded-0 dropdown-toggle" type="button" data-bs-toggle="collapse" href="#languageSwitcher" role="button" aria-expanded="false" aria-controls="languageSwitcher">
+{{--                        <div class="btn-group">--}}
+{{--                            <button class="btn btn-transparent rounded-0 dropdown-toggle" type="button" data-bs-toggle="collapse" href="#languageSwitcher" role="button" aria-expanded="false" aria-controls="languageSwitcher">--}}
 
-                                @if(session()->get('locale') == 'ar')
-                                    <i class="fi fi-sa"></i>
-                                @elseif(session()->get('locale') == 'fr')
-                                    <i class="fi fi-fr"></i>
-                                @else
-                                    <i class="fi fi-gb"></i>
-                                @endif
+{{--                                @if(session()->get('locale') == 'ar')--}}
+{{--                                    <i class="fi fi-sa"></i>--}}
+{{--                                @elseif(session()->get('locale') == 'fr')--}}
+{{--                                    <i class="fi fi-fr"></i>--}}
+{{--                                @else--}}
+{{--                                    <i class="fi fi-gb"></i>--}}
+{{--                                @endif--}}
 
-                            </button>
-
-
-                            <div class="collapse position-absolute w-100 start-50 mt-5 translate-middle-x bg-white top-0 text-center" id="languageSwitcher" >
-                                <div class="py-2">
-                                    <div class="@if(session()->get('locale') == 'ar') d-none @endif">
-                                        <a href="{{route('change-lang','ar')}}">
-                                            <i class="fi fi-sa"></i>
-                                        </a>
-                                    </div>
-
-                                    <div class="@if(session()->get('locale') == 'en') d-none @endif">
-                                        <a href="{{route('change-lang','en')}}">
-                                            <i class="fi fi-gb"></i>
-                                        </a>
-                                    </div>
-
-                                    <div class="@if(session()->get('locale') == 'fr') d-none @endif">
-                                        <a href="{{route('change-lang','fr')}}">
-                                            <i class="fi fi-fr"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+{{--                            </button>--}}
 
 
-                        </div>
+{{--                            <div class="collapse position-absolute w-100 start-50 mt-5 translate-middle-x bg-white top-0 text-center" id="languageSwitcher" >--}}
+{{--                                <div class="py-2">--}}
+{{--                                    <div class="@if(session()->get('locale') == 'ar') d-none @endif">--}}
+{{--                                        <a href="{{route('change-lang','ar')}}">--}}
+{{--                                            <i class="fi fi-sa"></i>--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
+
+{{--                                    <div class="@if(session()->get('locale') == 'en') d-none @endif">--}}
+{{--                                        <a href="{{route('change-lang','en')}}">--}}
+{{--                                            <i class="fi fi-gb"></i>--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
+
+{{--                                    <div class="@if(session()->get('locale') == 'fr') d-none @endif">--}}
+{{--                                        <a href="{{route('change-lang','fr')}}">--}}
+{{--                                            <i class="fi fi-fr"></i>--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+
+{{--                        </div>--}}
 
 {{--                        <li class="nav-item btn   border-0">--}}
 {{--                            <div id="donate-button" class="d-flex justify-content-center"></div>--}}
 {{--                        </li>--}}
-                    </ul>
+{{--                    </ul>--}}
 
                 </div>
             </div>

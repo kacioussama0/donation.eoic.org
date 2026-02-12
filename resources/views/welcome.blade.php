@@ -9,12 +9,11 @@
 
     <section class="hero-section">
 
-        <div class="container d-flex flex-column align-items-start justify-content-center text-light">
-
-                <h1 class="display-3 fw-bolder">رحمة… عطاء يصل ويصنع الفرق</h1>
-                <p class="w-50">منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية، تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.</p>
-                <button class="btn btn-success btn-lg">تبرع الآن</button>
-
+        <div class="container  bg-primary bg-opacity-75 p-5 rounded-5  d-flex flex-column align-items-start justify-content-center text-light position-relative overflow-hidden">
+            <p class="w-50 mb-4">منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية، تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.</p>
+            <h1 class="display-3 fw-bolder mb-5">رحمة… عطاء يصل <br>ويصنع الفرق</h1>
+                <button class="btn btn-outline-light px-4 btn-lg">تصفح حملاتنا</button>
+            <img src="https://webheady.com/Charity-sympathy/images/slider/1.jpg" alt="bg" class="img-fluid object-fit-cover h-100 position-absolute start-0 top-0 z-n1">
         </div>
 
     </section>
@@ -23,9 +22,54 @@
     {{--    End Hero Section  --}}
 
 
-    <div class="container mt-5 text-center">
-        <img src="https://ehsan.sa/assets/images/homepage/ahseno-ayah.svg" alt="ayat" class="img-fluid">
-    </div>
+{{--    <div class="container mt-5 text-center">--}}
+{{--        <img src="https://ehsan.sa/assets/images/homepage/ahseno-ayah.svg" alt="ayat" class="img-fluid">--}}
+{{--    </div>--}}
+
+
+
+    {{--    Start Categories --}}
+
+    <section class="categories my-5 pt-5">
+
+        <div class="container">
+
+
+            <h3 class="display-4 fw-bold">قطاعات التبرع</h3>
+
+
+
+            <div class="row g-5 my-3">
+
+                        @foreach($categories as $category)
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card shadow border-0 rounded-5 category-overlay overflow-hidden" style="background-image: url('{{$category->image_url}}');--category-color: {{$category->color_code}}">
+
+
+                                    <div class="card-body p-0" style="min-height: 250px">
+
+
+                                        <div class="infos position-absolute start-50 top-50 translate-middle z-3 w-100 text-center text-white vstack gap-3 align-items-center">
+                                            <h4 class="fw-bold">{{$category->translations->where('locale','ar')[0]['name']}}</h4>
+                                            <p>{{$category->translations->where('locale','ar')[0]['description']}}</p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+
+
+    </section>
+
+
+    {{--    End Categories--}}
+
+
 
     {{--    Start How To Donate  --}}
 
@@ -124,130 +168,39 @@
 
                 @foreach($projects as $project)
 
-                    <div class="col-md-6 col-xl-4 {{$project->category->slug()}} wow animate__animated animate__bounceIn project-item" data-category=".{{$project->category->slug()}}">
+                    <div class="col-md-6 col-xl-4 {{$project->category->slug}} wow animate__animated animate__bounceIn project-item" data-category=".{{$project->category->slug}}" >
 
-                        <div class="card border-0 shadow h-100 rounded-4">
-                            <div class="card-header p-4 bg-transparent border-0 d-flex justify-content-between align-items-center">
+                        <div class="card p-2 border-0 shadow-sm h-100 rounded-4">
 
-                                <h5 class="text-truncate mb-0">{{$project->title()}}</h5>
-
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#project-{{$project->id}}" class="ms-3">
-                                    <i class="fa-duotone fa-1x fa-share"></i>
-                                </a>
-
-                            </div>
 
                             <div class="card-body">
-                                <div class="position-relative">
-                                    <span class="  text-center  py-2 px-4  fw-bold  mb-2 text-bg-secondary d-block position-absolute  start-50  translate-middle-x rounded-bottom-5 ">
-                                        <img src="{{asset('storage/' . $project->category->icon)}}" alt="" class="img-fluid" style="width: 30px">
-                                        <h6>{{$project->category->title()}}</h6>
-                                    </span>
 
+                                    <img src="{{$project->thumbnail }}" alt="" class="img-fluid object-fit-cover rounded-5" style="height: 200px">
 
-                                    <div class="position-relative">
-                                        <img src="{{asset('storage/' .$project->thumbnail )}}" alt="" class="img-fluid object-fit-cover rounded-top-5 w-100" style="height: 200px">
+                                    <h4 class="mt-4 clamp-text-2 fw-bold">{{$project->title}}</h4>
 
-                                        <div class="progress rounded-0" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                            @if($project->status != 'completed')
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{($project->orders->where('status', 'paid')->sum('total_price') * 100) / $project->price }}%">{{round($project->orders->where('status', 'paid')->sum('total_price') * 100/ $project->price ,3 )}}%</div>
-                                            @else
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%">100%</div>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row mt-3">
-
-                                    <div class="col-6 col-md-4 vstack gap-1 align-items-center">
-                                        <i class="fa-solid fa-plus fa-2x text-primary"></i>
-                                        <h6 class="m-0">{{__('COLLECTED')}}</h6>
-                                        <span class="text-primary fw-bold">{{ $project->orders->where('status', 'paid')->sum('total_price')}} &euro;</span>
-                                    </div>
-
-                                    <div class="col-6 col-md-4 vstack gap-1 align-items-center">
-                                        <i class="fa-solid fa-percent fa-2x text-primary"></i>
-                                        <h6 class="m-0">{{__('REMAINING')}}</h6>
+                                    <div class="progress rounded-0 mt-4" role="progressbar" style="height: 6px" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                                         @if($project->status != 'completed')
-                                            <span class="text-primary fw-bold">{{$project->price - $project->orders->where('status', 'paid')->sum('total_price')}} &euro;</span>
+                                            <div class="progress-bar progress-bar-animated rounded-pill"  style="width: {{($project->orders->where('status', 'paid')->sum('total_price') * 100) / $project->price }}%"></div>
                                         @else
-                                            <span class="text-primary fw-bold">0&euro;</span>
+                                            <div class="progress-bar progress-bar-animated rounded-pill"  style="width: 100%;background-color: {{$project->category->color_code}}"></div>
                                         @endif
                                     </div>
 
-                                    <div class="col-6 col-md-4 vstack gap-1 align-items-center">
-                                        <i class="fa-solid fa-bullseye fa-2x text-primary"></i>
-                                        <h6 class="m-0">{{__('GOAL')}}</h6>
-                                        <span class="text-primary fw-bold">{{ $project -> price}} &euro;</span>
-                                    </div>
+                                    <div class="mt-3 d-block fw-medium">تم جمع {{$project->orders->sum('total_price')}} € — <span style="color: {{$project->category->color_code}}">الهدف {{$project->price}} €</span></div>
+
+                                    <a href="{{url('/projects/' . $project->slug())}}" class="btn btn-lg mt-3 px-5 rounded-pill text-light" style="background-color: {{$project->category->color_code}}">
+                                        {{__('DONATE')}}
+                                        <i class="fa-duotone fa-arrow-up-left ms-2"></i>
+                                    </a>
 
 
 
-                                    <div class="col-md-12 mt-3">
-                                        @if($project->status == 'completed')
-                                            <h3 class="text-center text-primary">
-                                                <i class="fa-duotone fa-check-circle"></i>
-                                                {{__('PROJECT_COMPLETED')}}
-                                            </h3>
-                                        @else
-
-                                            <form action="{{url('/projects/' . $project->slug)}}" class="d-flex justify-content-between align-items-center" method="GET">
-
-                                                <input type="number" name="amount" min="0" class="form-control border-end-0 rounded-end-0"step="any" placeholder="{{__('DONATE_AMOUNT')}}" required>
-
-                                                <button type="submit" class="btn btn-primary rounded-start-0">{{__('DONATE')}}</button>
-
-                                            </form>
-
-                                        @endif
-
-                                    </div>
-
-                                </div>
                             </div>
 
-                            <div class="card-footer bg-primary py-3 text-center border-0">
-                                <a href="{{url('/projects/' . $project->slug())}}" class="w-100 h-100  d-block text-decoration-none text-light">{{__('PROJECT_DETAILS')}}</a>
-                            </div>
 
                         </div>
 
-                        <div class="modal fade" id="project-{{$project->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered  ">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body d-flex flex-column justify-content-between align-items-center vstack gap-4">
-
-                                        <i class="fa-duotone fa-chart-network fa-5x text-primary"></i>
-                                        <h3>{{__('SHARE_LINK_SOCIAL_MEDIA')}}</h3>
-                                        <h5>{{__('SHARE_LINK')}}</h5>
-                                        <form action="" class="w-100 d-flex justify-content-between align-items-center">
-                                            <input type="text" class="form-control me-3" placeholder="{{__('SHARE')}}" readonly value="{{url('/projects/' . $project->id)}}">
-                                            <button class="btn btn-primary d-block">{{__('COPY')}} </button>
-                                        </form>
-
-                                        <div class="social-media ">
-                                            <a href="https://www.facebook.com/sharer.php?u={{url('/projects/' . $project->id)}}" class="text-decoration-none">
-                                                <i class="fa-brands fa-facebook fa-2x me-3"></i>
-                                            </a>
-
-                                            <a href="https://twitter.com/intent/tweet?text={{$project->title()}}&url={{url('/projects/' . $project->id)}}" class="text-decoration-none">
-                                                <i class="fa-brands fa-twitter fa-2x me-3"></i>
-                                            </a>
-
-                                            <a href="https://facebook.com" class="text-decoration-none">
-                                                <i class="fa-brands fa-whatsapp fa-2x me-3"></i>
-                                            </a>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
 

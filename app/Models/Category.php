@@ -9,25 +9,11 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-    public function title() {
+    protected $guarded = ['id'];
 
-        if(config('app.locale') == 'en')
-            return   $this -> title_en;
-        elseif(config('app.locale') == 'fr')
-            return  $this-> title_fr;
-
-        return $this ->  title ;
-    }
-
-    public function slug() {
-
-        if(config('app.locale') == 'en')
-            return   $this -> slug_en;
-        elseif(config('app.locale') == 'fr')
-            return  $this-> slug_fr;
-
-        return $this -> slug ;
+    public function translations()
+    {
+        return $this->hasMany(CategoryTranslation::class);
     }
 
     public function projects() {
