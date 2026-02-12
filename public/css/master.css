@@ -196,6 +196,33 @@ header nav ul li a {
     background-attachment: fixed;
 }
 
+
+ .feature-icon {
+     width: 85px;
+     height: 85px;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 32px;
+     transition: all 0.3s ease;
+ }
+
+.feature-card {
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08) !important;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
+}
+
+
+
 /*.active {*/
 /*    margin-left: 15px;*/
 /*    margin-right: 15px;*/
@@ -211,6 +238,21 @@ header nav ul li a {
 /*    color: #fff !important;*/
 /*}*/
 
+.categories::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-image: url("../imgs/pattern.svg");
+    position: absolute;
+    background-size: cover;
+    background-position: bottom right ;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.020;
+}
+
 
 .category-overlay {
     z-index: 3;
@@ -219,16 +261,35 @@ header nav ul li a {
     position: relative;
 }
 
+
+
+
+.category-overlay::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-image: url("../imgs/pattern.svg");
+    position: absolute;
+    background-size: cover;
+    background-position: center left;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: .15;
+}
+
+
 .category-overlay::after {
     content: '';
     width: 100%;
     height: 100%;
-    background-color: var(--category-color);
+    background-image: radial-gradient(at left top , var(--bs-primary) 30%,var(--category-color));
     position: absolute;
     top: 0;
     left: 0;
     z-index: 2;
-    opacity: .5;
+    opacity: .7;
 }
 
 .active {

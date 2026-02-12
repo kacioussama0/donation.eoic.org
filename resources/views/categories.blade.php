@@ -1,4 +1,4 @@
-@extends('layouts.header')
+@extends('layouts.app')
 
 @section('title',__('CATEGORIES'))
 
@@ -32,7 +32,8 @@
 
                                 <div class="infos position-absolute start-50 top-50 translate-middle z-3 w-100 text-center text-white vstack gap-3 align-items-center">
                                     <h4>{{$category->title()}}</h4>
-                                    <a class="btn btn-secondary stretched-link" href="{{url('/categories/' . $category->slug())}}">تصفح المشاريع</a>
+                                    <a class="btn btn-secondary stretched-link"
+                                       href="{{url('/categories/' . $category->slug())}}">تصفح المشاريع</a>
                                     <div>عدد المشاريع : {{count($category->projects)}}</div>
                                 </div>
 

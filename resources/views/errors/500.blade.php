@@ -1,10 +1,9 @@
-@extends('layouts.header')
+@extends('layouts.app')
 
 @section('title','لا يوجد')
 
 
 @section('content')
-
 
     <div class="container py-5 text-center vstack gap-4 justify-content-center align-items-center">
         <img src="{{asset('imgs/404.png')}}" alt="thank" class="img-fluid">

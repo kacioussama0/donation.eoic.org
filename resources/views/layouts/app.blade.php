@@ -282,35 +282,47 @@
 
     {{--  Start Footer  --}}
 
-    <footer class="bg-primary py-4">
+    <footer class="bg-dark-subtle py-4">
 
-            <div class="container text-white">
+            <div class="container">
 
-                <div class="row gy-md-3 align-items-center justify-content-center">
+                <div class="row gy-md-3 justify-content-center align-items-center text-center">
 
-                    <h6 class="mb-md-0 text-white fw-bold text-center  col-lg-4">{!! (__('ALL_RIGHT_RESERVED')) . ' '  . __('APP_NAME') . ' '  . date('Y') . '  ' !!}</h6>
 
-                    <div class="col-lg-4">
-                        <div class="d-flex align-items-center justify-content-center ">
-                            <i class="fa-brands fa-cc-visa fa-2x me-3 text-white"></i>
-                            <i class="fa-brands fa-cc-mastercard fa-2x me-3 text-white"></i>
-                            <i class="fa-brands fa-apple-pay fa-2x me-3 text-white"></i>
-                            <i class="fa-brands fa-google-pay fa-2x me-3 text-white"></i>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-4">
 
-                        <div class="d-flex align-items-center justify-content-center ">
-                            <a href="https://www.facebook.com/MEDIA.EOIC/" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-facebook fa-1x"></i></a>
-                            <a href="https://www.instagram.com/eoic_geneva/" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-instagram fa-1x"></i></a>
-                            <a href="https://www.youtube.com/channel/UCi_iTZfHrRN19Wtwo4vM4EA?view_as=subscriber" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-youtube fa-1x"></i></a>
-                            <a href="https://twitter.com/EOIC_Geneva" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-twitter fa-1x"></i></a>
-                        </div>
+
+{{--                    <div class="col-lg-4">--}}
+
+{{--                        <div class="d-flex align-items-center justify-content-center ">--}}
+{{--                            <a href="https://www.facebook.com/MEDIA.EOIC/" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-facebook fa-1x"></i></a>--}}
+{{--                            <a href="https://www.instagram.com/eoic_geneva/" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-instagram fa-1x"></i></a>--}}
+{{--                            <a href="https://www.youtube.com/channel/UCi_iTZfHrRN19Wtwo4vM4EA?view_as=subscriber" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-youtube fa-1x"></i></a>--}}
+{{--                            <a href="https://twitter.com/EOIC_Geneva" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-twitter fa-1x"></i></a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+                    <div class="col-12 mb-5">
+
+                        <img src="{{asset('imgs/logo.svg')}}" alt="logo" class="w-25 mb-4">
+                        <p class="w-50 mx-auto">منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية، تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.</p>
+
                     </div>
 
 
                 </div>
+
+
+                <div class="d-flex align-items-center justify-content-center  mb-3">
+                    <i class="fa-brands fa-cc-visa fa-2x me-3 text-dark"></i>
+                    <i class="fa-brands fa-cc-mastercard fa-2x me-3 text-dark"></i>
+                    <i class="fa-brands fa-apple-pay fa-2x me-3 text-dark"></i>
+                    <i class="fa-brands fa-google-pay fa-2x me-3 text-dark"></i>
+                </div>
+
+                <p class="mb-0  fw-bold text-center">{!! (__('ALL_RIGHT_RESERVED')) . ' '  . __('APP_NAME') . ' '  . date('Y') . '  ' !!}</p>
+
+
 
             </div>
 
