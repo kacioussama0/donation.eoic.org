@@ -289,7 +289,7 @@ header nav ul li a {
     top: 0;
     left: 0;
     z-index: 2;
-    opacity: .7;
+    opacity: .9;
 }
 
 .active {

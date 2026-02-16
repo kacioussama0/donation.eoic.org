@@ -68,20 +68,20 @@
 
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
                         <li class="nav-item me-2 ">
-                            <a class="nav-link active" aria-current="page" href="{{url('/')}}">
+                            <a class="nav-link {{request()->route()->named("/") ? 'active' : ''}}" aria-current="page" href="{{url('/')}}">
                                 {{__('HOME')}}
                             </a>
                         </li>
 
 
                         <li class="nav-item me-2">
-                            <a class="nav-link " aria-current="page" href="{{url('/categories')}}">
+                            <a class="nav-link {{request()->route()->named("categories") ? 'active' : ''}}" aria-current="page" href="{{url('/categories')}}">
                                 {{__('CATEGORIES')}}
                             </a>
                         </li>
 
                         <li class="nav-item me-2">
-                            <a class="nav-link " aria-current="page" href="{{url('about')}}">
+                            <a class="nav-link {{request()->route()->named("about") ? 'active' : ''}}" aria-current="page" href="{{url('/about')}}">
                                 {{__('ABOUT_US')}}
                             </a>
                         </li>
@@ -282,45 +282,68 @@
 
     {{--  Start Footer  --}}
 
-    <footer class="bg-dark-subtle py-4">
+    <footer class="text-bg-primary py-4">
 
             <div class="container">
 
-                <div class="row gy-md-3 justify-content-center align-items-center text-center">
+                <div class="row gy-md-3">
 
+                    <div class="col-md-6">
 
+                        <img src="{{asset('imgs/logo-white.svg')}}" alt="logo" class="w-25 mb-4">
+                        <p class="w-50 ">منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية، تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.</p>
 
+                    </div>
 
+                    <div class="col-md-3">
 
-{{--                    <div class="col-lg-4">--}}
-
-{{--                        <div class="d-flex align-items-center justify-content-center ">--}}
-{{--                            <a href="https://www.facebook.com/MEDIA.EOIC/" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-facebook fa-1x"></i></a>--}}
-{{--                            <a href="https://www.instagram.com/eoic_geneva/" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-instagram fa-1x"></i></a>--}}
-{{--                            <a href="https://www.youtube.com/channel/UCi_iTZfHrRN19Wtwo4vM4EA?view_as=subscriber" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-youtube fa-1x"></i></a>--}}
-{{--                            <a href="https://twitter.com/EOIC_Geneva" target="_blank" class="me-3 text-white" ><i class="fa-brands fa-twitter fa-1x"></i></a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-                    <div class="col-12 mb-5">
-
-                        <img src="{{asset('imgs/logo.svg')}}" alt="logo" class="w-25 mb-4">
-                        <p class="w-50 mx-auto">منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية، تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.</p>
+                       <h4>إختصارات</h4>
 
                     </div>
 
 
+                    <div class="col-md-3">
+
+                        <h4>تواصلوا معنا</h4>
+
+                    </div>
+
+
+
+                    <div class="col-md-12">
+
+
+                    </div>
+
+
+                    <div class="col-12 hstack justify-content-between">
+
+
+                        <p class="mb-0  fw-bold text-center">{!! (__('ALL_RIGHT_RESERVED')) . ' '  . __('APP_NAME') . ' '  . date('Y') . '  ' !!}</p>
+
+
+                        <div class="d-flex align-items-center justify-content-center text-white">
+                            <a href="https://www.facebook.com/MEDIA.EOIC/" target="_blank" class="me-3 " ><i class="fa-brands fa-facebook fa-2x text-white"></i></a>
+                            <a href="https://www.instagram.com/eoic_geneva/" target="_blank" class="me-3 " ><i class="fa-brands fa-instagram fa-2x text-white"></i></a>
+                            <a href="https://www.youtube.com/channel/UCi_iTZfHrRN19Wtwo4vM4EA?view_as=subscriber" target="_blank" class="me-3" ><i class="fa-brands fa-youtube fa-2x text-white"></i></a>
+                            <a href="https://twitter.com/EOIC_Geneva" target="_blank" class="me-3" ><i class="fa-brands fa-twitter fa-2x text-white"></i></a>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-center  mb-3">
+                            <i class="fa-brands fa-cc-visa fa-2x me-3 text-white"></i>
+                            <i class="fa-brands fa-cc-mastercard fa-2x me-3 text-white"></i>
+                            <i class="fa-brands fa-apple-pay fa-2x me-3 text-white"></i>
+                            <i class="fa-brands fa-google-pay fa-2x me-3 text-white"></i>
+                        </div>
+
+
+
+                    </div>
+
                 </div>
 
 
-                <div class="d-flex align-items-center justify-content-center  mb-3">
-                    <i class="fa-brands fa-cc-visa fa-2x me-3 text-dark"></i>
-                    <i class="fa-brands fa-cc-mastercard fa-2x me-3 text-dark"></i>
-                    <i class="fa-brands fa-apple-pay fa-2x me-3 text-dark"></i>
-                    <i class="fa-brands fa-google-pay fa-2x me-3 text-dark"></i>
-                </div>
 
-                <p class="mb-0  fw-bold text-center">{!! (__('ALL_RIGHT_RESERVED')) . ' '  . __('APP_NAME') . ' '  . date('Y') . '  ' !!}</p>
 
 
 
