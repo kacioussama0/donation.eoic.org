@@ -11,12 +11,10 @@ class Category extends Model
 
     protected $guarded = ['id'];
 
-    public function translations()
+    public function campaigns()
     {
-        return $this->hasMany(CategoryTranslation::class);
+        return $this->hasMany(Campaign::class);
     }
 
-    public function projects() {
-        return $this->hasMany(Project::class);
-    }
+
 }

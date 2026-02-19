@@ -68,7 +68,7 @@
 
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
                         <li class="nav-item me-2 ">
-                            <a class="nav-link {{request()->route()->named("/") ? 'active' : ''}}" aria-current="page" href="{{url('/')}}">
+                            <a class="nav-link {{request()->route()->named("home") ? 'active' : ''}}" aria-current="page" href="{{url('/')}}">
                                 {{__('HOME')}}
                             </a>
                         </li>
@@ -288,21 +288,21 @@
 
                 <div class="row gy-md-3">
 
-                    <div class="col-md-6">
+                    <div class="col-12 col-md-6">
 
                         <img src="{{asset('imgs/logo-white.svg')}}" alt="logo" class="w-25 mb-4">
                         <p class="w-50 ">منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية، تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.</p>
 
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-12 col-md-3">
 
                        <h4>إختصارات</h4>
 
                     </div>
 
 
-                    <div class="col-md-3">
+                    <div class="col-12 col-md-3">
 
                         <h4>تواصلوا معنا</h4>
 
@@ -316,7 +316,7 @@
                     </div>
 
 
-                    <div class="col-12 hstack justify-content-between">
+                    <div class="col-12 hstack flex-wrap justify-content-between">
 
 
                         <p class="mb-0  fw-bold text-center">{!! (__('ALL_RIGHT_RESERVED')) . ' '  . __('APP_NAME') . ' '  . date('Y') . '  ' !!}</p>
@@ -329,7 +329,7 @@
                             <a href="https://twitter.com/EOIC_Geneva" target="_blank" class="me-3" ><i class="fa-brands fa-twitter fa-2x text-white"></i></a>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-center  mb-3">
+                        <div class="d-flex align-items-center justify-content-center mb-3">
                             <i class="fa-brands fa-cc-visa fa-2x me-3 text-white"></i>
                             <i class="fa-brands fa-cc-mastercard fa-2x me-3 text-white"></i>
                             <i class="fa-brands fa-apple-pay fa-2x me-3 text-white"></i>

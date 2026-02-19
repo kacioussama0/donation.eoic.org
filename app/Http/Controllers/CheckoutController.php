@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
+use App\Models\Donation;
 use App\Models\Order;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -13,13 +15,14 @@ class CheckoutController extends Controller
     public function checkout(Request $request) {
 
         $validated = $request->validate([
-            'price' => 'required',
-            'project_id' => 'required',
+            'price' => 'required|min:1',
+            'campaign_id' => 'required|exists:campaigns,id',
         ]);
 
         $secretKey = env('STRIPE_SECRET_KEY');
 
-        \Stripe\Stripe::setApiKey('sk_test_51MBdoJIMzWwDJnIZpZWnQUOQTiMB10sdehnKH1xOjkej9xGpiPYUD723mRqq0HTyXZ5oaWbfihOoyQrNs3TmL3zu00G0qbIO5l');
+        $stripe = new \Stripe\StripeClient('sk_test_51MBdoJIMzWwDJnIZpZWnQUOQTiMB10sdehnKH1xOjkej9xGpiPYUD723mRqq0HTyXZ5oaWbfihOoyQrNs3TmL3zu00G0qbIO5l');
+
 
         $lineItems = [
 
@@ -29,6 +32,7 @@ class CheckoutController extends Controller
                        'unit_amount' => $validated['price'] * 100,
                        'product_data' => [
                            'name' => $request->title,
+                           'description' => $request->description,
                            'images' => [$request->image],
                        ],
                    ],
@@ -37,7 +41,9 @@ class CheckoutController extends Controller
         ];
 
 
-        $checkoutSession = \Stripe\Checkout\Session::create([
+
+
+        $checkoutSession = $stripe->checkout->sessions->create([
             'mode' => 'payment',
             'success_url' => route('checkout.success') . "?session_id={CHECKOUT_SESSION_ID}",
             'cancel_url' => url()->previous(),
@@ -46,11 +52,11 @@ class CheckoutController extends Controller
         ]);
 
 
-        $order = new Order();
-        $order -> status = 'unpaid';
-        $order -> total_price = $validated['price'];
-        $order -> project_id = $validated['project_id'];
-        $order -> session_id = $checkoutSession->id;
+        $order = new Donation();
+        $order -> status = 'pending';
+        $order -> amount = $validated['price'];
+        $order -> campaign_id = $validated['campaign_id'];
+        $order -> stripe_checkout_session_id = $checkoutSession->id;
 
         $order->save();
 
@@ -64,11 +70,13 @@ class CheckoutController extends Controller
 
         $secretKey = env('STRIPE_SECRET_KEY');
 
-        \Stripe\Stripe::setApiKey('sk_test_51MBdoJIMzWwDJnIZpZWnQUOQTiMB10sdehnKH1xOjkej9xGpiPYUD723mRqq0HTyXZ5oaWbfihOoyQrNs3TmL3zu00G0qbIO5l');
+        $stripe = new \Stripe\StripeClient('sk_test_51MBdoJIMzWwDJnIZpZWnQUOQTiMB10sdehnKH1xOjkej9xGpiPYUD723mRqq0HTyXZ5oaWbfihOoyQrNs3TmL3zu00G0qbIO5l');
 
         $sessionId = $request->get('session_id');
 
-        $session = \Stripe\Checkout\Session::retrieve($sessionId);
+        $session = $stripe->checkout->sessions->retrieve($sessionId);
+
+
 
         $customerDetails = [
             'email' => $session['customer_details']['email'],
@@ -84,30 +92,32 @@ class CheckoutController extends Controller
                 throw new NotFoundHttpException();
             }
 
-            $order = Order::where('session_id',$session->id)->where('status','unpaid')->first();
+            $order = Donation::where('stripe_checkout_session_id',$session->id)->first();
 
             if(!$order) {
                 throw new NotFoundHttpException();
             }
 
-            $order->full_name = $customerDetails['name'];
-            $order->email = $customerDetails['email'];
-
-            $order->status = 'paid';
-            $order->save();
+            $order->donor_name = $customerDetails['name'];
+            $order->donor_email = $customerDetails['email'];
 
 
-            $project = Order::where('session_id',$request->get('session_id'))->first()->project;
+            if($session['payment_status'] == 'paid')  {
+                $order->status = 'paid';
+                $order->save();
 
+                $campaign = Campaign::find($order->campaign_id);
 
-            $percentage = ($project->orders->where('status', 'paid')->sum('total_price') * 100) / $project->price;
+                $campaign->collected_amount = $campaign->collected_amount + $order->amount;
 
-            if($percentage >= 100) {
-                $project->status = 'completed';
-                $project->save();
+                $campaign->save();
+
+                return view('success',compact('order'));
+
             }
 
-            return view('success');
+            abort(500);
+
 
         }catch (\Exception $e) {
             throw new NotFoundHttpException();

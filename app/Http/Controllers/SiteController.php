@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Session;
 class SiteController extends Controller
@@ -15,22 +17,11 @@ class SiteController extends Controller
 
     public function home() {
 
-        $orders = Order::where('status','paid')->count();
-        $visitors = Project::sum('visitors');
-        $projects = Project::latest()->get();
+
         $categories = Category::latest()->get();
+        $campaigns = Campaign::latest()->get()->take(12);
+        return view('welcome',compact('categories','campaigns'));
 
-        if(config('app.locale') == 'fr') {
-            $projects = Project::where('title_fr', '!=' , null)->get();
-        }
-
-        elseif(config('app.locale') == 'en') {
-            $projects = Project::where('title_en', '!=' , null)->get();
-        }
-
-
-
-        return view('welcome',compact('orders','visitors','projects','categories'));
     }
     public function change_language($locale) {
         try {
@@ -75,21 +66,21 @@ class SiteController extends Controller
         return view('projects',compact('categories','projects','title'));
     }
 
-    public function project($slug) {
+    public function campaign ($slug) {
 
-        $project = Project::where('slug', $slug)->first();
 
-        if(config('app.locale') == 'fr') {
-            $project = Project::where('slug_fr', $slug)->first();
+        $campaign  = Campaign::where('slug', $slug)->first();
+        $latestDonation = $campaign->donations->where('status','paid')->last();
+
+        $cookieKey = "campaign_viewed_{$campaign->id}";
+
+        if (!request()->cookie($cookieKey)) {
+            $campaign->increment('visitors');
+            Cookie::queue($cookieKey, true, 60 * 24);
         }
 
-        elseif(config('app.locale') == 'en') {
-            $project = Project::where('slug_en', $slug)->first();
-        }
 
-        $project -> visitors++;
-        $project -> save();
-        return view('project',compact('project'));
+        return view('campaign',compact('campaign','latestDonation'));
     }
 
     public function orders() {

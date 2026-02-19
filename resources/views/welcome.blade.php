@@ -25,9 +25,77 @@
     {{--    End Hero Section  --}}
 
 
-    {{--    <div class="container mt-5 text-center">--}}
-    {{--        <img src="https://ehsan.sa/assets/images/homepage/ahseno-ayah.svg" alt="ayat" class="img-fluid">--}}
-    {{--    </div>--}}
+        <div class="container my-5 text-center">
+            <img src="https://ehsan.sa/assets/images/homepage/ahseno-ayah.svg" alt="ayat" class="img-fluid">
+        </div>
+
+
+
+    @if(count($campaigns))
+
+        {{--    Start Project  --}}
+
+        <section class="campaigns">
+
+
+            <div class="container">
+                <div class="row mt-5 g-5 projects">
+
+                    @foreach($campaigns as $campaign)
+
+                        <div
+                            class="col-md-6 col-xl-4 {{$campaign->category->slug}} wow animate__animated animate__bounceIn project-item"
+                            data-category=".{{$campaign->category->slug}}">
+
+                            <div class="card p-2 border-0  h-100 rounded-5 shadow">
+
+
+                                <div class="card-body">
+
+                                    <img src="{{$campaign->thumbnail }}" alt=""
+                                         class="img-fluid object-fit-cover w-100 rounded-5" style="height: 200px;">
+
+                                    <h4 class="mt-4 clamp-text-2 fw-bold">{{$campaign->name}}</h4>
+
+
+                                    <div class="progress rounded-0 mt-4" role="progressbar" style="height: 6px">
+
+                                            <div class="progress-bar progress-bar-animated bg-primary rounded-pill"
+                                                 style="width: {{ $campaign->progress_percentage }}%"></div>
+
+                                    </div>
+
+                                    <div class="mt-3 d-block fw-medium">تم جمع {{$campaign->collected_amount}}
+                                        € — <span class="text-primary" >الهدف {{$campaign->target_amount}} €</span>
+                                    </div>
+
+                                    <a href="{{url('/campaigns/' . $campaign->slug)}}"
+                                       class="btn btn-lg mt-3 px-5 rounded-pill btn-primary">
+                                        {{__('DONATE')}}
+                                        <i class="fa-duotone fa-arrow-up-left ms-2"></i>
+                                    </a>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+                    @endforeach
+
+                </div>
+            </div>
+        </section>
+
+        {{--    End Project  --}}
+
+    @endif
+
+
+
 
 
 
@@ -52,13 +120,13 @@
                              style="background-image: url('{{$category->image_url}}');--category-color: {{$category->color_code}}">
 
 
-                            <div class="card-body p-0" style="min-height: 250px">
-
+                            <div class="card-body" style="min-height: 250px">
 
                                 <div
-                                    class="infos position-absolute start-50 top-50 translate-middle z-3 w-100 text-center text-white vstack gap-3 align-items-center">
-                                    <h4 class="fw-bold">{{$category->translations->where('locale','ar')[0]['name']}}</h4>
-                                    <p>{{$category->translations->where('locale','ar')[0]['description']}}</p>
+                                    class="infos p-4 position-absolute start-50 top-50 translate-middle z-3 w-100 text-center text-white vstack gap-3 align-items-center">
+                                    <h4 class="fw-bold">{{$category->title}}</h4>
+                                    <p>{{$category->description}}</p>
+                                    <a href="{{url($category->slug)}}" class="stretched-link"></a>
                                 </div>
 
                             </div>
@@ -164,19 +232,19 @@
             <div class="row gy-5 gy-md-0">
                 <div class="col-md-4 vstack gap-2  align-items-center">
                     <i class="fa-duotone fa-donate  fa-3x"></i>
-                    <span class="fs-3 fw-bold">{{$orders}}</span>
+                    <span class="fs-3 fw-bold">0</span>
                     <h3>{{__('OPERATION_NUMBERS')}}</h3>
                 </div>
 
                 <div class="col-md-4 vstack gap-2 align-items-center">
                     <i class="fa-duotone fa-project-diagram  fa-3x"></i>
-                    <span class="fs-3 fw-bold">{{count($projects)}}</span>
+                    <span class="fs-3 fw-bold">0</span>
                     <h3>{{__('PROJECT_NUMBERS')}}</h3>
                 </div>
 
                 <div class="col-md-4 vstack gap-2 align-items-center">
                     <i class="fa-duotone fa-eye  fa-3x"></i>
-                    <span class="fs-3 fw-bold">{{$visitors}}</span>
+                    <span class="fs-3 fw-bold">0</span>
                     <h3>{{__('VISITOR_NUMBERS')}}</h3>
                 </div>
 
@@ -187,74 +255,4 @@
 
     </div>
 
-    @if(count($projects))
-
-        {{--    Start Project  --}}
-
-        <section class="projects my-5 py-5">
-
-            <h3 class="display-4 fw-bold text-center ">
-                <img src="../imgs/single-pattern.svg" alt="">
-                {{__('LATEST_PROJECTS')}}
-            </h3>
-
-            <div class="container">
-                <div class="row mt-5 g-5 projects">
-
-                    @foreach($projects as $project)
-
-                        <div
-                            class="col-md-6 col-xl-4 {{$project->category->slug}} wow animate__animated animate__bounceIn project-item"
-                            data-category=".{{$project->category->slug}}">
-
-                            <div class="card p-2 border-0  h-100 rounded-5"
-                                 style="box-shadow: 0 8px 25px {{$project->category->color_code}}33">
-
-
-                                <div class="card-body">
-
-                                    <img src="{{$project->thumbnail }}" alt=""
-                                         class="img-fluid object-fit-cover rounded-5" style="height: 200px;">
-
-                                    <h4 class="mt-4 clamp-text-2 fw-bold">{{$project->title}}</h4>
-
-                                    <div class="progress rounded-0 mt-4" role="progressbar" style="height: 6px">
-                                        @if($project->status != 'completed')
-                                            <div class="progress-bar progress-bar-animated rounded-pill"
-                                                 style="width: {{($project->orders->where('status', 'paid')->sum('total_price') * 100) / $project->price }}%;background-color: {{$project->category->color_code}}"></div>
-                                        @else
-                                            <div class="progress-bar progress-bar-animated rounded-pill"
-                                                 style="width: 100%;background-color: {{$project->category->color_code}}"></div>
-                                        @endif
-                                    </div>
-
-                                    <div class="mt-3 d-block fw-medium">تم جمع {{$project->orders->sum('total_price')}}
-                                        € — <span style="color: {{$project->category->color_code}}">الهدف {{$project->price}} €</span>
-                                    </div>
-
-                                    <a href="{{url('/projects/' . $project->slug())}}"
-                                       class="btn btn-lg mt-3 px-5 rounded-pill text-light"
-                                       style="background-color: {{$project->category->color_code}}">
-                                        {{__('DONATE')}}
-                                        <i class="fa-duotone fa-arrow-up-left ms-2"></i>
-                                    </a>
-
-
-                                </div>
-
-
-                            </div>
-
-
-                        </div>
-
-                    @endforeach
-
-                </div>
-            </div>
-        </section>
-
-        {{--    End Project  --}}
-
-    @endif
 @endsection

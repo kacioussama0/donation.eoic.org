@@ -13,7 +13,6 @@
 
     </div>
 
-    <div class="shapedividers_com-7183" style="height: 100px"></div>
 
 
     <div class="categories mb-5">

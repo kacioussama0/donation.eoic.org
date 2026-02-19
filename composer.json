@@ -14,7 +14,7 @@
         "laravel/ui": "^4.2",
         "mcamara/laravel-localization": "^2.3",
         "spatie/laravel-translatable": "^6.5",
-        "stripe/stripe-php": "^10.20"
+        "stripe/stripe-php": "^19.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
