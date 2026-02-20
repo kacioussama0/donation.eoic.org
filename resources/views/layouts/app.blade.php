@@ -9,8 +9,8 @@
 
 
     <meta charset="UTF-8">
-    <meta name="title" content="منصة الهيئة الأوروبية للتبرعات">
-    <meta name="description" content="هيئة متخصصة في العناية بشؤون المراكز الإسلامية في أوروباأُسست وفقاً للمادة (60) من القانون المدني السويسري ">
+    <meta name="title" content="منصة رحمة للتبرعات">
+    <meta name="description" content="منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية. تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.">
     <meta name="keywords" content="تبرع , زكاة  , صدقة , مشاريع , المراكز الإسلامية , الهيئة الأوروبية للمراكز الإسلامية , سويسرا , أيتام">
     <meta name="robots" content="index, follow">
     <meta name="language" content="Arabic">

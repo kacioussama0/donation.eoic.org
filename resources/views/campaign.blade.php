@@ -16,7 +16,7 @@
     <meta property="og:description"
           content="{{ Str::limit(strip_tags($campaign->description), 200) }}"/>
     <meta property="og:image"
-          content="{{ asset('storage/' . $campaign->thumbnail) }}"/>
+          content="{{  $campaign->thumbnail }}"/>
     <meta property="og:url" content="{{ url()->current() }}"/>
     <meta property="og:site_name" content="{{ config('app.name') }}"/>
     <meta property="og:locale" content="ar_AR"/>
@@ -27,7 +27,7 @@
     <meta name="twitter:description"
           content="{{ Str::limit(strip_tags($campaign->description), 200) }}">
     <meta name="twitter:image"
-          content="{{ asset('storage/' . $campaign->thumbnail) }}">
+          content="{{ $campaign->thumbnail }}">
     <meta name="twitter:url" content="{{ url()->current() }}">
     <meta name="twitter:site" content="@rahma">
 
@@ -39,7 +39,7 @@
                   "name": "{{ $campaign->name }}",
           "description": "{{ Str::limit(strip_tags($campaign->description), 200) }}",
           "url": "{{ url()->current() }}",
-          "image": "{{ asset('storage/' . $campaign->thumbnail) }}",
+          "image": "{{ $campaign->thumbnail }}",
           "provider": {
             "@type": "Organization",
             "name": "{{ config('app.name') }}"
