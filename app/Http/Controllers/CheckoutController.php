@@ -32,7 +32,7 @@ class CheckoutController extends Controller
 
         $secretKey = env('STRIPE_SECRET_KEY');
 
-        $stripe = new \Stripe\StripeClient('sk_test_51MBdoJIMzWwDJnIZpZWnQUOQTiMB10sdehnKH1xOjkej9xGpiPYUD723mRqq0HTyXZ5oaWbfihOoyQrNs3TmL3zu00G0qbIO5l');
+        $stripe = new \Stripe\StripeClient($secretKey);
 
 
         $lineItems = [

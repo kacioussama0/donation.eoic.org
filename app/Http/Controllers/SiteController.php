@@ -45,7 +45,7 @@ class SiteController extends Controller
 
     public function campaigns() {
 
-        $campaigns = Campaign::all();
+        $campaigns = Campaign::orderBy('is_urgent','desc')->orderBy('created_at', 'desc')->get();
         return view('campaigns',compact('campaigns'));
     }
 
