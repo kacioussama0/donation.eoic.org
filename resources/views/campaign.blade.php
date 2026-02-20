@@ -1,32 +1,76 @@
 @extends('layouts.app')
 
-@section('title',$campaign->name)
-
+@section('title', 'تبرع لحملة ' . $campaign->name)
 
 @section('meta')
 
-    <meta property="og:title" content="{{$campaign->name}}"/>
-    <meta property="og:image" content="{{asset('storage/' . $campaign->thumbnail)}}"/>
-    <meta property="og:site_name" content="{{__('APP_NAME')}}"/>
-    <meta property="og:description" content="{{$campaign->description}}"/>
-    <meta name="twitter:title" content="{{$campaign->name}}">
-    <meta name="twitter:description" content="{{__('APP_NAME')}}">
-    <meta name="twitter:image" content="{{asset('storage/' . $campaign->thumbnail)}}">
+    {{-- SEO --}}
+    <meta name="description"
+          content="{{ Str::limit(strip_tags($campaign->description), 160) }}">
+
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    {{-- Open Graph --}}
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="تبرع لحملة {{ $campaign->name }}"/>
+    <meta property="og:description"
+          content="{{ Str::limit(strip_tags($campaign->description), 200) }}"/>
+    <meta property="og:image"
+          content="{{ asset('storage/' . $campaign->thumbnail) }}"/>
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta property="og:site_name" content="{{ config('app.name') }}"/>
+    <meta property="og:locale" content="ar_AR"/>
+
+    {{-- Twitter --}}
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="تبرع لحملة {{ $campaign->name }}">
+    <meta name="twitter:description"
+          content="{{ Str::limit(strip_tags($campaign->description), 200) }}">
+    <meta name="twitter:image"
+          content="{{ asset('storage/' . $campaign->thumbnail) }}">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:site" content="@rahma">
+
+
+    <script type="application/ld+json">
+        {
+                  "@context": "https://schema.org",
+                  "@type": "DonateAction",
+                  "name": "{{ $campaign->name }}",
+          "description": "{{ Str::limit(strip_tags($campaign->description), 200) }}",
+          "url": "{{ url()->current() }}",
+          "image": "{{ asset('storage/' . $campaign->thumbnail) }}",
+          "provider": {
+            "@type": "Organization",
+            "name": "{{ config('app.name') }}"
+          }
+        }
+    </script>
+
 
 @endsection
 
 
+
 @section('content')
     <div class="container  my-4">
-        <div class="row g-lg-5">
+        <div class="row gy-3 g-lg-5">
             <div class="col-md-6">
                 <div class="card shadow border-0 rounded-4">
                     <div class="card-body vstack gap-3">
                         <h3>التفاصيل</h3>
 
-                        <img src="{{$campaign->thumbnail}}" alt=""
-                             class="img-fluid w-100 rounded-5">
+
+                        <div class="position-relative">
+
+                            <img src="{{$campaign->thumbnail}}" alt=""
+                                 class="img-fluid w-100 rounded-5" style="filter: blur({{$campaign->collected_amount >= $campaign->target_amount ? 2 : 0}}px)">
+
+                            @if($campaign->collected_amount >= $campaign->target_amount)
+                                            <img src="/imgs/complete-badge.svg"  alt="" width="300" height="300"  class="position-absolute start-50 top-50 translate-middle">
+
+                            @endif
+                        </div>
 
                         <h1 class="fw-bolder mb-0">{{$campaign->name}}</h1>
                         <p class="p-3 bg-primary bg-opacity-10">{!! $campaign->description !!}</p>
@@ -98,16 +142,10 @@
 
 
                             <div class="col-md-6 hstack gap-3">
-                                <i class="fa-duotone fa-users fa-2x"></i>
+                                <i class="fa-duotone fa-calendar-arrow-up fa-2x"></i>
                                 <span>
-                                    <h6 class="text-primary fw-bold">عدد المستفيدين</h6>
-                                    @if($campaign->donations->count() > 0)
-                                        <span>
-                                            {{ $campaign->donations->count() }}  مستفيد
-                                        </span>
-                                    @else
-                                        <span>لا توجد اي مستفيد</span>
-                                    @endif
+                                    <h6 class="text-primary fw-bold">تاريخ النشر</h6>
+                                    <span>{{ $campaign->created_at->locale('ar')->translatedFormat('l, d F Y') }}</span>
 
                                 </span>
                             </div>
@@ -120,20 +158,40 @@
 
 
             <div class="col-md-6">
-                <div class="row g-5">
+                <div class="row gy-3 g-lg-5">
                     <div class="col-12 mb-5">
                         <div class="card shadow border-0 rounded-4">
                             <div class="card-body vstack gap-3">
 
-                                @if($campaign->status == 'completed')
+                                @if($campaign->collected_amount >= $campaign->target_amount)
 
-                                    <h3 class="text-center text-primary display-3 fw-bold">
+                                    <h3 class="text-center text-primary fw-bold display-4">
                                         <i class="fa-duotone fa-check-circle"></i>
-                                        {{__('PROJECT_COMPLETED')}}
+                                        تم تحقيق الهدف
                                     </h3>
                                 @else
 
+
+
                                     <h3>{{__('DONATE_AMOUNT')}}</h3>
+
+                                    @if(session('stripe_error'))
+                                        <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+                                            {{ session('stripe_error') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                        </div>
+                                    @endif
+
+                                    @if(request('payment') === 'cancelled')
+                                        <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                                            تم إلغاء عملية الدفع.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                        </div>
+                                    @endif
+
+
+
+
                                     <form action="{{url('/donate')}}" class="d-flex flex-column-reverse"
                                           method="POST">
 
@@ -226,36 +284,59 @@
 
                 <div class="col-12 text-center">
 
+                    @php
+                        $shareUrl = url('/campaigns/' . $campaign->slug);
+                        $shareTitle = urlencode($campaign->title);
+                        $encodedUrl = urlencode($shareUrl);
+                    @endphp
+
                     <div class="card shadow border-0 rounded-4">
-                        <div class="card-body">
+                        <div class="card-body py-4">
 
-                            <h3 class="my-3">{{__('SHARE_PROJECT')}} :</h3>
+                            <h5 class="fw-bold mb-4">شارك الحملة على</h5>
 
-                            <a href="https://www.facebook.com/sharer.php?u={{url('/projects/' . $campaign->slug)}}"
-                               class="text-decoration-none">
-                                <i class="fa-brands fa-facebook fa-2x me-3"></i>
-                            </a>
+                            <div class="d-flex justify-content-center gap-4 flex-wrap">
 
-                            <a href="https://twitter.com/intent/tweet?text={{$campaign->title}}&url={{url('/projects/' . $campaign->slug)}}"
-                               class="text-decoration-none">
-                                <i class="fa-brands fa-twitter fa-2x me-3"></i>
-                            </a>
+                                {{-- Facebook --}}
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ $encodedUrl }}"
+                                   target="_blank"
+                                   class="share-btn facebook">
+                                    <i class="fa-brands fa-facebook-f "></i>
+                                </a>
 
-                            <a href="https://facebook.com" class="text-decoration-none">
-                                <i class="fa-brands fa-whatsapp fa-2x me-3"></i>
-                            </a>
+                                {{-- Twitter (X) --}}
+                                <a href="https://twitter.com/intent/tweet?text={{ $shareTitle }}&url={{ $encodedUrl }}"
+                                   target="_blank"
+                                   class="share-btn twitter">
+                                    <i class="bi bi-twitter-x"></i>
+                                </a>
+
+                                {{-- WhatsApp --}}
+                                <a href="https://wa.me/?text={{ $shareTitle }}%20{{ $encodedUrl }}"
+                                   target="_blank"
+                                   class="share-btn whatsapp">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </a>
+
+                                {{-- Telegram --}}
+                                <a href="https://t.me/share/url?url={{ $encodedUrl }}&text={{ $shareTitle }}"
+                                   target="_blank"
+                                   class="share-btn telegram">
+                                    <i class="fa-brands fa-telegram"></i>
+                                </a>
+
+                            </div>
 
                         </div>
-
                     </div>
 
                 </div>
+
             </div>
 
 
         </div>
     </div>
-
 
     <script>
 

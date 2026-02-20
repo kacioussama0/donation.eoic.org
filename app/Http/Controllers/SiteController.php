@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Campaign;
 use App\Models\Category;
+use App\Models\Donation;
 use App\Models\Order;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -19,8 +20,12 @@ class SiteController extends Controller
 
 
         $categories = Category::latest()->get();
-        $campaigns = Campaign::latest()->get()->take(12);
-        return view('welcome',compact('categories','campaigns'));
+        $campaigns = Campaign::orderBy('is_urgent','desc')->orderBy('created_at', 'desc')->limit(6)->get();
+        $visitorsCount = Campaign::sum('visitors');
+        $donationsCount = Donation::count();
+        $campaignsCount = Campaign::count();
+
+        return view('welcome',compact('categories','campaigns','visitorsCount','donationsCount','campaignsCount'));
 
     }
     public function change_language($locale) {
@@ -38,24 +43,10 @@ class SiteController extends Controller
     }
 
 
-    public function projects($slug) {
+    public function campaigns() {
 
-
-        $category = Category::where('slug',$slug)->first();
-
-        $projects = $category -> projects;
-
-        $title = $category->title;
-
-        if(config('app.locale') == 'fr') {
-            $projects = Project::where('title_fr', '!=' , null)->where('status','open')->get();
-        }
-
-        elseif(config('app.locale') == 'en') {
-            $projects = Project::where('title_en', '!=' , null)->where('status','open')->get();
-        }
-
-        return view('projects',compact('projects','title','category'));
+        $campaigns = Campaign::all();
+        return view('campaigns',compact('campaigns'));
     }
 
 

@@ -73,18 +73,22 @@
 
     <div class="goals py-5 bg-primary bg-opacity-25">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-4">
-                    <img src="{{asset('imgs/ziyan.jpg')}}" alt="" height="400" class="rounded-5 img-fluid shadow-sm">
+            <div class="row align-items-center g-4">
+
+                <div class="col-12 col-lg-4 text-center text-lg-start">
+                    <img src="{{ asset('imgs/ziyan.jpg') }}"
+                         alt=""
+                         class="rounded-5 img-fluid shadow-sm president-img">
                 </div>
 
-                <div class="col-6">
-                    <h3 class="fw-bold">{{__('PRESIDENT') . ' ' . __('ORGANISATION_NAME')}}</h3>
-                    <p>{{__('CHIKH') . ' : ' . __('ORGANISATION_PRESIDENT')}}</p>
+                <div class="col-12 col-lg-8 text-center text-lg-start">
+                    <h3 class="fw-bold mb-2">{{ __('PRESIDENT') . ' ' . __('ORGANISATION_NAME') }}</h3>
+                    <p class="mb-0 fs-5">{{ __('CHIKH') . ' : ' . __('ORGANISATION_PRESIDENT') }}</p>
                 </div>
+
             </div>
-
         </div>
     </div>
+
 
 @endsection

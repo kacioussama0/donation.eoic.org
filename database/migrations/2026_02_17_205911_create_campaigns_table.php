@@ -27,7 +27,8 @@ return new class extends Migration
             $table->boolean('is_active')->default(true)->index();
             $table->boolean('is_featured')->default(false)->index();
             $table->boolean('is_urgent')->default(false)->index();
-            $table->unsignedInteger('visitors')->default(0);            $table->string('cover_image')->nullable();
+            $table->unsignedInteger('visitors')->default(0);
+            $table->string('cover_image')->nullable();
             $table->string('video_url')->nullable();
             $table->unsignedInteger('sort_order')->default(0)->index();
             $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete()->cascadeOnUpdate();

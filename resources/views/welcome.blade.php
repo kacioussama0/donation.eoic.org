@@ -7,19 +7,32 @@
     {{--    Start Hero Section  --}}
 
 
-    <section class="hero-section">
+    <section class="hero-section py-4 py-md-5">
+        <div class="container">
+            <div
+                class="bg-primary bg-opacity-75 text-light position-relative overflow-hidden rounded-5
+                   p-4 p-md-5 d-flex flex-column align-items-start justify-content-center
+                   hero-min-h">
 
-        <div
-            class="container  bg-primary bg-opacity-75 p-5 rounded-5  d-flex flex-column align-items-start justify-content-center text-light position-relative overflow-hidden">
-            <p class="w-50 mb-4">منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية، تُمكّنك من دعم
-                المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.</p>
-            <h1 class="display-3 fw-bolder mb-5">رحمة… عطاء يصل <br>ويصنع الفرق</h1>
-            <button class="btn btn-outline-light px-4 btn-lg">تصفح حملاتنا</button>
-            <img src="https://webheady.com/Charity-sympathy/images/slider/1.jpg" alt="bg"
-                 class="img-fluid object-fit-cover h-100 position-absolute start-0 top-0 z-n1">
+                <p class="mb-4 col-12 col-md-7 col-lg-6">
+                    منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية، تُمكّنك من دعم
+                    المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.
+                </p>
+
+                <h1 class="fw-bolder mb-4 mb-md-5 hero-title">
+                    رحمة… عطاء يصل <br class="d-none d-md-block"> ويصنع الفرق
+                </h1>
+
+                <a class="btn btn-outline-light px-4 btn-lg" href="{{url('/campaigns')}}">
+                    تصفح حملاتنا
+                </a>
+
+                <img src="https://webheady.com/Charity-sympathy/images/slider/1.jpg" alt="bg"
+                     class="img-fluid object-fit-cover position-absolute start-0 top-0 w-100 h-100 z-n1">
+            </div>
         </div>
-
     </section>
+
 
 
     {{--    End Hero Section  --}}
@@ -39,7 +52,7 @@
 
 
             <div class="container">
-                <div class="row mt-5 g-5 projects">
+                <div class="row mt-5 gy-3 g-lg-5 projects">
 
                     @foreach($campaigns as $campaign)
 
@@ -52,9 +65,20 @@
 
                                 <div class="card-body">
 
-                                    <img src="{{$campaign->thumbnail }}" alt=""
-                                         class="img-fluid object-fit-cover w-100 rounded-5" style="height: 200px;">
+                                    <div class="position-relative">
+                                        <img src="{{$campaign->thumbnail }}" alt=""
+                                             class="img-fluid object-fit-cover w-100 rounded-5" style="height: 200px; filter: blur({{$campaign->collected_amount >= $campaign->target_amount ? 2 : 0}}px)">
 
+
+                                        @if($campaign->collected_amount >= $campaign->target_amount)
+
+                                            <img src="imgs/complete-badge.svg" alt="" width="200" height="200" class="position-absolute start-50 top-50 translate-middle">
+
+                                        @endif
+
+                                        <span class="badge text-bg-warning position-absolute start-0 mt-2 mx-3 top-0">{{$campaign->category->title}}</span>
+
+                                    </div>
                                     <h4 class="mt-4 clamp-text-2 fw-bold">{{$campaign->name}}</h4>
 
 
@@ -69,11 +93,15 @@
                                         € — <span class="text-primary" >الهدف {{$campaign->target_amount}} €</span>
                                     </div>
 
-                                    <a href="{{url('/campaigns/' . $campaign->slug)}}"
-                                       class="btn btn-lg mt-3 px-5 rounded-pill btn-primary">
-                                        {{__('DONATE')}}
-                                        <i class="fa-duotone fa-arrow-up-left ms-2"></i>
-                                    </a>
+
+
+
+                                        <a href="{{url('/campaigns/' . $campaign->slug)}}"
+                                           class="btn btn-lg mt-3 px-5 rounded-pill btn-primary" >
+                                            {{$campaign->collected_amount >= $campaign->target_amount ?  "الحملة مكتملة" : __('DONATE') }}
+                                            <i class="fa-duotone {{$campaign->collected_amount >= $campaign->target_amount ?  "fa-check-circle" : "fa-arrow-up-left" }} ms-2"></i>
+                                        </a>
+
 
 
                                 </div>
@@ -112,7 +140,7 @@
             </h3>
 
 
-            <div class="row g-5 mt-3">
+            <div class="row  gy-3  g-lg-5 mt-3">
 
                 @foreach($categories as $category)
                     <div class="col-md-6 col-lg-4">
@@ -126,7 +154,7 @@
                                     class="infos p-4 position-absolute start-50 top-50 translate-middle z-3 w-100 text-center text-white vstack gap-3 align-items-center">
                                     <h4 class="fw-bold">{{$category->title}}</h4>
                                     <p>{{$category->description}}</p>
-                                    <a href="{{url($category->slug)}}" class="stretched-link"></a>
+                                    <a href="#" class="stretched-link"></a>
                                 </div>
 
                             </div>
@@ -230,22 +258,22 @@
         <div class="container py-5">
 
             <div class="row gy-5 gy-md-0">
-                <div class="col-md-4 vstack gap-2  align-items-center">
-                    <i class="fa-duotone fa-donate  fa-3x"></i>
-                    <span class="fs-3 fw-bold">0</span>
-                    <h3>{{__('OPERATION_NUMBERS')}}</h3>
+                <div class="col-md-4 vstack  align-items-center">
+                    <i class="fa-duotone fa-coins mb-3  fa-3x"></i>
+                    <span class="fs-3 fw-bold"> {{$donationsCount + 3000}} +</span>
+                    <h3 class="my-0">{{__('OPERATION_NUMBERS')}}</h3>
                 </div>
 
-                <div class="col-md-4 vstack gap-2 align-items-center">
-                    <i class="fa-duotone fa-project-diagram  fa-3x"></i>
-                    <span class="fs-3 fw-bold">0</span>
-                    <h3>{{__('PROJECT_NUMBERS')}}</h3>
+                <div class="col-md-4 vstack align-items-center">
+                    <i class="fa-duotone fa-praying-hands  mb-3  fa-3x"></i>
+                    <span class="fs-3 fw-bold">{{$campaignsCount + 25}} +</span>
+                    <h3 class="my-0">عدد الحملات</h3>
                 </div>
 
-                <div class="col-md-4 vstack gap-2 align-items-center">
-                    <i class="fa-duotone fa-eye  fa-3x"></i>
-                    <span class="fs-3 fw-bold">0</span>
-                    <h3>{{__('VISITOR_NUMBERS')}}</h3>
+                <div class="col-md-4 vstack  align-items-center">
+                    <i class="fa-duotone fa-users mb-3  fa-3x"></i>
+                    <span class="fs-3 fw-bold">+ {{$visitorsCount + 11022}}</span>
+                    <h3 class="my-0">{{__('VISITOR_NUMBERS')}}</h3>
                 </div>
 
             </div>
@@ -254,5 +282,115 @@
 
 
     </div>
+
+
+
+    <section class="py-5 bg-light">
+        <div class="container">
+
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">الأسئلة الشائعة</h2>
+                <p class="text-muted">إجابات لأكثر الأسئلة شيوعًا حول منصة رحمة والتبرعات</p>
+            </div>
+
+            <div class="accordion accordion-flush" id="rahmaFaq">
+
+                <div class="accordion-item rounded-4 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-semibold"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faq5">
+                                ما هي منصة رحمة
+                        </button>
+                    </h2>
+                    <div id="faq5" class="accordion-collapse collapse"
+                         data-bs-parent="#rahmaFaq">
+                        <div class="accordion-body text-muted">
+                            منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية. تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q1 -->
+                <div class="accordion-item rounded-4 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-semibold"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faq1">
+                            هل التبرعات عبر منصة رحمة آمنة؟
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse"
+                         data-bs-parent="#rahmaFaq">
+                        <div class="accordion-body text-muted">
+                            نعم، جميع التبرعات تتم عبر بوابات دفع آمنة ومعتمدة،
+                            ويتم تشفير البيانات لحماية معلومات المتبرعين.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="accordion-item rounded-4 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-semibold"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faq2">
+                            كيف يتم اختيار الحملات المعروضة؟
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse"
+                         data-bs-parent="#rahmaFaq">
+                        <div class="accordion-body text-muted">
+                            تخضع جميع الحملات لمراجعة دقيقة لضمان الشفافية والمصداقية
+                            قبل نشرها على المنصة.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="accordion-item rounded-4 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-semibold"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faq3">
+                            هل يمكنني التبرع بشكل متكرر شهريًا؟
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse"
+                         data-bs-parent="#rahmaFaq">
+                        <div class="accordion-body text-muted">
+                            نعم، يمكنك اختيار التبرع الشهري لدعم الحملات بشكل مستمر.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="accordion-item rounded-4 shadow-sm mb-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-semibold"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faq4">
+                            كيف أعرف أن تبرعي وصل إلى مستحقيه؟
+                        </button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse"
+                         data-bs-parent="#rahmaFaq">
+                        <div class="accordion-body text-muted">
+                            نقوم بنشر تقارير دورية عن أثر الحملات وإجمالي المبالغ
+                            المصروفة لضمان الشفافية الكاملة.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
 
 @endsection

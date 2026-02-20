@@ -19,8 +19,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#C4E0E1"/>
     @yield('meta')
-    <title>{{__('APP_NAME')}} | @yield('title')</title>
-
+    <title>@yield('title') | {{__('APP_NAME')}}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -46,6 +46,7 @@
             $('body').removeClass('overflow-hidden');
         });
     </script>
+
 </head>
 <body>
 
@@ -75,14 +76,14 @@
 
 
                         <li class="nav-item me-2">
-                            <a class="nav-link {{request()->route()->named("categories") ? 'active' : ''}}" aria-current="page" href="{{url('/categories')}}">
+                            <a class="nav-link {{request()->route()->named("campaigns") ? 'active' : ''}}" aria-current="page" href="{{url('/campaigns')}}">
                                 {{__('CATEGORIES')}}
                             </a>
                         </li>
 
                         <li class="nav-item me-2">
-                            <a class="nav-link {{request()->route()->named("about") ? 'active' : ''}}" aria-current="page" href="{{url('/about')}}">
-                                {{__('ABOUT_US')}}
+                            <a class="nav-link {{request()->route()->named("about") ? 'active' : ''}}" aria-current="page" href="https://eoic.org/who-we-are">
+                                من نحن
                             </a>
                         </li>
 
@@ -95,7 +96,7 @@
                     </ul>
 
 
-                    <a href="#" class="btn btn-lg btn-primary px-5 rounded-pill">تبرع الآن</a>
+                    <a href="{{url('/campaigns')}}" class="btn btn-lg btn-primary px-5 rounded-pill">تبرع الآن</a>
 
 {{--                    <ul class="m-0 d-none d-lg-block ms-auto">--}}
 
@@ -154,122 +155,162 @@
 
 
 
-    <!-- Start OffCanvas -->
+<!-- Start OffCanvas -->
+<div class="offcanvas side-nav offcanvas-end" data-bs-scroll="true" tabindex="-1" id="sideBar" aria-labelledby="sideBar" style="font-size: 20px;">
+    <div class="offcanvas-header d-flex flex-column align-items-center text-center">
 
-    <div class="offcanvas side-nav offcanvas-end " data-bs-scroll="true" tabindex="-1" id="sideBar" aria-labelledby="sideBar" style="font-size: 20px;"  >
-        <div class="offcanvas-header d-flex flex-column align-items-center">
-            <button type="button" class="btn-close my-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            <h5 class="offcanvas-title text-center mt-2" id="offcanvasWithBothOptionsLabel">منصة الهيئة الأوروبية للتبرعات</h5>
+        <button type="button" class="btn-close my-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 
-        </div>
-        <div class="offcanvas-body">
-            <ul class="navbar-nav mx-auto my-2 my-lg-0 ">
-
-                <li class="nav-item {{request()->is('/') ? "active" : '' }} link-primary pb-2 border-bottom border-primary border-opacity-10">
-                    <a class="nav-link w-100 fw-bold {{request()->is('/') ? "active" : '' }}" aria-current="page" href="{{url('/')}}">{{__('HOME')}}</a>
-                </li>
-
-
-                <li class="nav-item {{request()->is('/') ? "active" : '' }} link-primary pb-2 border-bottom border-primary border-opacity-10">
-                    <a class="nav-link w-100 fw-bold {{request()->is('/') ? "active" : '' }}" aria-current="page" href="https://eoic.org/contact">{{__('CONTACT_US')}}</a>
-                </li>
-
-                <li class="nav-item {{request()->is('/') ? "active" : '' }} link-primary pb-2 border-bottom border-primary border-opacity-10">
-                    <a class="nav-link w-100 fw-bold {{request()->is('/') ? "active" : '' }}" aria-current="page" href="{{url('/about')}}">{{__('ABOUT_US')}}</a>
-                </li>
-
-
-                <li class="nav-item py-3  @auth   border-bottom border-primary border-opacity-10  @endauth">
-
-                <span class="d-flex flex-row-reverse align-items-center">
-                       <i class="fa-regular fa-chevron-down ms-auto"></i>
-                <a class="nav-link py-0 w-100" aria-current="page" data-bs-toggle="collapse" data-bs-target="#language" aria-expanded="true" aria-controls="language" href="#">
-                    @if(session()->get('locale') == 'ar')
-                        <i class="fi fi-sa"></i>
-                    @elseif(session()->get('locale') == 'fr')
-                        <i class="fi fi-fr"></i>
-                    @else
-                        <i class="fi fi-gb"></i>
-                    @endif
-                </a>
-                </span>
-
-
-                    <div id="language" class="accordion-collapse collapse" aria-labelledby="language">
-                        <div class="accordion-body">
-                            <ul>
-
-                                <li class=" @if(session()->get('locale') == 'ar') d-none @endif">
-                                    <a href="{{route('change-lang','ar')}}">
-                                        <i class="fi fi-sa"></i>
-                                    </a>
-                                </li>
-
-                                <li class=" @if(session()->get('locale') == 'en') d-none @endif">
-
-                                    <a href="{{route('change-lang','en')}}">
-                                        <i class="fi fi-gb"></i>
-                                    </a>
-                                </li>
-
-                                <li class="d-flex align-items-center @if(session()->get('locale') == 'fr') d-none @endif">
-                                    <a href="{{route('change-lang','fr')}}">
-                                        <i class="fi fi-fr"></i>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-
-                </li>
-
-                @auth
-
-                    <li class="nav-item py-2 d-flex flex-row-reverse align-items-center">
-                        <i class="fa-regular fa-chevron-down ms-auto"></i>
-                        <a class="nav-link w-100" aria-current="page" data-bs-toggle="collapse" data-bs-target="#admin" aria-expanded="true" aria-controls="admin" href="#">
-                            <i class="fa-solid fa-user"></i>
-                        </a>
-                    </li>
-
-
-                    <div id="admin" class="accordion-collapse collapse" aria-labelledby="admin">
-                        <div class="accordion-body">
-                            <ul >
-
-                                <li class="ms-3">
-                                    <a href="{{url('admin')}}" class="text-muted">
-                                        {{__('لوحة التحكم')}}
-                                    </a>
-                                </li>
-
-                                <li  class="ms-3">
-                                    <form action="{{route('logout')}}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="bg-transparent border-0 text-muted" style="font-size: 20px">خروج</button>
-                                    </form>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-
-                @endauth
-
-            </ul>
-
-            <div class="d-flex align-items-center justify-content-center my-3">
-                <a href="https://www.facebook.com/MEDIA.EOIC/" target="_blank" class="me-3" style="color: #4267B2"><i class="fa-brands fa-facebook fa-1x"></i></a>
-                <a href="https://www.instagram.com/eoic_geneva/" target="_blank" class="me-3" style="color: #C13584"><i class="fa-brands fa-instagram fa-1x"></i></a>
-                <a href="https://www.youtube.com/channel/UCi_iTZfHrRN19Wtwo4vM4EA?view_as=subscriber" target="_blank" class="me-3" style="color: #FF0000"><i class="fa-brands fa-youtube fa-1x"></i></a>
-                <a href="https://twitter.com/EOIC_Geneva" target="_blank" class="me-3" style="color: #1DA1F2"><i class="fa-brands fa-twitter f-1x"></i></a>
-            </div>
+        {{-- Brand --}}
+        <div class="d-flex align-items-center gap-2 mt-1">
+            <img src="{{ asset('imgs/logo.svg') }}" alt="Rahma" style="height:42px" class="rounded-3">
 
         </div>
+
+
+
     </div>
 
-    <!-- End OffCanvas -->
+    <div class="offcanvas-body pt-3">
+
+        <ul class="navbar-nav mx-auto my-2 my-lg-0">
+
+            {{-- Home --}}
+            <li class="nav-item pb-2 border-bottom border-primary border-opacity-10">
+                <a class="nav-link w-100 fw-bold {{ request()->is('/') ? 'active' : '' }}"
+                   href="{{ url('/') }}">
+                    {{ __('HOME') }}
+                </a>
+            </li>
+
+            {{-- Campaigns --}}
+            <li class="nav-item pb-2 border-bottom border-primary border-opacity-10">
+                <a class="nav-link w-100 fw-bold {{ request()->is('campaigns*') ? 'active' : '' }}"
+                   href="{{ url('/campaigns') }}">
+                    {{ __('تصفح الحملات') }}
+                </a>
+            </li>
+
+            {{-- About --}}
+            <li class="nav-item pb-2 border-bottom border-primary border-opacity-10">
+                <a class="nav-link w-100 fw-bold {{ request()->is('about*') ? 'active' : '' }}"
+                   href="{{ url('/about') }}">
+                    {{ __('ABOUT_US') }}
+                </a>
+            </li>
+
+            {{-- Contact --}}
+            <li class="nav-item pb-2 border-bottom border-primary border-opacity-10">
+                <a class="nav-link w-100 fw-bold {{ request()->is('contact*') ? 'active' : '' }}"
+                   href="{{ url('/contact') }}">
+                    {{ __('CONTACT_US') }}
+                </a>
+            </li>
+
+{{--            --}}{{-- Language --}}
+{{--            <li class="nav-item py-3 border-bottom border-primary border-opacity-10">--}}
+{{--                <span class="d-flex flex-row-reverse align-items-center">--}}
+{{--                    <i class="fa-regular fa-chevron-down ms-auto"></i>--}}
+{{--                    <a class="nav-link py-0 w-100"--}}
+{{--                       data-bs-toggle="collapse"--}}
+{{--                       data-bs-target="#language"--}}
+{{--                       aria-expanded="false"--}}
+{{--                       aria-controls="language"--}}
+{{--                       href="#">--}}
+{{--                        @if(session()->get('locale') == 'ar')--}}
+{{--                            <i class="fi fi-sa"></i>--}}
+{{--                        @elseif(session()->get('locale') == 'fr')--}}
+{{--                            <i class="fi fi-fr"></i>--}}
+{{--                        @else--}}
+{{--                            <i class="fi fi-gb"></i>--}}
+{{--                        @endif--}}
+{{--                        <span class="ms-2 text-muted">{{ __('اللغة') }}</span>--}}
+{{--                    </a>--}}
+{{--                </span>--}}
+
+{{--                <div id="language" class="accordion-collapse collapse mt-2">--}}
+{{--                    <div class="accordion-body p-0">--}}
+{{--                        <ul class="list-unstyled d-flex gap-3 justify-content-center mb-0">--}}
+
+{{--                            <li class="@if(session()->get('locale') == 'ar') d-none @endif">--}}
+{{--                                <a class="text-decoration-none" href="{{ route('change-lang','ar') }}">--}}
+{{--                                    <i class="fi fi-sa"></i>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+
+{{--                            <li class="@if(session()->get('locale') == 'en') d-none @endif">--}}
+{{--                                <a class="text-decoration-none" href="{{ route('change-lang','en') }}">--}}
+{{--                                    <i class="fi fi-gb"></i>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+
+{{--                            <li class="@if(session()->get('locale') == 'fr') d-none @endif">--}}
+{{--                                <a class="text-decoration-none" href="{{ route('change-lang','fr') }}">--}}
+{{--                                    <i class="fi fi-fr"></i>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </li>--}}
+
+{{--            --}}{{-- Auth Admin --}}
+            @auth
+                <li class="nav-item py-2 d-flex flex-row-reverse align-items-center">
+                    <i class="fa-regular fa-chevron-down ms-auto"></i>
+                    <a class="nav-link w-100"
+                       data-bs-toggle="collapse"
+                       data-bs-target="#admin"
+                       aria-expanded="false"
+                       aria-controls="admin"
+                       href="#">
+                        <i class="fa-solid fa-user"></i>
+                        <span class="ms-2 text-muted">{{ __('الحساب') }}</span>
+                    </a>
+                </li>
+
+                <div id="admin" class="accordion-collapse collapse mt-2">
+                    <div class="accordion-body pt-0">
+                        <ul class="list-unstyled mb-0">
+
+                            <li class="mb-2">
+                                <a href="{{ url('admin') }}" class="text-muted text-decoration-none">
+                                    {{ __('لوحة التحكم') }}
+                                </a>
+                            </li>
+
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="bg-transparent border-0 text-muted p-0" style="font-size: 20px">
+                                        {{ __('خروج') }}
+                                    </button>
+                                </form>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            @endauth
+
+        </ul>
+
+        {{-- Social --}}
+        <div class="d-flex align-items-center justify-content-center my-4 gap-3">
+            <a href="#" target="_blank" class="text-decoration-none" style="color: #4267B2"><i class="fa-brands fa-facebook fa-lg"></i></a>
+            <a href="#" target="_blank" class="text-decoration-none" style="color: #C13584"><i class="fa-brands fa-instagram fa-lg"></i></a>
+            <a href="#" target="_blank" class="text-decoration-none" style="color: #FF0000"><i class="fa-brands fa-youtube fa-lg"></i></a>
+            <a href="#" target="_blank" class="text-decoration-none" style="color: #1DA1F2"><i class="fa-brands fa-twitter fa-lg"></i></a>
+        </div>
+
+        <div class="text-center small text-muted">
+            © {{ now()->year }} Rahma Platform
+        </div>
+
+    </div>
+</div>
+<!-- End OffCanvas -->
 
 
 
@@ -280,78 +321,129 @@
     </main>
 
 
-    {{--  Start Footer  --}}
+<footer class="rahma-footer text-white pt-5 pb-3">
+    <div class="container">
 
-    <footer class="text-bg-primary py-4">
+        <div class="row g-4 align-items-start">
 
-            <div class="container">
+            <!-- Column 1: Brand / About -->
+            <div class="col-12 col-lg-5">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <!-- EOIC logo -->
+                    <img src="/imgs/logo-eoic.svg" alt="EOIC" class="footer-logo">
 
-                <div class="row gy-md-3">
+                    <div class="vr footer-vr"></div>
 
-                    <div class="col-12 col-md-6">
+                    <!-- Rahma logo -->
+                    <img src="/imgs/logo.svg" alt="Rahma" class="footer-logo">
+                </div>
 
-                        <img src="{{asset('imgs/logo-white.svg')}}" alt="logo" class="w-25 mb-4">
-                        <p class="w-50 ">منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية، تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.</p>
+                <p class="footer-text mb-3">
+                    منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية.
+                    تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.
+                </p>
 
-                    </div>
+                <!-- Social -->
+                <div class="d-flex gap-2">
+                    <a class="footer-social" href="#" target="_blank" rel="noopener" aria-label="X">
+                        <i class="bi bi-twitter-x"></i>
+                    </a>
+                    <a class="footer-social" href="#" target="_blank" rel="noopener" aria-label="YouTube">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                    <a class="footer-social" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a class="footer-social" href="#" target="_blank" rel="noopener" aria-label="Facebook">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                </div>
+            </div>
 
-                    <div class="col-12 col-md-3">
+            <!-- Column 2: Shortcuts -->
+            <div class="col-12 col-lg-3">
+                <h6 class="footer-title mb-3">اختصارات</h6>
+                <ul class="list-unstyled footer-links mb-0">
+                    <li><a href="/" class="footer-link">الرئيسية</a></li>
+                    <li><a href="/campaigns" class="footer-link">تبرع</a></li>
+                    <li><a href="/about" class="footer-link">عن رحمة</a></li>
+                    <li><a href="/contact" class="footer-link">تواصل معنا</a></li>
+                </ul>
+            </div>
 
-                       <h4>إختصارات</h4>
+            <!-- Column 3: Contact + Policies + Payments -->
+            <div class="col-12 col-lg-4">
+                <h6 class="footer-title mb-3">تواصلوا معنا</h6>
 
-                    </div>
+                <ul class="list-unstyled footer-links mb-3">
+                    <li class="mb-2">
+                        <a href="mailto:info@rahma.ch" class="footer-link">
+                            <i class="bi bi-envelope me-2"></i> info@rahma.ch
+                        </a>
+                    </li>
 
+                    <li class="mb-2">
+                        <a href="mailto:info@rahma.ch" class="footer-link">
+                            <i class="bi bi-envelope me-2"></i> rahma@eoic.org
+                        </a>
+                    </li>
 
-                    <div class="col-12 col-md-3">
+                    <li class="mb-2">
+                        <a href="tel:+41782176256" class="footer-link">
+                            <i class="bi bi-telephone me-2"></i> +41 78 217 62 56
+                        </a>
+                    </li>
+                </ul>
 
-                        <h4>تواصلوا معنا</h4>
+{{--                <h6 class="footer-title mb-3">الشفافية</h6>--}}
+{{--                <ul class="list-unstyled footer-links mb-4">--}}
+{{--                    <li><a href="/privacy" class="footer-link">سياسة الخصوصية</a></li>--}}
+{{--                    <li><a href="/terms" class="footer-link">الشروط والأحكام</a></li>--}}
+{{--                    <li><a href="/refund" class="footer-link">سياسة الاسترجاع</a></li>--}}
+{{--                </ul>--}}
 
-                    </div>
+                <!-- Payments -->
+                <div class="d-flex flex-wrap gap-2 align-items-center mt-3">
 
+                      <span class="pay-icon">
+                        <i class="fa-brands fa-apple"></i> Pay
+                      </span>
 
+                      <span class="pay-icon">
+                        <i class="fa-brands fa-google"></i> Pay
+                      </span>
 
-                    <div class="col-md-12">
+                    <span class="pay-icon">
+                        <i class="fa-brands fa-cc-visa"></i>
+                    </span>
 
-
-                    </div>
-
-
-                    <div class="col-12 hstack flex-wrap justify-content-between">
-
-
-                        <p class="mb-0  fw-bold text-center">{!! (__('ALL_RIGHT_RESERVED')) . ' '  . __('APP_NAME') . ' '  . date('Y') . '  ' !!}</p>
-
-
-                        <div class="d-flex align-items-center justify-content-center text-white">
-                            <a href="https://www.facebook.com/MEDIA.EOIC/" target="_blank" class="me-3 " ><i class="fa-brands fa-facebook fa-2x text-white"></i></a>
-                            <a href="https://www.instagram.com/eoic_geneva/" target="_blank" class="me-3 " ><i class="fa-brands fa-instagram fa-2x text-white"></i></a>
-                            <a href="https://www.youtube.com/channel/UCi_iTZfHrRN19Wtwo4vM4EA?view_as=subscriber" target="_blank" class="me-3" ><i class="fa-brands fa-youtube fa-2x text-white"></i></a>
-                            <a href="https://twitter.com/EOIC_Geneva" target="_blank" class="me-3" ><i class="fa-brands fa-twitter fa-2x text-white"></i></a>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-center mb-3">
-                            <i class="fa-brands fa-cc-visa fa-2x me-3 text-white"></i>
-                            <i class="fa-brands fa-cc-mastercard fa-2x me-3 text-white"></i>
-                            <i class="fa-brands fa-apple-pay fa-2x me-3 text-white"></i>
-                            <i class="fa-brands fa-google-pay fa-2x me-3 text-white"></i>
-                        </div>
-
-
-
-                    </div>
+                    <span class="pay-icon">
+                        <i class="fa-brands fa-cc-mastercard"></i>
+                    </span>
 
                 </div>
 
-
-
-
-
-
             </div>
+        </div>
 
-    </footer>
+        <hr class="footer-hr my-4">
 
-    {{--        End Footer  --}}
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <div class="small footer-copy">
+                © <span id="year"></span> Rahma Platform. جميع الحقوق محفوظة.
+            </div>
+            <div class="small footer-copy">
+                معتمد من الهيئة الأوروبية للمراكز الإسلامية (EOIC)
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" integrity="sha512-Eak/29OTpb36LLo2r47IpVzPBLXnAMPAVypbSZiZ4Qkf8p/7S/XRG5xp7OKWPPYfJT6metI+IORkR5G8F900+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

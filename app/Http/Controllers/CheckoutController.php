@@ -14,10 +14,21 @@ class CheckoutController extends Controller
 {
     public function checkout(Request $request) {
 
+
+
+
         $validated = $request->validate([
             'price' => 'required|min:1',
             'campaign_id' => 'required|exists:campaigns,id',
         ]);
+
+
+        $campaign = Campaign::find($request->campaign_id);
+
+
+        if ($campaign->collected_amount >= $campaign->target_amount) {
+            return back()->with('error', 'هذه الحملة مكتملة ولا تستقبل تبرعات جديدة.');
+        }
 
         $secretKey = env('STRIPE_SECRET_KEY');
 
@@ -41,27 +52,32 @@ class CheckoutController extends Controller
         ];
 
 
+        try {
+
+            $checkoutSession = $stripe->checkout->sessions->create([
+                'mode' => 'payment',
+                'success_url' => route('checkout.success') . "?session_id={CHECKOUT_SESSION_ID}",
+                'cancel_url' => route('campaign.show', $campaign->slug),
+                'line_items' => $lineItems,
+                'submit_type' => 'donate',
+            ]);
 
 
-        $checkoutSession = $stripe->checkout->sessions->create([
-            'mode' => 'payment',
-            'success_url' => route('checkout.success') . "?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url' => url()->previous(),
-            'line_items' => $lineItems,
-            'submit_type' => 'donate',
-        ]);
+            $order = new Donation();
+            $order->status = 'pending';
+            $order->amount = $validated['price'];
+            $order->campaign_id = $validated['campaign_id'];
+            $order->stripe_checkout_session_id = $checkoutSession->id;
 
+            $order->save();
 
-        $order = new Donation();
-        $order -> status = 'pending';
-        $order -> amount = $validated['price'];
-        $order -> campaign_id = $validated['campaign_id'];
-        $order -> stripe_checkout_session_id = $checkoutSession->id;
+            return redirect($checkoutSession->url);
+        } catch (\Exception $e) {
 
-        $order->save();
-
-        return redirect($checkoutSession->url);
-
+            return redirect()
+                ->route('campaign.show', $campaign->slug)
+                ->with('stripe_error', 'حدث خطأ أثناء معالجة الدفع، يرجى المحاولة مرة أخرى.');
+        }
     }
 
     public function success(Request $request) {

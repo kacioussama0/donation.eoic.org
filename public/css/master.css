@@ -110,9 +110,6 @@ header nav ul li a {
     position: relative;
 }
 
-.hero-section .container {
-    min-height: 70vh;
-}
 
 .hero-section img {
     filter: blur(3px);
@@ -238,7 +235,71 @@ header nav ul li a {
 /*    color: #fff !important;*/
 /*}*/
 
-.categories::before {
+.side-nav{
+    width: 330px;
+}
+
+.side-nav .nav-link.active{
+    color: #0f5f66 !important;
+}
+
+.side-nav .btn-primary{
+    background: #0f5f66;
+    border-color: #0f5f66;
+}
+
+.side-nav .btn-primary:hover{
+    opacity: .92;
+}
+.share-btn{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #fff;
+    transition: .2s ease;
+}
+
+.share-btn:hover{
+    transform: translateY(-3px);
+    opacity: .9;
+}
+
+/* Brand Colors */
+.share-btn.facebook{ background:#1877F2; }
+.share-btn.twitter{ background:#000000; }
+.share-btn.whatsapp{ background:#25D366; }
+.share-btn.telegram{ background:#0088cc; }
+
+.thank-card{
+    max-width: 720px;   /* يحافظ على شكل جميل بالديسكتوب */
+    width: 100%;        /* مهم للموبايل */
+}
+
+.thank-img{
+    max-width: 240px;
+    width: 60%;
+    height: auto;
+}
+
+.aya-img{
+    max-width: 520px;
+}
+
+.thank-title{
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    line-height: 1.2;
+}
+
+.thank-subtitle{
+    font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+}
+
+
+.categories::before,.campaigns::before {
     content: '';
     width: 100%;
     height: 100%;
@@ -262,6 +323,111 @@ header nav ul li a {
 }
 
 
+.pay-icon{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    font-size: 14px;
+    color: #fff;
+    transition: .2s ease;
+}
+
+.pay-icon i{
+    font-size: 18px;
+}
+
+.pay-icon:hover{
+    background: rgba(255,255,255,0.18);
+    transform: translateY(-2px);
+}
+
+.rahma-footer{
+    background: #0f5f66; /* قريب من لونك */
+}
+
+.footer-logo{
+    height: 54px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* إذا شعاراتك سوداء */
+    opacity: .95;
+}
+
+.footer-vr{
+    height: 48px;
+    opacity: .25;
+}
+
+.footer-text{
+    opacity: .9;
+    line-height: 1.9;
+    max-width: 520px;
+}
+
+.footer-title{
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+.footer-links .footer-link{
+    display: inline-flex;
+    align-items: center;
+    color: rgba(255,255,255,.85);
+    text-decoration: none;
+    padding: 6px 0;
+    transition: .2s ease;
+}
+
+.footer-links .footer-link:hover{
+    color: #ffffff;
+    transform: translateX(-2px);
+}
+
+.footer-social{
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,.10);
+    color: #fff;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.footer-social:hover{
+    background: rgba(255,255,255,.18);
+    transform: translateY(-2px);
+}
+
+.pay-badge{
+    height: 28px;
+    width: auto;
+    background: rgba(255,255,255,.08);
+    border-radius: 10px;
+    padding: 6px 10px;
+}
+
+.footer-hr{
+    border-color: rgba(255,255,255,.18);
+}
+
+.footer-copy{
+    opacity: .85;
+}
+
+.hero-min-h{
+    min-height: 320px;
+}
+
+.hero-title{
+    font-size: clamp(2rem, 4vw, 3.5rem); /* responsive title */
+    line-height: 1.2;
+}
 
 
 .category-overlay::before {
@@ -303,4 +469,29 @@ header nav ul li a {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2; /* number of lines to show */
     line-clamp: 2; /* standard property (newer browsers) */
+}
+
+.accordion-item{
+    border: none;
+    overflow: hidden;
+}
+
+.accordion-button{
+    background-color: #ffffff;
+    border-radius: 16px;
+}
+
+.accordion-button:not(.collapsed){
+    background-color: #e9f6f7;
+    color: #0f5f66;
+    box-shadow: none;
+}
+
+.accordion-button:focus{
+    box-shadow: none;
+}
+
+.accordion-body{
+    background: #fff;
+    border-top: 1px solid #f1f1f1;
 }
