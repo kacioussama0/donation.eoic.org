@@ -34,9 +34,10 @@ class SiteController extends Controller
                 App::setLocale($locale);
                 Lang::setLocale($locale);
                 Session::put('locale',$locale);
+                Cookie::queue('locale', $locale, 60 * 24 * 365);
                 Carbon::setLocale($locale);
             }
-            return redirect()->to('/');
+            return redirect()->back();
         }catch (\Exception $exception) {
             return redirect()->back();
         }

@@ -3,7 +3,7 @@
 @endphp
 
 <!doctype html>
-<html lang="{{session()->get('locale')}}" dir="ltr">
+<html lang="{{config('app.locale')}}" dir="{{config('app.locale') == 'ar' ? 'rtl' : 'ltr'}}">
 <head>
 
 
@@ -96,54 +96,44 @@
                     </ul>
 
 
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                        <li class="nav-item dropdown me-2">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @if(config('app.locale') == 'ar')
+                                    <i class="fi fi-sa"></i> العربية
+                                @elseif(config('app.locale') == 'fr')
+                                    <i class="fi fi-fr"></i> Français
+                                @else
+                                    <i class="fi fi-gb"></i> English
+                                @endif
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end rounded-4 border-0 shadow-sm">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center gap-2 {{ config('app.locale') == 'ar' ? 'active bg-primary text-white' : '' }}" 
+                                       style="{{ config('app.locale') == 'ar' ? 'color: white !important;' : '' }}"
+                                       href="{{route('change-lang','ar')}}">
+                                        <i class="fi fi-sa"></i> العربية
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center gap-2 {{ config('app.locale') == 'en' ? 'active bg-primary text-white' : '' }}" 
+                                       style="{{ config('app.locale') == 'en' ? 'color: white !important;' : '' }}"
+                                       href="{{route('change-lang','en')}}">
+                                        <i class="fi fi-gb"></i> English
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center gap-2 {{ config('app.locale') == 'fr' ? 'active bg-primary text-white' : '' }}" 
+                                       style="{{ config('app.locale') == 'fr' ? 'color: white !important;' : '' }}"
+                                       href="{{route('change-lang','fr')}}">
+                                        <i class="fi fi-fr"></i> Français
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
                     <a href="{{url('/campaigns')}}" class="btn btn-lg btn-primary px-5 rounded-pill">{{__("DONATE_NOW")}}</a>
-
-{{--                    <ul class="m-0 d-none d-lg-block ms-auto">--}}
-
-
-{{--                        <div class="btn-group">--}}
-{{--                            <button class="btn btn-transparent rounded-0 dropdown-toggle" type="button" data-bs-toggle="collapse" href="#languageSwitcher" role="button" aria-expanded="false" aria-controls="languageSwitcher">--}}
-
-{{--                                @if(session()->get('locale') == 'ar')--}}
-{{--                                    <i class="fi fi-sa"></i>--}}
-{{--                                @elseif(session()->get('locale') == 'fr')--}}
-{{--                                    <i class="fi fi-fr"></i>--}}
-{{--                                @else--}}
-{{--                                    <i class="fi fi-gb"></i>--}}
-{{--                                @endif--}}
-
-{{--                            </button>--}}
-
-
-{{--                            <div class="collapse position-absolute w-100 start-50 mt-5 translate-middle-x bg-white top-0 text-center" id="languageSwitcher" >--}}
-{{--                                <div class="py-2">--}}
-{{--                                    <div class="@if(session()->get('locale') == 'ar') d-none @endif">--}}
-{{--                                        <a href="{{route('change-lang','ar')}}">--}}
-{{--                                            <i class="fi fi-sa"></i>--}}
-{{--                                        </a>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="@if(session()->get('locale') == 'en') d-none @endif">--}}
-{{--                                        <a href="{{route('change-lang','en')}}">--}}
-{{--                                            <i class="fi fi-gb"></i>--}}
-{{--                                        </a>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="@if(session()->get('locale') == 'fr') d-none @endif">--}}
-{{--                                        <a href="{{route('change-lang','fr')}}">--}}
-{{--                                            <i class="fi fi-fr"></i>--}}
-{{--                                        </a>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
-
-{{--                        </div>--}}
-
-{{--                        <li class="nav-item btn   border-0">--}}
-{{--                            <div id="donate-button" class="d-flex justify-content-center"></div>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
 
                 </div>
             </div>
@@ -207,53 +197,53 @@
                 </a>
             </li>
 
-{{--            --}}{{-- Language --}}
-{{--            <li class="nav-item py-3 border-bottom border-primary border-opacity-10">--}}
-{{--                <span class="d-flex flex-row-reverse align-items-center">--}}
-{{--                    <i class="fa-regular fa-chevron-down ms-auto"></i>--}}
-{{--                    <a class="nav-link py-0 w-100"--}}
-{{--                       data-bs-toggle="collapse"--}}
-{{--                       data-bs-target="#language"--}}
-{{--                       aria-expanded="false"--}}
-{{--                       aria-controls="language"--}}
-{{--                       href="#">--}}
-{{--                        @if(session()->get('locale') == 'ar')--}}
-{{--                            <i class="fi fi-sa"></i>--}}
-{{--                        @elseif(session()->get('locale') == 'fr')--}}
-{{--                            <i class="fi fi-fr"></i>--}}
-{{--                        @else--}}
-{{--                            <i class="fi fi-gb"></i>--}}
-{{--                        @endif--}}
-{{--                        <span class="ms-2 text-muted">{{ __('اللغة') }}</span>--}}
-{{--                    </a>--}}
-{{--                </span>--}}
+            {{-- Language --}}
+            <li class="nav-item py-3 border-bottom border-primary border-opacity-10">
+                <span class="d-flex flex-row-reverse align-items-center">
+                    <i class="fa-regular fa-chevron-down ms-auto"></i>
+                    <a class="nav-link py-0 w-100"
+                       data-bs-toggle="collapse"
+                       data-bs-target="#language"
+                       aria-expanded="false"
+                       aria-controls="language"
+                       href="#">
+                        @if(config('app.locale') == 'ar')
+                            <i class="fi fi-sa"></i>
+                        @elseif(config('app.locale') == 'fr')
+                            <i class="fi fi-fr"></i>
+                        @else
+                            <i class="fi fi-gb"></i>
+                        @endif
+                        <span class="ms-2 text-muted">{{ __('LANGUAGE') }}</span>
+                    </a>
+                </span>
 
-{{--                <div id="language" class="accordion-collapse collapse mt-2">--}}
-{{--                    <div class="accordion-body p-0">--}}
-{{--                        <ul class="list-unstyled d-flex gap-3 justify-content-center mb-0">--}}
+                <div id="language" class="accordion-collapse collapse mt-2">
+                    <div class="accordion-body p-0">
+                        <ul class="list-unstyled d-flex gap-3 justify-content-center mb-0">
 
-{{--                            <li class="@if(session()->get('locale') == 'ar') d-none @endif">--}}
-{{--                                <a class="text-decoration-none" href="{{ route('change-lang','ar') }}">--}}
-{{--                                    <i class="fi fi-sa"></i>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
+                            <li>
+                                <a class="text-decoration-none {{ config('app.locale') == 'ar' ? 'opacity-50' : '' }}" href="{{ route('change-lang','ar') }}">
+                                    <i class="fi fi-sa"></i>
+                                </a>
+                            </li>
 
-{{--                            <li class="@if(session()->get('locale') == 'en') d-none @endif">--}}
-{{--                                <a class="text-decoration-none" href="{{ route('change-lang','en') }}">--}}
-{{--                                    <i class="fi fi-gb"></i>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
+                            <li>
+                                <a class="text-decoration-none {{ config('app.locale') == 'en' ? 'opacity-50' : '' }}" href="{{ route('change-lang','en') }}">
+                                    <i class="fi fi-gb"></i>
+                                </a>
+                            </li>
 
-{{--                            <li class="@if(session()->get('locale') == 'fr') d-none @endif">--}}
-{{--                                <a class="text-decoration-none" href="{{ route('change-lang','fr') }}">--}}
-{{--                                    <i class="fi fi-fr"></i>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
+                            <li>
+                                <a class="text-decoration-none {{ config('app.locale') == 'fr' ? 'opacity-50' : '' }}" href="{{ route('change-lang','fr') }}">
+                                    <i class="fi fi-fr"></i>
+                                </a>
+                            </li>
 
-{{--                        </ul>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </li>--}}
+                        </ul>
+                    </div>
+                </div>
+            </li>
 
 {{--            --}}{{-- Auth Admin --}}
             @auth
@@ -462,6 +452,39 @@
             }
         }).render('#donate-button');
     </script>
+
+
+    @if(!session()->has('locale') && !request()->hasCookie('locale'))
+        <!-- Language Selection Modal -->
+        <div class="modal fade" id="languageModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="languageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-5 border-0 shadow-lg">
+                    <div class="modal-body p-4 p-md-5 text-center">
+                        <img src="{{asset('imgs/logo.svg')}}" alt="logo" class="mb-4" style="height: 60px;">
+                        <h3 class="fw-bold mb-4">Choose Your Language / اختر لغتك</h3>
+                        <div class="d-grid gap-3">
+                            <a href="{{route('change-lang', 'ar')}}" class="btn btn-lg btn-outline-primary rounded-pill d-flex align-items-center justify-content-center gap-3">
+                                <i class="fi fi-sa"></i> العربية
+                            </a>
+                            <a href="{{route('change-lang', 'en')}}" class="btn btn-lg btn-outline-primary rounded-pill d-flex align-items-center justify-content-center gap-3">
+                                <i class="fi fi-gb"></i> English
+                            </a>
+                            <a href="{{route('change-lang', 'fr')}}" class="btn btn-lg btn-outline-primary rounded-pill d-flex align-items-center justify-content-center gap-3">
+                                <i class="fi fi-fr"></i> Français
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(window).on('load', function() {
+                var myModal = new bootstrap.Modal(document.getElementById('languageModal'));
+                myModal.show();
+            });
+        </script>
+    @endif
 
 </body>
 </html>
