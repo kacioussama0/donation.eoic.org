@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','نجاح')
+@section('title', __('SUCCESS'))
 
 
 @section('content')
@@ -13,17 +13,17 @@
                 <img src="{{ asset('imgs/thanks.png') }}" class="mb-2 img-fluid thank-img" alt="thank">
 
                 <h1 class="text-center fw-bolder mb-2 mb-md-3 thank-title">
-                    تقبل الله منك
+                    {{ __('MAY_ALLAH_ACCEPT') }}
                     <i class="fa-duotone fa-heart-circle text-danger"></i>
                 </h1>
 
                 <h2 class="text-primary d-flex align-items-center mb-1 mb-md-2 thank-subtitle text-center">
                     <i class="fa-duotone fa-badge-check me-2"></i>
-                    تم استلام تبرعك بنجاح
+                    {{ __('DONATION_RECEIVED_SUCCESS') }}
                 </h2>
 
                 <span class="text-muted text-center">
-                {{ $order->created_at->locale('ar')->translatedFormat('l, d F Y') }}
+                {{ $order->created_at->locale(config('app.locale'))->translatedFormat('l, d F Y') }}
             </span>
 
                 <img src="https://cdn.ehsan.sa/ehsan-ui/images/aya.svg"
@@ -33,24 +33,24 @@
                     <table class="table table-bordered table-sm align-middle mb-0">
                         <tbody>
                         <tr>
-                            <th class="text-nowrap">رقم العملية</th>
+                            <th class="text-nowrap">{{ __('OPERATION_NUMBER') }}</th>
                             <td class="text-secondary text-break">#{{ str_pad($order->id,5,"0",STR_PAD_LEFT) }}</td>
                         </tr>
                         <tr>
-                            <th class="text-nowrap">الإسم الكامل</th>
+                            <th class="text-nowrap">{{ __('FULL_NAME') }}</th>
                             <td class="text-break">{{ $order->donor_name }}</td>
                         </tr>
                         <tr>
-                            <th class="text-nowrap">البريد الإلكتروني</th>
+                            <th class="text-nowrap">{{ __('EMAIL') }}</th>
                             <td class="text-break">{{ $order->donor_email }}</td>
                         </tr>
                         <tr>
-                            <th class="text-nowrap">تبرعك</th>
+                            <th class="text-nowrap">{{ __('YOUR_DONATION') }}</th>
                             <td class="text-break">{{ number_format($order->amount, 2) }} &euro;</td>
                         </tr>
                         <tr>
-                            <th class="text-nowrap">الحملة</th>
-                            <td class="text-break">{{ $order->campaign->name }}</td>
+                            <th class="text-nowrap">{{ __('CAMPAIGN') }}</th>
+                            <td class="text-break">{{ $order->campaign->title }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -58,16 +58,16 @@
 
                 <div class="alert alert-primary text-center mt-3 mt-md-4 w-100">
                     <h5 class="mb-0 fw-semibold">
-                        تبرعك اليوم ليس مجرد مبلغ… بل أملٌ يصل إلى من يحتاجه.
+                        {{ __('SUCCESS_QUOTE') }}
                     </h5>
                 </div>
 
                 <div class="d-grid gap-2 w-100 mt-1">
                     <a href="#" class="btn btn-lg btn-outline-secondary rounded-pill">
-                        مشاركة الحملة
+                        {{ __('SHARE_CAMPAIGN') }}
                     </a>
                     <a href="{{ url('/') }}" class="btn btn-lg btn-primary rounded-pill">
-                        الرجوع للتبرعات
+                        {{ __('BACK_TO_DONATIONS') }}
                     </a>
                 </div>
 

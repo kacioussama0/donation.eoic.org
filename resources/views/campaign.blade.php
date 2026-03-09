@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'تبرع لحملة ' . $campaign->name)
+@section('title', __('DONATE_FOR_CAMPAIGN') . ' ' . $campaign->title)
 
 @section('meta')
 
@@ -12,20 +12,20 @@
 
     {{-- Open Graph --}}
     <meta property="og:type" content="article"/>
-    <meta property="og:title" content="تبرع لحملة {{ $campaign->name }}"/>
+    <meta property="og:title" content="{{ __('DONATE_FOR_CAMPAIGN') }} {{ $campaign->title }}"/>
     <meta property="og:description"
           content="{{ Str::limit(strip_tags($campaign->description), 200) }}"/>
     <meta property="og:image"
           content="{{  $campaign->thumbnail }}"/>
     <meta property="og:url" content="{{ url()->current() }}"/>
     <meta property="og:site_name" content="{{ config('app.name') }}"/>
-    <meta property="og:locale" content="ar_AR"/>
+    <meta property="og:locale" content="{{ config('app.locale') == 'ar' ? 'ar_AR' : (config('app.locale') == 'fr' ? 'fr_FR' : 'en_US') }}"/>
 
     {{-- Twitter --}}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="تبرع لحملة {{ $campaign->name }}">
+    <meta name="twitter:title" content="{{ __('DONATE_FOR_CAMPAIGN') }} {{ $campaign->title }}">
     <meta name="twitter:description"
-          content="{{ Str::limit(strip_tags($campaign->description), 200) }}">
+          content="{{ Str::limit(strip_tags($campaign->desc), 200) }}">
     <meta name="twitter:image"
           content="{{ $campaign->thumbnail }}">
     <meta name="twitter:url" content="{{ url()->current() }}">
@@ -58,7 +58,7 @@
             <div class="col-md-6">
                 <div class="card shadow border-0 rounded-4">
                     <div class="card-body vstack gap-3">
-                        <h3>التفاصيل</h3>
+                        <h3>{{ __('DETAILS') }}</h3>
 
 
                         <div class="position-relative">
@@ -77,11 +77,11 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <h6>تم جمع</h6>
+                                <h6>{{ __('COLLECTED_TEXT') }}</h6>
                                 <span class="text-primary fw-bold">{{ $campaign->collected_amount}} &euro;</span>
                             </div>
                             <div class="col-md-6">
-                                <h6>المبلغ المتبقي</h6>
+                                <h6>{{ __('REMAIN_AMOUNT') }}</h6>
                                 <span class="text-primary fw-bold">{{$campaign->target_amount - $campaign->collected_amount < 0 ? 0 : $campaign->target_amount - $campaign->collected_amount}} &euro;</span>
                             </div>
                         </div>
@@ -97,13 +97,13 @@
                             <div class="col-md-6 hstack gap-3">
                                 <i class="fa-duotone fa-timer fa-2x"></i>
                                 <span>
-                                    <h6 class="text-primary fw-bold">آخر عملية تبرع</h6>
+                                    <h6 class="text-primary fw-bold">{{ __('LATEST_DONATION') }}</h6>
                                     @if($latestDonation)
                                         <span>
                                             {{ $latestDonation->created_at->locale(config('app.locale'))->diffForHumans() }}
                                         </span>
                                     @else
-                                        <span>لا توجد تبرعات بعد</span>
+                                        <span>{{ __('NO_DONATIONS_YET') }}</span>
                                     @endif
 
                                 </span>
@@ -112,13 +112,13 @@
                             <div class="col-md-6 hstack gap-3">
                                 <i class="fa-duotone fa-eye fa-2x"></i>
                                 <span>
-                                    <h6 class="text-primary fw-bold">الزيارات</h6>
+                                    <h6 class="text-primary fw-bold">{{ __('VISITS') }}</h6>
                                     @if($campaign->visitors > 0)
                                         <span>
-                                            {{ $campaign->visitors }} زيارة
+                                            {{ $campaign->visitors }} {{ __('VISIT') }}
                                         </span>
                                     @else
-                                        <span>لا زيارات</span>
+                                        <span>{{ __('NO_VISITS') }}</span>
                                     @endif
 
                                 </span>
@@ -128,13 +128,13 @@
                             <div class="col-md-6 hstack gap-3">
                                 <i class="fa-duotone fa-donate fa-2x"></i>
                                 <span>
-                                    <h6 class="text-primary fw-bold">عدد عمليات التبرع</h6>
+                                    <h6 class="text-primary fw-bold">{{ __('DONATIONS_COUNT_TITLE') }}</h6>
                                     @if($campaign->donations->count() > 0)
                                         <span>
-                                            {{ $campaign->donations->count() }}  عملية
+                                            {{ $campaign->donations->count() }}  {{ __('OPERATION') }}
                                         </span>
                                     @else
-                                        <span>لا توجد اي عملية</span>
+                                        <span>{{ __('NO_OPERATIONS') }}</span>
                                     @endif
 
                                 </span>
@@ -144,7 +144,7 @@
                             <div class="col-md-6 hstack gap-3">
                                 <i class="fa-duotone fa-calendar-arrow-up fa-2x"></i>
                                 <span>
-                                    <h6 class="text-primary fw-bold">تاريخ النشر</h6>
+                                    <h6 class="text-primary fw-bold">{{ __('PUBLICATION_DATE') }}</h6>
                                     <span>{{ $campaign->created_at->locale(config('app.locale'))->translatedFormat('l, d F Y') }}</span>
 
                                 </span>
@@ -167,7 +167,7 @@
 
                                     <h3 class="text-center text-primary fw-bold display-4">
                                         <i class="fa-duotone fa-check-circle"></i>
-                                        تم تحقيق الهدف
+                                        {{ __('GOAL_REACHED') }}
                                     </h3>
                                 @else
 
@@ -184,7 +184,7 @@
 
                                     @if(request('payment') === 'cancelled')
                                         <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
-                                            تم إلغاء عملية الدفع.
+                                            {{ __('PAYMENT_CANCELLED') }}
                                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                                         </div>
                                     @endif
@@ -209,8 +209,8 @@
 
                                             @csrf
                                             <input type="hidden" name="campaign_id" value="{{$campaign->id}}" required>
-                                            <input type="hidden" name="title" value="{{$campaign->name}}" required>
-                                            <input type="hidden" name="description" value="{{$campaign->description}}">
+                                            <input type="hidden" name="title" value="{{$campaign->title}}" required>
+                                            <input type="hidden" name="description" value="{{$campaign->desc}}">
                                             <input type="hidden" name="image"
                                                    value="{{ $campaign->thumbnail}}">
                                             <button type="submit" class="btn btn-primary d-block w-100 my-3">{{__('DONATE')}}</button>
@@ -272,7 +272,7 @@
                                 </div>
                                 <div class="col-8">
                                     <div class="fw-bold">TWINT: 078.873.44.80</div>
-                                    <div>سويسرا فقط</div>
+                                    <div>{{ __('SWITZERLAND_ONLY') }}</div>
                                 </div>
 
                             </div>
@@ -293,7 +293,7 @@
                     <div class="card shadow border-0 rounded-4">
                         <div class="card-body py-4">
 
-                            <h5 class="fw-bold mb-4">شارك الحملة على</h5>
+                            <h5 class="fw-bold mb-4">{{ __('SHARE_ON') }}</h5>
 
                             <div class="d-flex justify-content-center gap-4 flex-wrap">
 

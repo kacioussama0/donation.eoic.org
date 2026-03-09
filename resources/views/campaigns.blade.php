@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','تصفح حملاتنا')
+@section('title', __('BROWSE_CAMPAIGNS'))
 
 
 @section('content')
@@ -12,10 +12,10 @@
         <div class="text-center mb-5">
             <h1 class="fw-bold display-5 mb-2">
                 <img src="../imgs/single-pattern.svg" alt="">
-                تصفّح الحملات
+                {{ __('BROWSE_CAMPAIGNS') }}
             </h1>
             <p class="text-muted mb-0">
-                اختر الحملة التي ترغب بدعمها وساهم في صناعة الأثر
+                {{ __('BROWSE_CAMPAIGNS_DESC') }}
             </p>
         </div>
 
@@ -53,10 +53,10 @@
 
                                             @endif
 
-                                            <span class="badge text-bg-warning position-absolute start-0 mt-2 mx-3 top-0">{{$campaign->category->title}}</span>
+                                            <span class="badge text-bg-warning position-absolute start-0 mt-2 mx-3 top-0">{{$campaign->category->name}}</span>
 
                                         </div>
-                                        <h4 class="mt-4 clamp-text-2 fw-bold">{{$campaign->name}}</h4>
+                                        <h4 class="mt-4 clamp-text-2 fw-bold">{{$campaign->title}}</h4>
 
 
                                         <div class="progress rounded-0 mt-4" role="progressbar" style="height: 6px">
@@ -66,8 +66,9 @@
 
                                         </div>
 
-                                        <div class="mt-3 d-block fw-medium">تم جمع {{$campaign->collected_amount}}
-                                            € — <span class="text-primary" >الهدف {{$campaign->target_amount}} €</span>
+                                        <div class="mt-3 d-block fw-medium">
+                                            {{ __('COLLECTED_TEXT') }} {{$campaign->collected_amount}} € — 
+                                            <span class="text-primary">{{ __('GOAL_TEXT') }} {{$campaign->target_amount}} €</span>
                                         </div>
 
 
@@ -75,7 +76,7 @@
 
                                         <a href="{{url('/campaigns/' . $campaign->slug)}}"
                                            class="btn btn-lg mt-3 px-5 rounded-pill btn-primary" >
-                                            {{$campaign->collected_amount >= $campaign->target_amount ?  "الحملة مكتملة" : __('DONATE') }}
+                                            {{$campaign->collected_amount >= $campaign->target_amount ?  __('CAMPAIGN_COMPLETED') : __('DONATE') }}
                                             <i class="fa-duotone {{$campaign->collected_amount >= $campaign->target_amount ?  "fa-check-circle" : "fa-arrow-up-left" }} ms-2"></i>
                                         </a>
 

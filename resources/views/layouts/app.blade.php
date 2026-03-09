@@ -9,8 +9,8 @@
 
 
     <meta charset="UTF-8">
-    <meta name="title" content="منصة رحمة للتبرعات">
-    <meta name="description" content="منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية. تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.">
+    <meta name="title" content="{{ __('APP_NAME') }}">
+    <meta name="description" content="{{ __('APP_DESCRIPTION') }}">
     <meta name="keywords" content="تبرع , زكاة  , صدقة , مشاريع , المراكز الإسلامية , الهيئة الأوروبية للمراكز الإسلامية , سويسرا , أيتام">
     <meta name="robots" content="index, follow">
     <meta name="language" content="Arabic">
@@ -187,7 +187,7 @@
             <li class="nav-item pb-2 border-bottom border-primary border-opacity-10">
                 <a class="nav-link w-100 fw-bold {{ request()->is('campaigns*') ? 'active' : '' }}"
                    href="{{ url('/campaigns') }}">
-                    {{ __('تصفح الحملات') }}
+                    {{ __('BROWSE_CAMPAIGNS') }}
                 </a>
             </li>
 
@@ -266,7 +266,7 @@
                        aria-controls="admin"
                        href="#">
                         <i class="fa-solid fa-user"></i>
-                        <span class="ms-2 text-muted">{{ __('الحساب') }}</span>
+                        <span class="ms-2 text-muted">{{ __('ACCOUNT') }}</span>
                     </a>
                 </li>
 
@@ -276,7 +276,7 @@
 
                             <li class="mb-2">
                                 <a href="{{ url('admin') }}" class="text-muted text-decoration-none">
-                                    {{ __('لوحة التحكم') }}
+                                    {{ __('Dashboard') }}
                                 </a>
                             </li>
 
@@ -284,7 +284,7 @@
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="bg-transparent border-0 text-muted p-0" style="font-size: 20px">
-                                        {{ __('خروج') }}
+                                        {{ __('LOGOUT') }}
                                     </button>
                                 </form>
                             </li>
@@ -432,7 +432,7 @@
                 © <span id="year"></span> Rahma Platform. {{__("ALL_RIGHT_RESERVED")}}
             </div>
             <div class="small footer-copy">
-                معتمد من الهيئة الأوروبية للمراكز الإسلامية (EOIC)
+               {{__("APPROVED_BY_EOIC")}}    
             </div>
         </div>
 

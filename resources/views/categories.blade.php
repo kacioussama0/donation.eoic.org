@@ -31,8 +31,8 @@
 
                                 <div
                                     class="infos position-absolute start-50 top-50 translate-middle z-3 w-100 text-center text-white vstack gap-3 align-items-center">
-                                    <h4 class="fw-bold">{{$category->translations->where('locale','ar')[0]['name']}}</h4>
-                                    <p>{{$category->translations->where('locale','ar')[0]['description']}}</p>
+                                    <h4 class="fw-bold">{{$category->name}}</h4>
+                                    <p>{{$category->desc}}</p>
                                 </div>
 
                             </div>

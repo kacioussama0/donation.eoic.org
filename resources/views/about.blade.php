@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','عن الهيئة')
+@section('title', __('ABOUT_ORGANISATION'))
 
 
 @section('content')

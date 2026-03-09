@@ -15,16 +15,15 @@
                    hero-min-h">
 
                 <p class="mb-4 col-12 col-md-7 col-lg-6">
-                    منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية، تُمكّنك من دعم
-                    المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.
+                    {{__('ABOUT_US_DESC')}}
                 </p>
 
                 <h1 class="fw-bolder mb-4 mb-md-5 hero-title">
-                    رحمة… عطاء يصل <br class="d-none d-md-block"> ويصنع الفرق
+                    {!! __('HERO_TITLE') !!}
                 </h1>
 
                 <a class="btn btn-outline-light px-4 btn-lg" href="{{url('/campaigns')}}">
-                    تصفح حملاتنا
+                    {{ __('BROWSE_OUR_CAMPAIGNS') }}
                 </a>
 
                 <img src="https://webheady.com/Charity-sympathy/images/slider/1.jpg" alt="bg"
@@ -89,8 +88,8 @@
 
                                     </div>
 
-                                    <div class="mt-3 d-block fw-medium">تم جمع {{$campaign->collected_amount}}
-                                        € — <span class="text-primary" >الهدف {{$campaign->target_amount}} €</span>
+                                    <div class="mt-3 d-block fw-medium">{{ __('COLLECTED_TEXT') }} {{$campaign->collected_amount}}
+                                        € — <span class="text-primary" >{{ __('GOAL_TEXT') }} {{$campaign->target_amount}} €</span>
                                     </div>
 
 
@@ -98,7 +97,7 @@
 
                                         <a href="{{url('/campaigns/' . $campaign->slug)}}"
                                            class="btn btn-lg mt-3 px-5 rounded-pill btn-primary" >
-                                            {{$campaign->collected_amount >= $campaign->target_amount ?  "الحملة مكتملة" : __('DONATE') }}
+                                            {{$campaign->collected_amount >= $campaign->target_amount ?  __("CAMPAIGN_COMPLETED") : __('DONATE') }}
                                             <i class="fa-duotone {{$campaign->collected_amount >= $campaign->target_amount ?  "fa-check-circle" : "fa-arrow-up-left" }} ms-2"></i>
                                         </a>
 
@@ -136,7 +135,7 @@
 
             <h3 class="display-4 fw-bold text-center ">
                 <img src="../imgs/single-pattern.svg" alt="">
-                قطاعات التبرع
+                {{ __('DONATION_SECTORS') }}
             </h3>
 
 
@@ -152,8 +151,8 @@
 
                                 <div
                                     class="infos p-4 position-absolute start-50 top-50 translate-middle z-3 w-100 text-center text-white vstack gap-3 align-items-center">
-                                    <h4 class="fw-bold">{{$category->title}}</h4>
-                                    <p>{{$category->description}}</p>
+                                    <h4 class="fw-bold">{{$category->name}}</h4>
+                                    <p>{{$category->desc}}</p>
                                     <a href="#" class="stretched-link"></a>
                                 </div>
 
@@ -267,7 +266,7 @@
                 <div class="col-md-4 vstack align-items-center">
                     <i class="fa-duotone fa-praying-hands  mb-3  fa-3x"></i>
                     <span class="fs-3 fw-bold">{{$campaignsCount + 25}} +</span>
-                    <h3 class="my-0">عدد الحملات</h3>
+                    <h3 class="my-0">{{ __('CAMPAIGNS_COUNT') }}</h3>
                 </div>
 
                 <div class="col-md-4 vstack  align-items-center">
@@ -289,8 +288,8 @@
         <div class="container">
 
             <div class="text-center mb-5">
-                <h2 class="fw-bold">الأسئلة الشائعة</h2>
-                <p class="text-muted">إجابات لأكثر الأسئلة شيوعًا حول منصة رحمة والتبرعات</p>
+                <h2 class="fw-bold">{{ __('FAQ') }}</h2>
+                <p class="text-muted">{{ __('FAQ_DESC') }}</p>
             </div>
 
             <div class="accordion accordion-flush" id="rahmaFaq">
@@ -301,13 +300,13 @@
                                 type="button"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#faq5">
-                                ما هي منصة رحمة
+                                {{ __('FAQ_Q1') }}
                         </button>
                     </h2>
                     <div id="faq5" class="accordion-collapse collapse"
                          data-bs-parent="#rahmaFaq">
                         <div class="accordion-body text-muted">
-                            منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية. تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.
+                            {{ __('FAQ_A1') }}
                         </div>
                     </div>
                 </div>
@@ -320,14 +319,13 @@
                                 type="button"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#faq1">
-                            هل التبرعات عبر منصة رحمة آمنة؟
+                            {{ __('FAQ_Q2') }}
                         </button>
                     </h2>
                     <div id="faq1" class="accordion-collapse collapse"
                          data-bs-parent="#rahmaFaq">
                         <div class="accordion-body text-muted">
-                            نعم، جميع التبرعات تتم عبر بوابات دفع آمنة ومعتمدة،
-                            ويتم تشفير البيانات لحماية معلومات المتبرعين.
+                            {{ __('FAQ_A2') }}
                         </div>
                     </div>
                 </div>
@@ -339,14 +337,13 @@
                                 type="button"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#faq2">
-                            كيف يتم اختيار الحملات المعروضة؟
+                            {{ __('FAQ_Q3') }}
                         </button>
                     </h2>
                     <div id="faq2" class="accordion-collapse collapse"
                          data-bs-parent="#rahmaFaq">
                         <div class="accordion-body text-muted">
-                            تخضع جميع الحملات لمراجعة دقيقة لضمان الشفافية والمصداقية
-                            قبل نشرها على المنصة.
+                            {{ __('FAQ_A3') }}
                         </div>
                     </div>
                 </div>
@@ -358,13 +355,13 @@
                                 type="button"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#faq3">
-                            هل يمكنني التبرع بشكل متكرر شهريًا؟
+                            {{ __('FAQ_Q4') }}
                         </button>
                     </h2>
                     <div id="faq3" class="accordion-collapse collapse"
                          data-bs-parent="#rahmaFaq">
                         <div class="accordion-body text-muted">
-                            نعم، يمكنك اختيار التبرع الشهري لدعم الحملات بشكل مستمر.
+                            {{ __('FAQ_A4') }}
                         </div>
                     </div>
                 </div>
@@ -376,14 +373,13 @@
                                 type="button"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#faq4">
-                            كيف أعرف أن تبرعي وصل إلى مستحقيه؟
+                            {{ __('FAQ_Q5') }}
                         </button>
                     </h2>
                     <div id="faq4" class="accordion-collapse collapse"
                          data-bs-parent="#rahmaFaq">
                         <div class="accordion-body text-muted">
-                            نقوم بنشر تقارير دورية عن أثر الحملات وإجمالي المبالغ
-                            المصروفة لضمان الشفافية الكاملة.
+                            {{ __('FAQ_A5') }}
                         </div>
                     </div>
                 </div>
