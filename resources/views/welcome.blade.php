@@ -76,10 +76,10 @@
 
                                         @endif
 
-                                        <span class="badge text-bg-warning position-absolute start-0 mt-2 mx-3 top-0">{{$campaign->category->title}}</span>
+                                        <span class="badge text-bg-warning position-absolute start-0 mt-2 mx-3 top-0">{{$campaign->category->name}}</span>
 
                                     </div>
-                                    <h4 class="mt-4 clamp-text-2 fw-bold">{{$campaign->name}}</h4>
+                                    <h4 class="mt-4 clamp-text-2 fw-bold">{{$campaign->title}}</h4>
 
 
                                     <div class="progress rounded-0 mt-4" role="progressbar" style="height: 6px">

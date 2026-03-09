@@ -3,7 +3,7 @@
 @endphp
 
 <!doctype html>
-<html lang="{{session()->get('locale')}}" dir="@if(session()->get('lang-ltr')){{'ltr'}}@else{{'rtl'}}@endif">
+<html lang="{{session()->get('locale')}}" dir="ltr">
 <head>
 
 
@@ -83,7 +83,7 @@
 
                         <li class="nav-item me-2">
                             <a class="nav-link {{request()->route()->named("about") ? 'active' : ''}}" aria-current="page" href="https://eoic.org/who-we-are">
-                                من نحن
+                                {{__("ABOUT_US")}}
                             </a>
                         </li>
 
@@ -96,7 +96,7 @@
                     </ul>
 
 
-                    <a href="{{url('/campaigns')}}" class="btn btn-lg btn-primary px-5 rounded-pill">تبرع الآن</a>
+                    <a href="{{url('/campaigns')}}" class="btn btn-lg btn-primary px-5 rounded-pill">{{__("DONATE_NOW")}}</a>
 
 {{--                    <ul class="m-0 d-none d-lg-block ms-auto">--}}
 
@@ -339,8 +339,7 @@
                 </div>
 
                 <p class="footer-text mb-3">
-                    منصة تبرعات رقمية موثوقة، معتمدة من الهيئة الأوروبية للمراكز الإسلامية.
-                    تُمكّنك من دعم المشاريع والحالات الإنسانية بكل أمان وشفافية، ليصل عطاؤك إلى مستحقيه.
+                    {{__("ABOUT_US_DESC")}}
                 </p>
 
                 <!-- Social -->
@@ -362,18 +361,18 @@
 
             <!-- Column 2: Shortcuts -->
             <div class="col-12 col-lg-3">
-                <h6 class="footer-title mb-3">اختصارات</h6>
+                <h6 class="footer-title mb-3">{{__("SHORTCUT")}}</h6>
                 <ul class="list-unstyled footer-links mb-0">
-                    <li><a href="/" class="footer-link">الرئيسية</a></li>
-                    <li><a href="/campaigns" class="footer-link">تبرع</a></li>
-                    <li><a href="/about" class="footer-link">عن رحمة</a></li>
-                    <li><a href="/contact" class="footer-link">تواصل معنا</a></li>
+                    <li><a href="/" class="footer-link">{{__("HOME")}}</a></li>
+                    <li><a href="/campaigns" class="footer-link">{{__("DONATE")}}</a></li>
+                    <li><a href="/about" class="footer-link">{{__("ABOUT_US")}}</a></li>
+                    <li><a href="/contact" class="footer-link">{{__("CONTACT_US")}}</a></li>
                 </ul>
             </div>
 
             <!-- Column 3: Contact + Policies + Payments -->
             <div class="col-12 col-lg-4">
-                <h6 class="footer-title mb-3">تواصلوا معنا</h6>
+                <h6 class="footer-title mb-3">{{__("CONTACT_US")}}</h6>
 
                 <ul class="list-unstyled footer-links mb-3">
                     <li class="mb-2">
@@ -430,7 +429,7 @@
 
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
             <div class="small footer-copy">
-                © <span id="year"></span> Rahma Platform. جميع الحقوق محفوظة.
+                © <span id="year"></span> Rahma Platform. {{__("ALL_RIGHT_RESERVED")}}
             </div>
             <div class="small footer-copy">
                 معتمد من الهيئة الأوروبية للمراكز الإسلامية (EOIC)

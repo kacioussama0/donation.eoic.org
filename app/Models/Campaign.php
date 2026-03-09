@@ -30,4 +30,28 @@ class Campaign extends Model
         return round(($this->collected_amount / $this->target_amount) * 100, 2);
     }
 
+
+    public function getTitleAttribute()
+    {
+
+        return match (config('app.locale')) {
+            'fr' => $this->name_fr,
+            'en' => $this->name_en,
+            default => $this->name,
+        };
+
+    }
+
+    public function getDescAttribute()
+    {
+
+        return match (config('app.locale')) {
+            'fr' => $this->description_fr,
+            'en' => $this->description_en,
+            default => $this->description,
+        };
+
+    }
+
+
 }

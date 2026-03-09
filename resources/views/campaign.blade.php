@@ -72,8 +72,8 @@
                             @endif
                         </div>
 
-                        <h1 class="fw-bolder mb-0">{{$campaign->name}}</h1>
-                        <p class="p-3 bg-primary bg-opacity-10">{!! $campaign->description !!}</p>
+                        <h1 class="fw-bolder mb-0">{{$campaign->title}}</h1>
+                        <p class="p-3 bg-primary bg-opacity-10">{!! $campaign->desc !!}</p>
 
                         <div class="row">
                             <div class="col-md-6">
@@ -100,7 +100,7 @@
                                     <h6 class="text-primary fw-bold">آخر عملية تبرع</h6>
                                     @if($latestDonation)
                                         <span>
-                                            {{ $latestDonation->created_at->locale('ar')->diffForHumans() }}
+                                            {{ $latestDonation->created_at->locale(config('app.locale'))->diffForHumans() }}
                                         </span>
                                     @else
                                         <span>لا توجد تبرعات بعد</span>
@@ -145,7 +145,7 @@
                                 <i class="fa-duotone fa-calendar-arrow-up fa-2x"></i>
                                 <span>
                                     <h6 class="text-primary fw-bold">تاريخ النشر</h6>
-                                    <span>{{ $campaign->created_at->locale('ar')->translatedFormat('l, d F Y') }}</span>
+                                    <span>{{ $campaign->created_at->locale(config('app.locale'))->translatedFormat('l, d F Y') }}</span>
 
                                 </span>
                             </div>

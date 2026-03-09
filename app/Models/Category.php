@@ -16,5 +16,28 @@ class Category extends Model
         return $this->hasMany(Campaign::class);
     }
 
+    public function getNameAttribute()
+    {
+
+        return match (config('app.locale')) {
+            'fr' => $this->title_fr,
+            'en' => $this->title_en,
+            default => $this->title,
+        };
+
+    }
+
+    public function getDescAttribute()
+    {
+
+        return match (config('app.locale')) {
+            'fr' => $this->description_fr,
+            'en' => $this->description_en,
+            default => $this->description,
+        };
+
+    }
+
+
 
 }
