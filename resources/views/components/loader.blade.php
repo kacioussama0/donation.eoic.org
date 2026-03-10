@@ -74,6 +74,7 @@
 
 <div class="loader-container">
     <div class="position-absolute start-50 top-50 translate-middle w-100 d-flex flex-column justify-content-center align-items-center">
+        <img src="{{asset('imgs/logo-white.svg')}}" alt="" style="max-height: 180px" class="mb-3 p-3 img-fluid">
         <div class="lds-ripple"><div></div><div></div></div>
     </div>
 

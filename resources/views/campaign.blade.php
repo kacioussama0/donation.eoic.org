@@ -6,7 +6,7 @@
 
     {{-- SEO --}}
     <meta name="description"
-          content="{{ Str::limit(strip_tags($campaign->description), 160) }}">
+          content="{{ Str::limit(strip_tags($campaign->desc), 160) }}">
 
     <link rel="canonical" href="{{ url()->current() }}">
 
@@ -14,7 +14,7 @@
     <meta property="og:type" content="article"/>
     <meta property="og:title" content="{{ __('DONATE_FOR_CAMPAIGN') }} {{ $campaign->title }}"/>
     <meta property="og:description"
-          content="{{ Str::limit(strip_tags($campaign->description), 200) }}"/>
+          content="{{ Str::limit(strip_tags($campaign->desc), 200) }}"/>
     <meta property="og:image"
           content="{{  $campaign->thumbnail }}"/>
     <meta property="og:url" content="{{ url()->current() }}"/>
@@ -36,8 +36,8 @@
         {
                   "@context": "https://schema.org",
                   "@type": "DonateAction",
-                  "name": "{{ $campaign->name }}",
-          "description": "{{ Str::limit(strip_tags($campaign->description), 200) }}",
+                  "name": "{{ $campaign->title }}",
+          "description": "{{ Str::limit(strip_tags($campaign->desc), 200) }}",
           "url": "{{ url()->current() }}",
           "image": "{{ $campaign->thumbnail }}",
           "provider": {

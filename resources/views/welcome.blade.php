@@ -38,7 +38,7 @@
 
 
         <div class="container my-5 text-center">
-            <img src="https://ehsan.sa/assets/images/homepage/ahseno-ayah.svg" alt="ayat" class="img-fluid">
+            <img src="https://cdn.ehsan.sa/ehsan-ui/images/aya.svg" />
         </div>
 
 

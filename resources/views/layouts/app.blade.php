@@ -50,15 +50,15 @@
 </head>
 <body>
 
-{{--    <x-loader></x-loader>--}}
+    <x-loader></x-loader>
 
     {{--    Start Header --}}
 
-    <header class="position-relative z-3 py-3">
-        <nav class="navbar  navbar-expand-lg">
-            <div class="container bg-primary py-1 bg-opacity-10 rounded-5">
+    <header class="position-relative z-3 py-md-3">
+        <nav class="navbar  pt-0   navbar-expand-lg">
+            <div class="container bg-primary py-md-1 bg-opacity-10 rounded-5">
 
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{url('/')}}">
                     <img src="{{asset('imgs/logo.svg')}}" alt="logo" class="logo">
                 </a>
 
@@ -109,21 +109,21 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end rounded-4 border-0 shadow-sm">
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center gap-2 {{ config('app.locale') == 'ar' ? 'active bg-primary text-white' : '' }}" 
+                                    <a class="dropdown-item d-flex align-items-center gap-2 {{ config('app.locale') == 'ar' ? 'active bg-primary text-white' : '' }}"
                                        style="{{ config('app.locale') == 'ar' ? 'color: white !important;' : '' }}"
                                        href="{{route('change-lang','ar')}}">
                                         <i class="fi fi-sa"></i> العربية
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center gap-2 {{ config('app.locale') == 'en' ? 'active bg-primary text-white' : '' }}" 
+                                    <a class="dropdown-item d-flex align-items-center gap-2 {{ config('app.locale') == 'en' ? 'active bg-primary text-white' : '' }}"
                                        style="{{ config('app.locale') == 'en' ? 'color: white !important;' : '' }}"
                                        href="{{route('change-lang','en')}}">
                                         <i class="fi fi-gb"></i> English
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center gap-2 {{ config('app.locale') == 'fr' ? 'active bg-primary text-white' : '' }}" 
+                                    <a class="dropdown-item d-flex align-items-center gap-2 {{ config('app.locale') == 'fr' ? 'active bg-primary text-white' : '' }}"
                                        style="{{ config('app.locale') == 'fr' ? 'color: white !important;' : '' }}"
                                        href="{{route('change-lang','fr')}}">
                                         <i class="fi fi-fr"></i> Français
@@ -422,7 +422,7 @@
                 © <span id="year"></span> Rahma Platform. {{__("ALL_RIGHT_RESERVED")}}
             </div>
             <div class="small footer-copy">
-               {{__("APPROVED_BY_EOIC")}}    
+               {{__("APPROVED_BY_EOIC")}}
             </div>
         </div>
 
