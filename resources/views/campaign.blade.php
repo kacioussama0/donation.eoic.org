@@ -285,7 +285,7 @@
                 <div class="col-12 text-center">
 
                     @php
-                        $shareUrl = url('/campaigns/' . $campaign->slug);
+                        $shareUrl = url('/campaigns/' . $campaign->slug . '?lang=' . config('app.locale'));
                         $shareTitle = urlencode($campaign->title);
                         $encodedUrl = urlencode($shareUrl);
                     @endphp

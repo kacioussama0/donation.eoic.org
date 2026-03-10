@@ -21,7 +21,11 @@ class Locale
         if(config('locale.status')){
             $locale = null;
 
-            if(session()->has('locale') && array_key_exists(session('locale'),config('locale.languages'))) {
+            if ($request->has('lang') && array_key_exists($request->get('lang'), config('locale.languages'))) {
+                $locale = $request->get('lang');
+                session(['locale' => $locale]);
+                cookie()->queue('locale', $locale, 60 * 24 * 365);
+            } elseif(session()->has('locale') && array_key_exists(session('locale'),config('locale.languages'))) {
                 $locale = session('locale');
             } elseif ($request->hasCookie('locale') && array_key_exists($request->cookie('locale'), config('locale.languages'))) {
                 $locale = $request->cookie('locale');
