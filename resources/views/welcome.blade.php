@@ -26,7 +26,7 @@
                     {{ __('BROWSE_OUR_CAMPAIGNS') }}
                 </a>
 
-                <img src="https://webheady.com/Charity-sympathy/images/slider/1.jpg" alt="bg"
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2UmmZuVahoh0h6HV0R1l9fH2pFcjwIQZ7Ow&s" alt="bg"
                      class="img-fluid object-fit-cover position-absolute start-0 top-0 w-100 h-100 z-n1">
             </div>
         </div>
@@ -150,10 +150,12 @@
                             <div class="card-body" style="min-height: 250px">
 
                                 <div
-                                    class="infos p-4 position-absolute start-50 top-50 translate-middle z-3 w-100 text-center text-white vstack gap-3 align-items-center">
-                                    <h4 class="fw-bold">{{$category->name}}</h4>
+                                    class="infos p-4 position-absolute start-50 top-50 translate-middle z-3 w-100 h-100 text-center text-white vstack gap-3 align-items-center justify-content-center">
+                                    <h4 class="fw-bold mb-0">{{$category->name}}</h4>
+                                    @if(!empty($category->desc))
                                     <p>{{$category->desc}}</p>
-                                    <a href="#" class="stretched-link"></a>
+                                    @endif
+
                                 </div>
 
                             </div>

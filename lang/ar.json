@@ -107,5 +107,7 @@
     "APPROVED_BY_EOIC": "معتمد من الهيئة الأوروبية للمراكز الإسلامية (EOIC)",
     "LANGUAGE": "اللغة",
     "ACCOUNT": "الحساب",
-    "LOGOUT": "خروج"
+    "LOGOUT": "خروج",
+    "LATEST_DONATORS": "آخر المتبرعين",
+    "DONATED": "تبرّع"
 }

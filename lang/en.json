@@ -107,5 +107,7 @@
     "APPROVED_BY_EOIC": "Approved by the European Organisation of Islamic Centers (EOIC)",
     "LANGUAGE": "Language",
     "ACCOUNT": "Account",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+    "LATEST_DONATORS": "Latest Donators",
+    "DONATED": "donated"
 }

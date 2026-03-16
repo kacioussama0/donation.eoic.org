@@ -131,7 +131,7 @@
                                     <h6 class="text-primary fw-bold">{{ __('DONATIONS_COUNT_TITLE') }}</h6>
                                     @if($campaign->donations->count() > 0)
                                         <span>
-                                            {{ $campaign->donations->count() }}  {{ __('OPERATION') }}
+                                            {{ $campaign->donations->where('status','paid')->count() }}  {{ __('OPERATION') }}
                                         </span>
                                     @else
                                         <span>{{ __('NO_OPERATIONS') }}</span>
@@ -243,6 +243,55 @@
                     <div class="card shadow border-0 rounded-4">
                         <div class="card-body  gap-3">
 
+                            <h3>{{__('LATEST_DONATORS')}}</h3>
+
+                            <ul class="list-group">
+
+                                @forelse($latestDonations as $donation)
+
+                                    @php
+
+
+                                        if($donation->donor_name){
+                                            $username = \Illuminate\Support\Str::ucfirst( $donation->donor_name);
+                                            $name = substr($username,0,4).'****';
+                                        }
+                                    @endphp
+
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                        <div>
+                                            <strong>{{ $name }}</strong>
+                                            <small class="text-muted">
+                                                {{__("DONATED")}} {{ $donation->created_at->diffForHumans() }}
+                                            </small>
+                                        </div>
+
+                                        <span class="badge bg-success">
+                                            {{ number_format($donation->amount,2) }} €
+                                        </span>
+
+                                    </li>
+
+                                @empty
+
+                                    <li class="list-group-item text-muted">
+                                        No donations yet
+                                    </li>
+
+                                @endforelse
+
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-12 mb-5">
+                    <div class="card shadow border-0 rounded-4">
+                        <div class="card-body  gap-3">
+
                             <h3>{{__('BANK_DETAILS')}}</h3>
                             <p class="mb-4">{{__('BENEFICIARY') . ' : ' . __('ORGANISATION_NAME')}}</p>
 
@@ -268,7 +317,7 @@
                                 </div>
 
                                 <div class="col-4">
-                                    <img src="https://www.top-bank.ch/images/logo_540/xtwint.png.pagespeed.ic.8QqzZgUxQo.webp" alt="twint" class="img-fluid rounded-5">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ZTjQ67Ep3l27VtGE66fjEef0leN5z6Ueew&s" alt="twint" class="img-fluid rounded-5">
                                 </div>
                                 <div class="col-8">
                                     <div class="fw-bold">TWINT: 078.873.44.80</div>

@@ -63,6 +63,11 @@ class SiteController extends Controller
 
         $campaign  = Campaign::where('slug', $slug)->first();
         $latestDonation = $campaign->donations->where('status','paid')->last();
+        $latestDonations = $campaign->donations()
+            ->where('status', 'paid')
+            ->latest()
+            ->limit(10)
+            ->get();
 
         $cookieKey = "campaign_viewed_{$campaign->id}";
 
@@ -72,7 +77,7 @@ class SiteController extends Controller
         }
 
 
-        return view('campaign',compact('campaign','latestDonation'));
+        return view('campaign',compact('campaign','latestDonation','latestDonations'));
     }
 
     public function orders() {
